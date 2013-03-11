@@ -1,4 +1,4 @@
-package com.test.api.core.dao;
+package com.reader.core.dao;
 
 import java.util.Map;
 

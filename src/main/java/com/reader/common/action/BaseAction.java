@@ -1,4 +1,4 @@
-package com.test.api.common.action;
+package com.reader.common.action;
 
 import java.util.Map;
 

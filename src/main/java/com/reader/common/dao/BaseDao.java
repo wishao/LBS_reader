@@ -1,4 +1,4 @@
-package com.test.api.common.dao;
+package com.reader.common.dao;
 
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 

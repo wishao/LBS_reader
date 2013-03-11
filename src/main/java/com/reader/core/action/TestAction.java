@@ -1,13 +1,13 @@
-package com.test.api.core.action;
+package com.reader.core.action;
 
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 
-import com.test.api.common.action.BaseAction;
-import com.test.api.common.util.RequestUtil;
-import com.test.api.core.service.TestService;
+import com.reader.common.action.BaseAction;
+import com.reader.common.util.RequestUtil;
+import com.reader.core.service.TestService;
 
 
 @Controller

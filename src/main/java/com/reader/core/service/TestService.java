@@ -1,4 +1,4 @@
-package com.test.api.core.service;
+package com.reader.core.service;
 
 import java.util.Map;
 
