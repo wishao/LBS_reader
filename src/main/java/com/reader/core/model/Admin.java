@@ -1,6 +1,6 @@
 package com.reader.core.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * @ÀàÃèÊö£º
