@@ -57,5 +57,5 @@
 			<ref bean="sqlMapClient" />
 		</property>
 	</bean>
-
+ 
 </beans>
