@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="User" type="com.reader.core.model.User" />
+	<select id="selectAllUser" resultClass="User">
+		select * from t_user;
+	</select>
+	<select id="loginUser" resultClass="User">
+		select * from t_user where
+		name=#name# and password=#password#;
+	</select>
+	<insert id="insertUser" parameterClass="User">
+		insert into t_user
+		(id,name,password,create_time,address,signature,update_time) values
+		(#id#,#name#,#password#,#createTime#,#address#,#signature#,#updateTime#);
+	</insert>
+
+	<delete id="deleteUser">
+		delete from t_user where id=#id#;
+	</delete>
+
+	<update id="updateUser" parameterClass="User">
+		update t_user set
+		name=#name#,password=#password#,create_time=#createTime#,
+		address=#address#,signature=#signature#,update_time=#updateTime#
+		where id=#id#;
+	</update>
+</sqlMap>

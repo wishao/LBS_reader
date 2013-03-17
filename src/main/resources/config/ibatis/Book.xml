@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Book" type="com.reader.core.model.Book" />
+	<select id="selectAllBook" resultClass="Book">
+		select * from t_book;
+	</select>
+	<select id="selectBookByName" resultClass="Book">
+		select * from t_book
+		where name like %#name#%;
+	</select>
+	<insert id="insertBook" parameterClass="Book">
+		insert into t_book
+		(id,name,author,content,create_time,update_time,recommend,cover,reader,focus,catalog,score)
+		values
+		(#id#,#name#,#author#,#content#,#createTime#,#updateTime#,#recommend#,#cover#,#reader#,#focus#,#catalog#,#score#);
+	</insert>
+
+	<delete id="deleteBook">
+		delete from t_book where id=#id#;
+	</delete>
+
+	<update id="updateBook" parameterClass="Book">
+		update t_book set
+		name=#name#, author=#author#,content=#content#,
+		create_time=#createTime#,update_time=#updateTime#,
+		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
+		catalog=#catalog#,score=#score# where id=#id#;
+	</update>
+</sqlMap>

@@ -6,4 +6,5 @@ import com.reader.core.model.Test;
 
 public interface TestDao {
 	public List<Test> select();
+
 }

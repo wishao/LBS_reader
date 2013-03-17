@@ -14,8 +14,6 @@ import com.reader.core.model.Test;
 public class TestDaoImpl extends BaseDao implements TestDao {
 
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"resources/../spring.xml");
 		TestDao testDAOImpl = (TestDao) context.getBean("testDAO");
 
 		List<Test> lt = testDAOImpl.select();

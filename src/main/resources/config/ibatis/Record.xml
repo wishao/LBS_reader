@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="Record" type="com.reader.core.model.Record" />
+	<select id="selectAllRecord" resultClass="Record">
+		select * from t_record;
+	</select>
+	<select id="selectRecordById" resultClass="Record">
+		select * from t_record
+		where id=#id#;
+	</select>
+	<insert id="insertRecord" parameterClass="Record">
+		insert into t_record
+		(id,user_id,book_id,record,evaluation,score,create_time,share)
+		values
+		(#id#,#userId#,#bookId#,#record#,#evaluation#,#score#,#createTime#,#share#);
+	</insert>
+
+	<delete id="deleteRecord">
+		delete from t_record where id=#id#;
+	</delete>
+
+	<update id="updateRecord" parameterClass="Record">
+		update t_record set
+		user_id=#userId#, book_id=#bookId#,record=#record#,
+		evaluation=#evaluation#,score=#score#,
+		create_time=#createTime#,share=#share# where id=#id#;
+	</update>
+</sqlMap>
