@@ -2,8 +2,6 @@ package com.reader.core.impl;
 
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import com.reader.common.dao.BaseDao;
