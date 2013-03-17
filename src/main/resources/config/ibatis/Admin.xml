@@ -7,24 +7,23 @@
 	<select id="selectAllAdmin" resultClass="Admin">
 		select * from t_admin;
 	</select>
-	<select id="loginAdmin" resultClass="Admin" parameterClass="Admin">
+	<select id="loginAdmin" resultClass="Admin">
 		select * from t_admin where
 		name=#name# and password=#password#;
 	</select>
-	<insert id="insertAdmin" parameterClass="Admin">
+	<insert id="insertAdmin">
 		insert into t_admin
 		(id,name,password,role,create_time) values
-		(#id#,#name#,#password#,#role#,#createTime#);
+		(#id#,#name#,#password#,#role#,now());
 	</insert>
 
 	<delete id="deleteAdmin">
 		delete from t_admin where id=#id#;
 	</delete>
 
-	<update id="updateAdmin" parameterClass="Admin">
+	<update id="updateAdmin">
 		update t_admin set
-		name=#name#,password=#password#,role=#role#,
-		create_time=#createTime#
+		name=#name#,password=#password#,role=#role#
 		where id=#id#;
 	</update>
 </sqlMap>

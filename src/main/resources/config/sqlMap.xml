@@ -5,6 +5,12 @@
 
 <sqlMapConfig>
 	
+	<sqlMap resource="config/ibatis/Admin.xml" />
+	<sqlMap resource="config/ibatis/Book.xml" />
+	<sqlMap resource="config/ibatis/Contact.xml" />
+	<sqlMap resource="config/ibatis/Reader.xml" />
+	<sqlMap resource="config/ibatis/Record.xml" />
 	<sqlMap resource="config/ibatis/Test.xml" />
+	<sqlMap resource="config/ibatis/User.xml" />
 	
 </sqlMapConfig>

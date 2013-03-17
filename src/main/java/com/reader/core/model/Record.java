@@ -10,8 +10,8 @@ import java.sql.Date;
 public class Record {
 
 	private String id;
-	private User userId;
-	private Book bookId;
+	private User user;
+	private Book book;
 	private int record;
 	private String evaluation;
 	private int score;
@@ -20,8 +20,8 @@ public class Record {
 
 	@Override
 	public String toString() {
-		String str = "id=" + this.id + ";userId=" + this.userId + ";bookId="
-				+ this.bookId + ";record=" + this.record + ";evaluation="
+		String str = "id=" + this.id + ";userId=" + this.user + ";bookId="
+				+ this.book + ";record=" + this.record + ";evaluation="
 				+ this.evaluation + ";score=" + this.score + ";createTime="
 				+ this.createTime + ";share=" + this.share + ";";
 		return str;
@@ -35,20 +35,20 @@ public class Record {
 		this.id = id;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Book getBookId() {
-		return bookId;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setBookId(Book bookId) {
-		this.bookId = bookId;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	public int getRecord() {

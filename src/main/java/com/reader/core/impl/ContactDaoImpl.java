@@ -1,10 +1,13 @@
 package com.reader.core.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import com.reader.common.dao.BaseDao;
+import com.reader.common.util.IDUtil;
 import com.reader.core.dao.ContactDao;
 import com.reader.core.model.Contact;
 
@@ -15,13 +18,18 @@ public class ContactDaoImpl extends BaseDao implements ContactDao {
 		return getSqlMapClientTemplate().queryForList("selectAllContact");
 	}
 
-	public Contact selectByUserId(String userId) {
-		return (Contact) getSqlMapClientTemplate().queryForObject(
-				"selectContactByUser", userId);
+	public List<Contact> selectByUserId(String userId) {
+		return getSqlMapClientTemplate().queryForList("selectContactByUser",
+				userId);
 	}
 
 	public void add(Contact contact) {
-		getSqlMapClientTemplate().insert("insertContact", contact);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", IDUtil.getID());
+		param.put("sendUserId", contact.getSendUser().getId());
+		param.put("receiveUserId", contact.getReceiveUser().getId());
+		param.put("content", contact.getContent());
+		getSqlMapClientTemplate().insert("insertContact", param);
 
 	}
 
@@ -31,7 +39,12 @@ public class ContactDaoImpl extends BaseDao implements ContactDao {
 	}
 
 	public void update(Contact contact) {
-		getSqlMapClientTemplate().update("updateContact", contact);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", contact.getId());
+		param.put("sendUserId", contact.getSendUser().getId());
+		param.put("receiveUserId", contact.getReceiveUser().getId());
+		param.put("content", contact.getContent());
+		getSqlMapClientTemplate().update("updateContact", param);
 
 	}
 

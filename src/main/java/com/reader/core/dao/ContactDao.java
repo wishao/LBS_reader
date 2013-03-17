@@ -7,7 +7,7 @@ import com.reader.core.model.Contact;
 public interface ContactDao {
 	public List<Contact> selectAll();
 
-	public Contact selectByUserId(String userId);
+	public List<Contact> selectByUserId(String userId);
 
 	public void add(Contact contact);
 

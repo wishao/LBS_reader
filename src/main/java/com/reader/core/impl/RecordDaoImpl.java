@@ -1,10 +1,13 @@
 package com.reader.core.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import com.reader.common.dao.BaseDao;
+import com.reader.common.util.IDUtil;
 import com.reader.core.dao.RecordDao;
 import com.reader.core.model.Record;
 
@@ -21,7 +24,15 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
 	}
 
 	public void add(Record record) {
-		getSqlMapClientTemplate().insert("insertRecord", record);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", IDUtil.getID());
+		param.put("userId", record.getUser().getId());
+		param.put("bookId", record.getBook().getId());
+		param.put("record", record.getRecord());
+		param.put("evaluation", record.getEvaluation());
+		param.put("score", record.getScore());
+		param.put("share", record.getShare());
+		getSqlMapClientTemplate().insert("insertRecord", param);
 
 	}
 
@@ -31,7 +42,15 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
 	}
 
 	public void update(Record record) {
-		getSqlMapClientTemplate().update("updateRecord", record);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", record.getId());
+		param.put("userId", record.getUser().getId());
+		param.put("bookId", record.getBook().getId());
+		param.put("record", record.getRecord());
+		param.put("evaluation", record.getEvaluation());
+		param.put("score", record.getScore());
+		param.put("share", record.getShare());
+		getSqlMapClientTemplate().update("updateRecord", param);
 
 	}
 

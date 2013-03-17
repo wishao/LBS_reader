@@ -10,15 +10,15 @@ import java.sql.Date;
 public class Contact {
 
 	private String id;
-	private User sendUserId;
-	private User receiveUserId;
+	private User sendUser;
+	private User receiveUser;
 	private String content;
 	private Date createTime;
 
 	@Override
 	public String toString() {
-		String str = "id=" + this.id + ";sendUserId=" + this.sendUserId
-				+ ";receiveUserId=" + this.receiveUserId + ";content="
+		String str = "id=" + this.id + ";sendUserId=" + this.sendUser
+				+ ";receiveUserId=" + this.receiveUser + ";content="
 				+ this.content + ";createTime=" + this.createTime + ";";
 		return str;
 	}
@@ -31,20 +31,20 @@ public class Contact {
 		this.id = id;
 	}
 
-	public User getSendUserId() {
-		return sendUserId;
+	public User getSendUser() {
+		return sendUser;
 	}
 
-	public void setSendUserId(User sendUserId) {
-		this.sendUserId = sendUserId;
+	public void setSendUser(User sendUser) {
+		this.sendUser = sendUser;
 	}
 
-	public User getReceiveUserId() {
-		return receiveUserId;
+	public User getReceiveUser() {
+		return receiveUser;
 	}
 
-	public void setReceiveUserId(User receiveUserId) {
-		this.receiveUserId = receiveUserId;
+	public void setReceiveUser(User receiveUser) {
+		this.receiveUser = receiveUser;
 	}
 
 	public String getContent() {

@@ -12,20 +12,20 @@
 		t_reader
 		where user_id=#userId#;
 	</select>
-	<insert id="insertReader" parameterClass="Reader">
+	<insert id="insertReader">
 		insert into t_reader
 		(id,user_id,font,background_color,font_color,create_time)
 		values
-		(#id#,#userId#,#font#,#backgroundColor#,#fontColor#,#createTime#);
+		(#id#,#userId#,#font#,#backgroundColor#,#fontColor#,now());
 	</insert>
 
 	<delete id="deleteReader">
 		delete from t_reader where id=#id#;
 	</delete>
 
-	<update id="updateReader" parameterClass="Reader">
+	<update id="updateReader">
 		update t_reader set
 		user_id=#userId#, font=#font#,background_color=#backgroundColor#,
-		font_color=#fontColor#,create_time=#createTime# where id=#id#;
+		font_color=#fontColor# where id=#id#;
 	</update>
 </sqlMap>

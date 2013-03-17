@@ -11,20 +11,21 @@
 		select * from t_user where
 		name=#name# and password=#password#;
 	</select>
-	<insert id="insertUser" parameterClass="User">
+	<insert id="insertUser">
 		insert into t_user
 		(id,name,password,create_time,address,signature,update_time) values
-		(#id#,#name#,#password#,#createTime#,#address#,#signature#,#updateTime#);
+		(#id#,#name#,#password#,now(),#address#,#signature#,now());
 	</insert>
 
 	<delete id="deleteUser">
 		delete from t_user where id=#id#;
 	</delete>
 
-	<update id="updateUser" parameterClass="User">
+	<update id="updateUser">
 		update t_user set
-		name=#name#,password=#password#,create_time=#createTime#,
-		address=#address#,signature=#signature#,update_time=#updateTime#
-		where id=#id#;
+		name=#name#,password=#password#,
+		address=#address#,signature=#signature#,update_time=now()
+		where
+		id=#id#;
 	</update>
 </sqlMap>

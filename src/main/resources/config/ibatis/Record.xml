@@ -11,21 +11,21 @@
 		select * from t_record
 		where id=#id#;
 	</select>
-	<insert id="insertRecord" parameterClass="Record">
+	<insert id="insertRecord">
 		insert into t_record
 		(id,user_id,book_id,record,evaluation,score,create_time,share)
 		values
-		(#id#,#userId#,#bookId#,#record#,#evaluation#,#score#,#createTime#,#share#);
+		(#id#,#userId#,#bookId#,#record#,#evaluation#,#score#,now(),#share#);
 	</insert>
 
 	<delete id="deleteRecord">
 		delete from t_record where id=#id#;
 	</delete>
 
-	<update id="updateRecord" parameterClass="Record">
+	<update id="updateRecord">
 		update t_record set
-		user_id=#userId#, book_id=#bookId#,record=#record#,
-		evaluation=#evaluation#,score=#score#,
-		create_time=#createTime#,share=#share# where id=#id#;
+		user_id=#userId#,
+		book_id=#bookId#,record=#record#,
+		evaluation=#evaluation#,score=#score#,share=#share# where id=#id#;
 	</update>
 </sqlMap>

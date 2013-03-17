@@ -10,7 +10,7 @@ import java.sql.Date;
 public class Reader {
 
 	private String id;
-	private User userId;
+	private User user;
 	private String font;
 	private String backgroundColor;
 	private String fontColor;
@@ -18,7 +18,7 @@ public class Reader {
 
 	@Override
 	public String toString() {
-		String str = "id=" + this.id + ";userId=" + this.userId + ";font="
+		String str = "id=" + this.id + ";userId=" + this.user + ";font="
 				+ this.font + ";backgroundColor=" + this.backgroundColor
 				+ ";fontColor=" + this.fontColor + ";createTime="
 				+ this.createTime + ";";
@@ -33,12 +33,12 @@ public class Reader {
 		this.id = id;
 	}
 
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getFont() {

@@ -57,5 +57,35 @@
 			<ref bean="sqlMapClient" />
 		</property>
 	</bean>
+	<bean id="adminDAO" class="com.reader.core.impl.AdminDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="bookDAO" class="com.reader.core.impl.BookDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="contactDAO" class="com.reader.core.impl.ContactDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="readerDAO" class="com.reader.core.impl.ReaderDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="recordDAO" class="com.reader.core.impl.RecordDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="userDAO" class="com.reader.core.impl.UserDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
  
 </beans>

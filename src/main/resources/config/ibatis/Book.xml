@@ -11,21 +11,21 @@
 		select * from t_book
 		where name like %#name#%;
 	</select>
-	<insert id="insertBook" parameterClass="Book">
+	<insert id="insertBook">
 		insert into t_book
 		(id,name,author,content,create_time,update_time,recommend,cover,reader,focus,catalog,score)
 		values
-		(#id#,#name#,#author#,#content#,#createTime#,#updateTime#,#recommend#,#cover#,#reader#,#focus#,#catalog#,#score#);
+		(#id#,#name#,#author#,#content#,now(),now(),0,#cover#,0,0,#catalog#,0);
 	</insert>
 
 	<delete id="deleteBook">
 		delete from t_book where id=#id#;
 	</delete>
 
-	<update id="updateBook" parameterClass="Book">
+	<update id="updateBook">
 		update t_book set
-		name=#name#, author=#author#,content=#content#,
-		create_time=#createTime#,update_time=#updateTime#,
+		name=#name#,
+		author=#author#,content=#content#,update_time=now(),
 		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
 		catalog=#catalog#,score=#score# where id=#id#;
 	</update>

@@ -11,24 +11,23 @@
 	<select id="selectContactByUser" resultClass="Contact">
 		select * from
 		t_contact
-		where send_user_id=#sendUserId# or
-		receive_user_id=#receiveUserId#;
+		where send_user_id=#userId# or
+		receive_user_id=#userId#;
 	</select>
-	<insert id="insertContact" parameterClass="Contact">
+	<insert id="insertContact">
 		insert into t_contact
 		(id,send_user_id,receive_user_id,content,create_time)
 		values
-		(#id#,#sendUserId#,#receiveUserId#,#content#,#createTime#);
+		(#id#,#sendUserId#,#receiveUserId#,#content#,now());
 	</insert>
 
 	<delete id="deleteContact">
 		delete from t_contact where id=#id#;
 	</delete>
 
-	<update id="updateContact" parameterClass="Contact">
+	<update id="updateContact">
 		update t_contact set
 		send_user_id=#sendUserId#,
-		receive_user_id=#receiveUserId#,content=#content#,
-		create_time=#createTime# where id=#id#;
+		receive_user_id=#receiveUserId#,content=#content# where id=#id#;
 	</update>
 </sqlMap>
