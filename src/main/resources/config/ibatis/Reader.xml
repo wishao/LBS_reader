@@ -22,12 +22,7 @@
 	<select id="selectReaderByUser" resultClass="Reader">
 		select * from
 		t_reader order by create_time desc
-		where user_id=#userId# limit
-		#start#,#limit#;
-	</select>
-	<select id="countReaderByUser" resultClass="int">
-		select count(*) from
-		t_contact where user_id=#userId#;
+		where user_id=#userId#;
 	</select>
 	<insert id="insertReader">
 		insert into t_reader

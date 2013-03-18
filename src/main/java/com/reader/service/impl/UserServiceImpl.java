@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.reader.common.dao.BaseService;
 import com.reader.common.util.Constant;
 import com.reader.core.dao.UserDao;
-import com.reader.core.model.Admin;
 import com.reader.core.model.User;
 import com.reader.service.dao.UserService;
 
@@ -23,51 +22,76 @@ public class UserServiceImpl extends BaseService implements UserService {
 	}
 
 	public Map<String, Object> selectNewUser(int start, int limit) {
-		int count = userDao.countAll();
-		List<User> userList = userDao.selectAll(start, limit);
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("count", count);
-		result.put("userList", userList);
-		return result;
+		try {
+			int count = userDao.countAll();
+			List<User> userList = userDao.selectAll(start, limit);
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("count", count);
+			result.put("userList", userList);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public boolean addUser(User user) {
-		if (userDao.getByName(user.getName()) == null) {
-			userDao.add(user);
-			return true;
-		} else {
-			return false;
+		try {
+			if (userDao.getByName(user.getName()) == null) {
+				userDao.add(user);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public boolean deleteUser(String id) {
-		if (userDao.getById(id) == null) {
-			return false;
-		} else {
-			userDao.delete(id);
-			return true;
+		try {
+			if (userDao.getById(id) == null) {
+				return false;
+			} else {
+				userDao.delete(id);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public boolean updateUser(User user) {
-		if (userDao.getById(user.getId()) == null
-				|| userDao.getByName(user.getName()) != null) {
-			return false;
-		} else {
-			userDao.update(user);
-			return true;
+		try {
+			if (userDao.getById(user.getId()) == null
+					|| userDao.getByName(user.getName()) != null) {
+				return false;
+			} else {
+				userDao.update(user);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public boolean resetUserPassword(String id) {
-		User user = userDao.getById(id);
-		if (user == null) {
-			return false;
-		} else {
-			user.setPassword(Constant.RESET_PASSWORD);
-			userDao.update(user);
-			return true;
+		try {
+			User user = userDao.getById(id);
+			if (user == null) {
+				return false;
+			} else {
+				user.setPassword(Constant.RESET_PASSWORD);
+				userDao.update(user);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public UserDao getUserDao() {

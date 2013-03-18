@@ -45,6 +45,6 @@
 		name=#name#,
 		author=#author#,content=#content#,update_time=now(),
 		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
-		catalog=#catalog#,score=#score# where id=#id#;
+		catalog=#catalog#,score=#score#,create_time=now() where id=#id#;
 	</update>
 </sqlMap>

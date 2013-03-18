@@ -12,7 +12,7 @@ public class Admin {
 	private String id;
 	private String name;
 	private String password;
-	private String role;
+	private byte role;
 	private Date createTime;
 
 	@Override
@@ -47,11 +47,11 @@ public class Admin {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public byte getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(byte role) {
 		this.role = role;
 	}
 

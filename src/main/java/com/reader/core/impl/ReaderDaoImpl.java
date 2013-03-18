@@ -30,18 +30,9 @@ public class ReaderDaoImpl extends BaseDao implements ReaderDao {
 				"countAllReader");
 	}
 
-	public Reader selectByUserId(String userId, int start, int limit) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("start", start);
-		param.put("limit", limit);
-		param.put("userId", userId);
+	public Reader selectByUserId(String userId) {
 		return (Reader) getSqlMapClientTemplate().queryForObject(
-				"selectReaderByUser", param);
-	}
-
-	public int countReaderByUser(String userId) {
-		return (Integer) getSqlMapClientTemplate().queryForObject(
-				"countReaderByUser", userId);
+				"selectReaderByUser", userId);
 	}
 
 	public void add(Reader reader) {

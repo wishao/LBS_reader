@@ -1,0 +1,21 @@
+package com.reader.service.dao;
+
+import java.util.Map;
+
+import com.reader.core.model.Reader;
+
+public interface ReaderService {
+
+	public Map<String, Object> selectAllReader(int start, int limit);
+
+	public Reader selectReaderByUser(String userId);
+
+	public boolean addReader(String userId);
+
+	public boolean deleteReader(String id);
+
+	public boolean updateReader(Reader reader);
+
+	public boolean resetReader(String id);
+
+}

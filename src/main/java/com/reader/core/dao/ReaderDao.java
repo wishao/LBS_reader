@@ -11,9 +11,7 @@ public interface ReaderDao {
 
 	public int countAll();
 
-	public Reader selectByUserId(String userId, int start, int limit);
-
-	public int countReaderByUser(String userId);
+	public Reader selectByUserId(String userId);
 
 	public void add(Reader reader);
 
