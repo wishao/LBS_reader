@@ -21,7 +21,7 @@
 		<slf4j.version>1.6.1</slf4j.version>
 		<logback.version>0.9.29</logback.version>
 	</properties>
-	
+
 	<!-- 依赖包配置 -->
 	<dependencies>
 		<!-- j2ee5依赖包 -->
@@ -119,7 +119,7 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
-		
+
 		<!-- slf4j+LOGBack依赖包 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -128,7 +128,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-    		<artifactId>log4j-over-slf4j</artifactId>
+			<artifactId>log4j-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
@@ -137,18 +137,18 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>ch.qos.logback</groupId>
-		    <artifactId>logback-core</artifactId>
-		    <version>${logback.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>ch.qos.logback</groupId>
-		    <artifactId>logback-classic</artifactId>
-		    <version>${logback.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
 		</dependency>
 
 	</dependencies>
-	
+
 	<!-- 编译运行 -->
 	<build>
 		<plugins>
@@ -180,5 +180,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>
