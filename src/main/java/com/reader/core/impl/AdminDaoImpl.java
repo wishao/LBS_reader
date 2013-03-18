@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.reader.common.dao.BaseDao;
 import com.reader.common.util.IDUtil;
+import com.reader.common.util.MD5Util;
 import com.reader.core.dao.AdminDao;
 import com.reader.core.model.Admin;
 
@@ -16,6 +17,11 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 	public Admin getById(String id) {
 		return (Admin) getSqlMapClientTemplate().queryForObject(
 				"selectAdminById", id);
+	}
+
+	public Admin getByName(String name) {
+		return (Admin) getSqlMapClientTemplate().queryForObject(
+				"selectAdminByName", name);
 	}
 
 	public List<Admin> selectAll(int start, int limit) {
@@ -33,7 +39,7 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 	public Admin login(String name, String password) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("name", name);
-		param.put("password", password);
+		param.put("password", MD5Util.getMD5(password));
 		return (Admin) getSqlMapClientTemplate().queryForObject("loginAdmin",
 				param);
 	}
@@ -42,7 +48,7 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", IDUtil.getID());
 		param.put("name", admin.getName());
-		param.put("password", admin.getPassword());
+		param.put("password", MD5Util.getMD5(admin.getPassword()));
 		param.put("role", admin.getRole());
 		getSqlMapClientTemplate().insert("insertAdmin", param);
 
@@ -57,7 +63,7 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", admin.getId());
 		param.put("name", admin.getName());
-		param.put("password", admin.getPassword());
+		param.put("password", MD5Util.getMD5(admin.getPassword()));
 		param.put("role", admin.getRole());
 		getSqlMapClientTemplate().update("updateAdmin", param);
 	}

@@ -1,13 +1,13 @@
 package com.reader.service.dao;
 
-import java.util.List;
+import java.util.Map;
 
 import com.reader.core.model.Admin;
 
 public interface AdminService {
 	public Admin loginAdmin(String name, String password);
 
-	public List<Admin> selectAllAdmin();
+	public Map<String, Object> selectAllAdmin(int start, int limit);
 
 	public boolean addAdmin(Admin admin);
 

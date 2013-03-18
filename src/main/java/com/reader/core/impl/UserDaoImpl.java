@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.reader.common.dao.BaseDao;
 import com.reader.common.util.IDUtil;
+import com.reader.common.util.MD5Util;
 import com.reader.core.dao.UserDao;
 import com.reader.core.model.User;
 
@@ -16,6 +17,11 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 	public User getById(String id) {
 		return (User) getSqlMapClientTemplate().queryForObject(
 				"selectUserById", id);
+	}
+
+	public User getByName(String name) {
+		return (User) getSqlMapClientTemplate().queryForObject(
+				"selectUserByName", name);
 	}
 
 	public List<User> selectAll(int start, int limit) {
@@ -33,7 +39,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 	public User login(String name, String password) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("name", name);
-		param.put("password", password);
+		param.put("password", MD5Util.getMD5(password));
 		return (User) getSqlMapClientTemplate().queryForObject("loginUser",
 				param);
 	}
@@ -42,7 +48,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", IDUtil.getID());
 		param.put("name", user.getName());
-		param.put("password", user.getPassword());
+		param.put("password", MD5Util.getMD5(user.getPassword()));
 		param.put("address", user.getAddress());
 		param.put("signature", user.getSignature());
 		getSqlMapClientTemplate().insert("insertUser", param);
@@ -58,7 +64,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", user.getId());
 		param.put("name", user.getName());
-		param.put("password", user.getPassword());
+		param.put("password", MD5Util.getMD5(user.getPassword()));
 		param.put("address", user.getAddress());
 		param.put("signature", user.getSignature());
 		getSqlMapClientTemplate().update("updateUser", param);

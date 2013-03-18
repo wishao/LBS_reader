@@ -31,7 +31,7 @@ public class TestServiceImpl extends BaseService implements TestService {
 		admin.setCatalog("");
 		//admin.setScore(0);
 		
-		System.out.println(testDAOImpl.countAll());
+		System.out.println(testDAOImpl.getById("aaaa"));
 		//testDAOImpl.add(admin);
 
 	}

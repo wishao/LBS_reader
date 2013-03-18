@@ -7,6 +7,8 @@ import com.reader.core.model.Admin;
 public interface AdminDao {
 	public Admin getById(String id);
 
+	public Admin getByName(String name);
+
 	public List<Admin> selectAll(int start, int limit);
 
 	public int countAll();

@@ -9,6 +9,11 @@
 		where
 		id=#id#;
 	</select>
+	<select id="selectAdminByName" resultClass="Admin">
+		select * from t_admin
+		where
+		name=#name#;
+	</select>
 	<select id="selectAllAdmin" resultClass="Admin">
 		select * from t_admin
 		order by create_time desc

@@ -7,6 +7,8 @@ import com.reader.core.model.User;
 public interface UserDao {
 	public User getById(String id);
 
+	public User getByName(String name);
+
 	public List<User> selectAll(int start, int limit);
 
 	public int countAll();
