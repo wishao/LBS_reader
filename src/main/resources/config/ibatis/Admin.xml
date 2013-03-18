@@ -4,8 +4,19 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Admin" type="com.reader.core.model.Admin" />
+	<select id="selectAdminById" resultClass="Admin">
+		select * from t_admin
+		where
+		id=#id#;
+	</select>
 	<select id="selectAllAdmin" resultClass="Admin">
-		select * from t_admin;
+		select * from t_admin
+		order by create_time desc
+		limit #start#,#limit#;
+	</select>
+	<select id="countAllAdmin" resultClass="int">
+		select count(*) from
+		t_admin;
 	</select>
 	<select id="loginAdmin" resultClass="Admin">
 		select * from t_admin where

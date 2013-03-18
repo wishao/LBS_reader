@@ -4,13 +4,30 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Reader" type="com.reader.core.model.Reader" />
+	<select id="selectReaderById" resultClass="Reader">
+		select * from
+		t_reader
+		where
+		id=#id#;
+	</select>
 	<select id="selectAllReader" resultClass="Reader">
-		select * from t_reader;
+		select * from t_reader
+		order by create_time desc
+		limit #start#,#limit#;
+	</select>
+	<select id="countAllReader" resultClass="int">
+		select count(*) from
+		t_reader;
 	</select>
 	<select id="selectReaderByUser" resultClass="Reader">
 		select * from
-		t_reader
-		where user_id=#userId#;
+		t_reader order by create_time desc
+		where user_id=#userId# limit
+		#start#,#limit#;
+	</select>
+	<select id="countReaderByUser" resultClass="int">
+		select count(*) from
+		t_contact where user_id=#userId#;
 	</select>
 	<insert id="insertReader">
 		insert into t_reader
@@ -25,7 +42,9 @@
 
 	<update id="updateReader">
 		update t_reader set
-		user_id=#userId#, font=#font#,background_color=#backgroundColor#,
-		font_color=#fontColor# where id=#id#;
+		user_id=#userId#,
+		font=#font#,background_color=#backgroundColor#,
+		font_color=#fontColor#
+		where id=#id#;
 	</update>
 </sqlMap>

@@ -4,12 +4,31 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Record" type="com.reader.core.model.Record" />
-	<select id="selectAllRecord" resultClass="Record">
-		select * from t_record;
-	</select>
 	<select id="selectRecordById" resultClass="Record">
+		select * from
+		t_record
+		where
+		id=#id#;
+	</select>
+	<select id="selectAllRecord" resultClass="Record">
 		select * from t_record
-		where id=#id#;
+		order by create_time desc
+		limit #start#,#limit#;
+	</select>
+	<select id="countAllRecord" resultClass="int">
+		select count(*) from
+		t_record;
+	</select>
+	<select id="selectRecordByUserId" resultClass="Record">
+		select * from
+		t_record order by create_time desc
+		where user_id=#userId# limit
+		#start#,#limit#;
+	</select>
+	<select id="countRecordByUserId" resultClass="int">
+		select count(*)
+		from
+		t_record where user_id=#userId#;
 	</select>
 	<insert id="insertRecord">
 		insert into t_record

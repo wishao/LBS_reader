@@ -13,14 +13,35 @@ import com.reader.core.model.Book;
 
 @Repository("bookDAO")
 public class BookDaoImpl extends BaseDao implements BookDao {
-
-	public List<Book> selectAll() {
-		return getSqlMapClientTemplate().queryForList("selectAllBook");
+	public Book getById(String id) {
+		return (Book) getSqlMapClientTemplate().queryForObject(
+				"selectBookById", id);
 	}
 
-	public Book selectByName(String name) {
+	public List<Book> selectAll(int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		return getSqlMapClientTemplate().queryForList("selectAllBook", param);
+	}
+
+	public int countAll() {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countAllBook");
+	}
+
+	public Book selectByName(String name, int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		param.put("name", name);
 		return (Book) getSqlMapClientTemplate().queryForObject(
-				"selectBookByName", name);
+				"selectBookByName", param);
+	}
+
+	public int countBookByName(String name) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countBookByName", name);
 	}
 
 	public void add(Book book) {

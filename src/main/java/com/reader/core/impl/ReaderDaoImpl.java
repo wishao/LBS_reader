@@ -13,14 +13,35 @@ import com.reader.core.model.Reader;
 
 @Repository("readerDAO")
 public class ReaderDaoImpl extends BaseDao implements ReaderDao {
-
-	public List<Reader> selectAll() {
-		return getSqlMapClientTemplate().queryForList("selectAllReader");
+	public Reader getById(String id) {
+		return (Reader) getSqlMapClientTemplate().queryForObject(
+				"selectReaderById", id);
 	}
 
-	public Reader selectByUserId(String userId) {
+	public List<Reader> selectAll(int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		return getSqlMapClientTemplate().queryForList("selectAllReader", param);
+	}
+
+	public int countAll() {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countAllReader");
+	}
+
+	public Reader selectByUserId(String userId, int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		param.put("userId", userId);
 		return (Reader) getSqlMapClientTemplate().queryForObject(
-				"selectReaderByUser", userId);
+				"selectReaderByUser", param);
+	}
+
+	public int countReaderByUser(String userId) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countReaderByUser", userId);
 	}
 
 	public void add(Reader reader) {

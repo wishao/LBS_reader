@@ -27,6 +27,6 @@ public abstract class BaseDao extends SqlMapClientDaoSupport {
 		return result;
 	}
 
-	public static ApplicationContext context = new ClassPathXmlApplicationContext(
-			"resources/../spring.xml");
+	/*public static ApplicationContext context = new ClassPathXmlApplicationContext(
+			"resources/../spring.xml");*/
 }

@@ -4,8 +4,20 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="User" type="com.reader.core.model.User" />
+	<select id="selectUserById" resultClass="User">
+		select * from
+		t_user
+		where
+		id=#id#;
+	</select>
 	<select id="selectAllUser" resultClass="User">
-		select * from t_user;
+		select * from t_user
+		order by create_time desc
+		limit #start#,#limit#;
+	</select>
+	<select id="countAllUser" resultClass="int">
+		select count(*) from
+		t_user;
 	</select>
 	<select id="loginUser" resultClass="User">
 		select * from t_user where

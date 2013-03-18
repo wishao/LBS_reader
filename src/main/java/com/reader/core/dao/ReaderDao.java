@@ -5,9 +5,15 @@ import java.util.List;
 import com.reader.core.model.Reader;
 
 public interface ReaderDao {
-	public List<Reader> selectAll();
+	public Reader getById(String id);
 
-	public Reader selectByUserId(String userId);
+	public List<Reader> selectAll(int start, int limit);
+
+	public int countAll();
+
+	public Reader selectByUserId(String userId, int start, int limit);
+
+	public int countReaderByUser(String userId);
 
 	public void add(Reader reader);
 

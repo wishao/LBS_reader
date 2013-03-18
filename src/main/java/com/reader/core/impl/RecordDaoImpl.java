@@ -13,14 +13,35 @@ import com.reader.core.model.Record;
 
 @Repository("recordDAO")
 public class RecordDaoImpl extends BaseDao implements RecordDao {
-
-	public List<Record> selectAll() {
-		return getSqlMapClientTemplate().queryForList("selectAllRecord");
-	}
-
-	public Record selectById(String id) {
+	public Record getById(String id) {
 		return (Record) getSqlMapClientTemplate().queryForObject(
 				"selectRecordById", id);
+	}
+
+	public List<Record> selectAll(int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		return getSqlMapClientTemplate().queryForList("selectAllRecord", param);
+	}
+
+	public int countAll() {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countAllRecord");
+	}
+
+	public List<Record> selectByUserId(String userId, int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		param.put("userId", userId);
+		return getSqlMapClientTemplate().queryForList("selectRecordByUserId",
+				param);
+	}
+
+	public int countRecordByUserId(String userId) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countRecordByUserId", userId);
 	}
 
 	public void add(Record record) {

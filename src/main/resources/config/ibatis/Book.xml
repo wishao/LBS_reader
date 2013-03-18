@@ -4,11 +4,29 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Book" type="com.reader.core.model.Book" />
+	<select id="selectBookById" resultClass="Book">
+		select * from t_book
+		where
+		id=#id#;
+	</select>
 	<select id="selectAllBook" resultClass="Book">
-		select * from t_book;
+		select * from t_book
+		order by update_time desc
+		limit #start#,#limit#;
+	</select>
+	<select id="countAllBook" resultClass="int">
+		select count(*) from
+		t_book;
 	</select>
 	<select id="selectBookByName" resultClass="Book">
 		select * from t_book
+		order by update_time desc
+		where name like %#name#% limit
+		#start#,#limit#;
+	</select>
+	<select id="countBookByName" resultClass="int">
+		select count(*) from
+		t_book
 		where name like %#name#%;
 	</select>
 	<insert id="insertBook">

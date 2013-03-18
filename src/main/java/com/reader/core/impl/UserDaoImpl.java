@@ -13,9 +13,21 @@ import com.reader.core.model.User;
 
 @Repository("userDAO")
 public class UserDaoImpl extends BaseDao implements UserDao {
+	public User getById(String id) {
+		return (User) getSqlMapClientTemplate().queryForObject(
+				"selectUserById", id);
+	}
 
-	public List<User> selectAll() {
-		return getSqlMapClientTemplate().queryForList("selectAllUser", null);
+	public List<User> selectAll(int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		return getSqlMapClientTemplate().queryForList("selectAllUser", param);
+	}
+
+	public int countAll() {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countAllUser");
 	}
 
 	public User login(String name, String password) {

@@ -5,7 +5,11 @@ import java.util.List;
 import com.reader.core.model.User;
 
 public interface UserDao {
-	public List<User> selectAll();
+	public User getById(String id);
+
+	public List<User> selectAll(int start, int limit);
+
+	public int countAll();
 
 	public User login(String name, String password);
 

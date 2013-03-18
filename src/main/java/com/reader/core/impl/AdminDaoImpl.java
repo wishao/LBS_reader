@@ -13,9 +13,21 @@ import com.reader.core.model.Admin;
 
 @Repository("adminDAO")
 public class AdminDaoImpl extends BaseDao implements AdminDao {
+	public Admin getById(String id) {
+		return (Admin) getSqlMapClientTemplate().queryForObject(
+				"selectAdminById", id);
+	}
 
-	public List<Admin> selectAll() {
-		return getSqlMapClientTemplate().queryForList("selectAllAdmin");
+	public List<Admin> selectAll(int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		return getSqlMapClientTemplate().queryForList("selectAllAdmin", param);
+	}
+
+	public int countAll() {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countAllAdmin");
 	}
 
 	public Admin login(String name, String password) {

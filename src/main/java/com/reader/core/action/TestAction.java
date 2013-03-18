@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 import com.reader.common.action.BaseAction;
 import com.reader.common.util.RequestUtil;
-import com.reader.core.service.TestService;
+import com.reader.service.dao.TestService;
 
 @Controller
 public class TestAction extends BaseAction {

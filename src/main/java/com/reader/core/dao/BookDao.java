@@ -5,9 +5,15 @@ import java.util.List;
 import com.reader.core.model.Book;
 
 public interface BookDao {
-	public List<Book> selectAll();
+	public Book getById(String id);
 
-	public Book selectByName(String name);
+	public List<Book> selectAll(int start, int limit);
+
+	public int countAll();
+
+	public Book selectByName(String name, int start, int limit);
+
+	public int countBookByName(String name);
 
 	public void add(Book book);
 

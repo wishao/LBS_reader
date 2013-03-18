@@ -13,14 +13,36 @@ import com.reader.core.model.Contact;
 
 @Repository("contactDAO")
 public class ContactDaoImpl extends BaseDao implements ContactDao {
-
-	public List<Contact> selectAll() {
-		return getSqlMapClientTemplate().queryForList("selectAllContact");
+	public Contact getById(String id) {
+		return (Contact) getSqlMapClientTemplate().queryForObject(
+				"selectContactById", id);
 	}
 
-	public List<Contact> selectByUserId(String userId) {
+	public List<Contact> selectAll(int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		return getSqlMapClientTemplate()
+				.queryForList("selectAllContact", param);
+	}
+
+	public int countAll() {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countAllContact");
+	}
+
+	public List<Contact> selectByUserId(String userId, int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("start", start);
+		param.put("limit", limit);
+		param.put("userId", userId);
 		return getSqlMapClientTemplate().queryForList("selectContactByUser",
-				userId);
+				param);
+	}
+
+	public int countContactByUser(String userId) {
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countContactByUser", userId);
 	}
 
 	public void add(Contact contact) {

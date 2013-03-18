@@ -5,7 +5,11 @@ import java.util.List;
 import com.reader.core.model.Admin;
 
 public interface AdminDao {
-	public List<Admin> selectAll();
+	public Admin getById(String id);
+
+	public List<Admin> selectAll(int start, int limit);
+
+	public int countAll();
 
 	public Admin login(String name, String password);
 
