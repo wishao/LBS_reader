@@ -2,12 +2,18 @@
 "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	
+
 	<!-- 指定类动态加载，不需要重启服务器 -->
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.convention.classes.reload" value="false" />
-	
+
 	<!-- 默认所有的结果页面都存储在WEB-INF/content下 -->
-	<constant name="struts.convention.result.path" value="/WEB-INF/page" /> 
-	
+	<constant name="struts.convention.result.path" value="/WEB-INF/page" />
+
+	<constant name="struts.multipart.maxSize" value="1000000000" />
+	<package name="reader" extends="json-default" namespace="/">
+		<action name="test1" class="com.reader.common.action.Test1Action">
+			<result type="json"></result>
+		</action>
+	</package>
 </struts>

@@ -5,6 +5,6 @@
 <sqlMap>
 	<typeAlias alias="Test" type="com.reader.core.model.Test"/>
 	<select id="selectAllTest" resultClass="Test">
-	    select * from test;
+	    select * from t_test;
 	</select>
 </sqlMap>

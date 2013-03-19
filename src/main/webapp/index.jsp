@@ -11,12 +11,45 @@
 <title>JSP Page</title>
 </head>
 <body>
-	<h1>Hello World!</h1>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var store = new Ext.data.JsonStore({
+				url : "test!select.ph",
+				totalProperty : "results",
+				root : "list",
+				fields : [ {
+					name : 'id',
+					mapping : 'id'
+				}, {
+					name : 'name',
+					mapping : 'name'
+				}, {
+					name : 'password',
+					mapping : 'password'
+				} ]
+			});
+			store.load();
+			var gird = new Ext.grid.GridPanel({
+				renderTo : "hello",
+				title : "欢迎登录",
+				height : 150,
+				width : 300,
+				columns : [ {
+					header : "编号",
+					dateindex : "id"
+				}, {
+					header : "账号",
+					dateindex : "name"
+				}, {
+					header : "密码",
+					dateindex : "password"
+				} ],
+				store : store,
+				autoExpandColumn : 2
+			})
+		})
+	</script>
+	<div id="hello"></div>
 </body>
-<script type="text/javascript">
-	Ext.onReady(function() {
-		Ext.MessageBox.alert('Message', 'Hello World ! ');
-	});
-</script>
 
 </html>

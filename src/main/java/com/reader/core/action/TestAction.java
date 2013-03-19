@@ -2,6 +2,7 @@ package com.reader.core.action;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.stereotype.Controller;
 
 import com.reader.common.action.BaseAction;
