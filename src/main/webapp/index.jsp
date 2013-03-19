@@ -3,11 +3,20 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+<script type="text/javascript" src="js/shared/ext-all.js"></script>
+
+<title>JSP Page</title>
+</head>
+<body>
+	<h1>Hello World!</h1>
+</body>
+<script type="text/javascript">
+	Ext.onReady(function() {
+		Ext.MessageBox.alert('Message', 'Hello World ! ');
+	});
+</script>
+
 </html>
