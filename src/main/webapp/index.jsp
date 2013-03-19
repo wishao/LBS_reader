@@ -14,7 +14,7 @@
 	<script type="text/javascript">
 		Ext.onReady(function() {
 			var store = new Ext.data.JsonStore({
-				url : "test!select.ph",
+				url : "test1!select",
 				totalProperty : "results",
 				root : "list",
 				fields : [ {
@@ -23,9 +23,6 @@
 				}, {
 					name : 'name',
 					mapping : 'name'
-				}, {
-					name : 'password',
-					mapping : 'password'
 				} ]
 			});
 			store.load();
@@ -40,14 +37,11 @@
 				}, {
 					header : "账号",
 					dateindex : "name"
-				}, {
-					header : "密码",
-					dateindex : "password"
-				} ],
+				}],
 				store : store,
 				autoExpandColumn : 2
-			})
-		})
+			});
+		});
 	</script>
 	<div id="hello"></div>
 </body>

@@ -13,7 +13,6 @@
 	<constant name="struts.multipart.maxSize" value="1000000000" />
 	<package name="reader" extends="json-default" namespace="/">
 		<action name="test1" class="com.reader.common.action.Test1Action">
-			<result type="json"></result>
 		</action>
 	</package>
 </struts>

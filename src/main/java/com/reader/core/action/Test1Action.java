@@ -1,8 +1,12 @@
 package com.reader.core.action;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import net.sf.json.JSONObject;
+
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.validation.JSONValidationInterceptor;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.reader.core.model.Test;
@@ -26,19 +30,39 @@ public class Test1Action extends ActionSupport {
 
 	public String login() {
 		// TODO Auto-generated method stub
-		System.out.println("wwwwwwwwwwwwwwwwww");
 		Test result = ts.select();
-		System.out.println(result.getName());
-		/*
-		 * try {
-		 * ServletActionContext.getRequest().setCharacterEncoding("utf-8"); }
-		 * catch (UnsupportedEncodingException e) { // TODO Auto-generated catch
-		 * block e.printStackTrace(); }
-		 * ServletActionContext.getResponse().setCharacterEncoding("gb2312");
-		 * Test result = testDAO.select(); if (result != null) { return
-		 * ("{success:true,msg:'" + result.getName() + "µÇÂ¼³É¹¦'}"); } else {
-		 * return ("{failure:true,msg:'µÇÂ¼Ê§°Ü'}"); }
-		 */return null;
+
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) { // TODO Auto-generated catch
+			e.printStackTrace();
+		}
+		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		JSONObject json = new JSONObject();
+		if (result != null) {
+			json.put("success", true);
+			json.put("msg", result.getName() + "µÇÂ¼³É¹¦");
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		} else {
+			json.put("failure", true);
+			json.put("msg", "µÇÂ¼Ê§°Ü");
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+		// return null;
 	}
 
 	public Test getTest() {
