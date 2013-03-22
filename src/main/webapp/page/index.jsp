@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
-<script type="text/javascript" src="js/shared/ext-all.js"></script>
+<link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css" />
+<script type="text/javascript" src="../js/shared/ext-all.js"></script>
 
 <title>JSP Page</title>
 </head>

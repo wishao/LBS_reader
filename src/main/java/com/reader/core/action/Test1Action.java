@@ -6,42 +6,38 @@ import java.io.UnsupportedEncodingException;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.validation.JSONValidationInterceptor;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.reader.core.model.Test;
-import com.reader.service.dao.TestService;
-import com.reader.service.impl.TestServiceImpl;
+import com.reader.core.model.Admin;
+import com.reader.service.dao.AdminService;
+import com.reader.service.impl.AdminServiceImpl;
 
 public class Test1Action extends ActionSupport {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Test test;
-	private long results;
-	private TestService ts = new TestServiceImpl();
+	private static final String LOGIN_NAME = "loginName";
+	private static final String LOGIN_PASSWORD = "loginPassword";
 
-	/*
-	 * public String select() { // TODO Auto-generated method stub
-	 * response.setCharacterEncoding("gb2312"); list = testDAO.select(); results
-	 * = list.size(); return SUCCESS; }
-	 */
+	private static final long serialVersionUID = 1L;
+	private Admin admin;
+	private long results;
+	private AdminService as = new AdminServiceImpl();
 
 	public String login() {
 		// TODO Auto-generated method stub
-		Test result = ts.select();
+		String name = ServletActionContext.getRequest().getParameter(LOGIN_NAME);
+		String password = ServletActionContext.getRequest().getParameter(
+				LOGIN_PASSWORD);
+		admin = as.loginAdmin(name, password);
 
 		try {
-			ServletActionContext.getRequest().setCharacterEncoding("utf-8");
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 		} catch (UnsupportedEncodingException e) { // TODO Auto-generated catch
 			e.printStackTrace();
 		}
 		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
 		JSONObject json = new JSONObject();
-		if (result != null) {
+		if (admin != null) {
 			json.put("success", true);
-			json.put("msg", result.getName() + "登录成功");
+			json.put("msg", admin + "登录成功");
 			try {
 				ServletActionContext.getResponse().getWriter()
 						.println(json.toString());
@@ -65,20 +61,12 @@ public class Test1Action extends ActionSupport {
 		// return null;
 	}
 
-	public Test getTest() {
-		return test;
+	public Admin getAdmin() {
+		return admin;
 	}
 
-	public void setTest(Test test) {
-		this.test = test;
-	}
-
-	public TestService getTs() {
-		return ts;
-	}
-
-	public void setTs(TestService ts) {
-		this.ts = ts;
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 
 	public long getResults() {
@@ -87,6 +75,14 @@ public class Test1Action extends ActionSupport {
 
 	public void setResults(long results) {
 		this.results = results;
+	}
+
+	public AdminService getAs() {
+		return as;
+	}
+
+	public void setAs(AdminService as) {
+		this.as = as;
 	}
 
 }

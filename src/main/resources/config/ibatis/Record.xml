@@ -5,24 +5,32 @@
 <sqlMap>
 	<typeAlias alias="Record" type="com.reader.core.model.Record" />
 	<select id="selectRecordById" resultClass="Record">
-		select * from
+		select id,user_id as
+		user,book_id as book,record,evaluation,score,create_time as
+		createTime,share from
 		t_record
 		where
 		id=#id#;
 	</select>
 	<select id="selectAllRecord" resultClass="Record">
-		select * from t_record
+		select id,user_id as
+		user,book_id as book,record,evaluation,score,create_time as
+		createTime,share from t_record
 		order by create_time desc
-		limit #start#,#limit#;
+		limit
+		#start#,#limit#;
 	</select>
 	<select id="countAllRecord" resultClass="int">
 		select count(*) from
 		t_record;
 	</select>
 	<select id="selectRecordByUserId" resultClass="Record">
-		select * from
+		select id,user_id
+		as user,book_id as book,record,evaluation,score,create_time as
+		createTime,share from
 		t_record order by create_time desc
-		where user_id=#userId# limit
+		where
+		user_id=#userId# limit
 		#start#,#limit#;
 	</select>
 	<select id="countRecordByUserId" resultClass="int">

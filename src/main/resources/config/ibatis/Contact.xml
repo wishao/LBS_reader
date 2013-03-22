@@ -5,26 +5,35 @@
 <sqlMap>
 	<typeAlias alias="Contact" type="com.reader.core.model.Contact" />
 	<select id="selectContactById" resultClass="Contact">
-		select * from
+		select
+		id,send_user_id as sendUser,receive_user_id as
+		receiveUser,content,create_time as createTime from
 		t_contact
 		where
 		id=#id#;
 	</select>
 	<select id="selectAllContact" resultClass="Contact">
-		select * from order by
+		select id,send_user_id
+		as sendUser,receive_user_id as receiveUser,content,create_time as
+		createTime from order by
 		create_time desc
-		t_contact limit #start#,#limit#;
+		t_contact limit
+		#start#,#limit#;
 	</select>
 	<select id="countAllContact" resultClass="int">
 		select count(*) from
 		t_contact;
 	</select>
 	<select id="selectContactByUser" resultClass="Contact">
-		select * from
+		select
+		id,send_user_id as sendUser,receive_user_id as
+		receiveUser,content,create_time as createTime from
 		t_contact
-		where send_user_id=#userId# or
+		where
+		send_user_id=#userId# or
 		receive_user_id=#userId# order
-		by create_time desc limit
+		by create_time
+		desc limit
 		#start#,#limit#;
 	</select>
 	<select id="countContactByUser" resultClass="int">

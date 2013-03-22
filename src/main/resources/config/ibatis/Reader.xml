@@ -5,14 +5,19 @@
 <sqlMap>
 	<typeAlias alias="Reader" type="com.reader.core.model.Reader" />
 	<select id="selectReaderById" resultClass="Reader">
-		select * from
+		select id,user_id as
+		user,font,background_color as backgroundColor,font_color as
+		fontColor,create_time as createTime from
 		t_reader
 		where
 		id=#id#;
 	</select>
 	<select id="selectAllReader" resultClass="Reader">
-		select * from t_reader
-		order by create_time desc
+		select id,user_id as
+		user,font,background_color as backgroundColor,font_color as
+		fontColor,create_time as createTime from t_reader
+		order by create_time
+		desc
 		limit #start#,#limit#;
 	</select>
 	<select id="countAllReader" resultClass="int">
@@ -20,8 +25,11 @@
 		t_reader;
 	</select>
 	<select id="selectReaderByUser" resultClass="Reader">
-		select * from
-		t_reader order by create_time desc
+		select id,user_id as
+		user,font,background_color as backgroundColor,font_color as
+		fontColor,create_time as createTime from
+		t_reader order by create_time
+		desc
 		where user_id=#userId#;
 	</select>
 	<insert id="insertReader">

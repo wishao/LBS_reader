@@ -5,12 +5,16 @@
 <sqlMap>
 	<typeAlias alias="Book" type="com.reader.core.model.Book" />
 	<select id="selectBookById" resultClass="Book">
-		select * from t_book
+		select
+		id,name,author,content,create_time as CreateTime,update_time as
+		updateTime,recommend,cover,reader,focus,catalog,score from t_book
 		where
 		id=#id#;
 	</select>
 	<select id="selectAllBook" resultClass="Book">
-		select * from t_book
+		select
+		id,name,author,content,create_time as CreateTime,update_time as
+		updateTime,recommend,cover,reader,focus,catalog,score from t_book
 		order by update_time desc
 		limit #start#,#limit#;
 	</select>
@@ -19,7 +23,9 @@
 		t_book;
 	</select>
 	<select id="selectBookByName" resultClass="Book">
-		select * from t_book
+		select
+		id,name,author,content,create_time as CreateTime,update_time as
+		updateTime,recommend,cover,reader,focus,catalog,score from t_book
 		order by update_time desc
 		where name like %#name#% limit
 		#start#,#limit#;

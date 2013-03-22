@@ -5,19 +5,25 @@
 <sqlMap>
 	<typeAlias alias="User" type="com.reader.core.model.User" />
 	<select id="selectUserById" resultClass="User">
-		select * from
+		select
+		id,name,password,create_time as
+		createTime,address,signature,update_time as updateTime from
 		t_user
 		where
 		id=#id#;
 	</select>
 	<select id="selectUserByName" resultClass="User">
-		select * from
+		select
+		id,name,password,create_time as
+		createTime,address,signature,update_time as updateTime from
 		t_user
 		where
 		name=#name#;
 	</select>
 	<select id="selectAllUser" resultClass="User">
-		select * from t_user
+		select
+		id,name,password,create_time as
+		createTime,address,signature,update_time as updateTime from t_user
 		order by create_time desc
 		limit #start#,#limit#;
 	</select>
@@ -26,7 +32,10 @@
 		t_user;
 	</select>
 	<select id="loginUser" resultClass="User">
-		select * from t_user where
+		select
+		id,name,password,create_time as
+		createTime,address,signature,update_time as updateTime from t_user
+		where
 		name=#name# and password=#password#;
 	</select>
 	<insert id="insertUser">

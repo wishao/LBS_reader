@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
-<script type="text/javascript" src="js/shared/ext-all.js"></script>
+<link rel="stylesheet" type="text/css" href="../resources/css/ext-all.css" />
+<script type="text/javascript" src="../js/shared/ext-all.js"></script>
 
 <title>JSP Page</title>
 </head>
@@ -19,7 +19,7 @@
 				width : 500,
 				height : 300,
 				frame : true,
-				title : "ajax提交",
+				title : "管理员登陆",
 				collapsible : true,
 				minButtonWidth : 60,
 				labelAlign : "right",
@@ -28,17 +28,15 @@
 				items : [ {
 					fieldLabel : "用户名",
 					id : "txtName",
-					name : 'test.id',
+					name : 'loginName',
 					allowBlank : false,
 					blankText : "用户名不能为空!"
 				}, {
 					fieldLabel : "密码",
 					allowBlank : false,
 					blankText : "密码不能为空!",
-					name : 'test.name',
+					name : 'loginPassword',
 					inputType : 'name'
-				}, {
-					fieldLabel : "备注"
 				} ],
 				buttons : [ {
 					text : "提交",
@@ -51,7 +49,7 @@
 									//window.location = 'index.jsp';
 								},
 								failure : function(form, action) {
-									Ext.Msg.alert("返回提示", "false");
+									Ext.Msg.alert("返回提示", "登陆失败，请 检查用户名与密码");
 								}
 							});
 						}

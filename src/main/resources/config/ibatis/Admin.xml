@@ -5,17 +5,17 @@
 <sqlMap>
 	<typeAlias alias="Admin" type="com.reader.core.model.Admin" />
 	<select id="selectAdminById" resultClass="Admin">
-		select * from t_admin
+		select id,name,password,role,create_time as createTime from t_admin
 		where
 		id=#id#;
 	</select>
 	<select id="selectAdminByName" resultClass="Admin">
-		select * from t_admin
+		select id,name,password,role,create_time as createTime from t_admin
 		where
 		name=#name#;
 	</select>
 	<select id="selectAllAdmin" resultClass="Admin">
-		select * from t_admin
+		select id,name,password,role,create_time as createTime from t_admin
 		order by create_time desc
 		limit #start#,#limit#;
 	</select>
@@ -24,7 +24,7 @@
 		t_admin;
 	</select>
 	<select id="loginAdmin" resultClass="Admin">
-		select * from t_admin where
+		select id,name,password,role,create_time as createTime from t_admin where
 		name=#name# and password=#password#;
 	</select>
 	<insert id="insertAdmin">
