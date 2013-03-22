@@ -5,41 +5,62 @@
 <sqlMap>
 	<typeAlias alias="Admin" type="com.reader.core.model.Admin" />
 	<select id="selectAdminById" resultClass="Admin">
-		select id,name,password,role,create_time as createTime from t_admin
+		<![CDATA[
+		select
+		id,name,password,role,create_time as createTime from t_admin
 		where
 		id=#id#;
+		]]>
 	</select>
 	<select id="selectAdminByName" resultClass="Admin">
-		select id,name,password,role,create_time as createTime from t_admin
+		<![CDATA[
+		select
+		id,name,password,role,create_time as createTime from t_admin
 		where
 		name=#name#;
+		]]>
 	</select>
 	<select id="selectAllAdmin" resultClass="Admin">
-		select id,name,password,role,create_time as createTime from t_admin
-		order by create_time desc
+		<![CDATA[
+		select
+		id,name,password,role,create_time as createTime from t_admin
+		order by
+		create_time desc
 		limit #start#,#limit#;
+		]]>
 	</select>
 	<select id="countAllAdmin" resultClass="int">
+		<![CDATA[
 		select count(*) from
 		t_admin;
+		]]>
 	</select>
 	<select id="loginAdmin" resultClass="Admin">
-		select id,name,password,role,create_time as createTime from t_admin where
+		<![CDATA[
+		select
+		id,name,password,role,create_time as createTime from t_admin where
 		name=#name# and password=#password#;
+		]]>
 	</select>
 	<insert id="insertAdmin">
+		<![CDATA[
 		insert into t_admin
 		(id,name,password,role,create_time) values
 		(#id#,#name#,#password#,#role#,now());
+		]]>
 	</insert>
 
 	<delete id="deleteAdmin">
+		<![CDATA[
 		delete from t_admin where id=#id#;
+		]]>
 	</delete>
 
 	<update id="updateAdmin">
+		<![CDATA[
 		update t_admin set
 		name=#name#,password=#password#,role=#role#
 		where id=#id#;
+		]]>
 	</update>
 </sqlMap>

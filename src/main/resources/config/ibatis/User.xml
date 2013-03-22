@@ -5,54 +5,70 @@
 <sqlMap>
 	<typeAlias alias="User" type="com.reader.core.model.User" />
 	<select id="selectUserById" resultClass="User">
+		<![CDATA[
 		select
 		id,name,password,create_time as
 		createTime,address,signature,update_time as updateTime from
 		t_user
 		where
 		id=#id#;
+		]]>
 	</select>
 	<select id="selectUserByName" resultClass="User">
+		<![CDATA[
 		select
 		id,name,password,create_time as
 		createTime,address,signature,update_time as updateTime from
 		t_user
 		where
 		name=#name#;
+		]]>
 	</select>
 	<select id="selectAllUser" resultClass="User">
+		<![CDATA[
 		select
 		id,name,password,create_time as
 		createTime,address,signature,update_time as updateTime from t_user
 		order by create_time desc
 		limit #start#,#limit#;
+		]]>
 	</select>
 	<select id="countAllUser" resultClass="int">
+		<![CDATA[
 		select count(*) from
 		t_user;
+		]]>
 	</select>
 	<select id="loginUser" resultClass="User">
+		<![CDATA[
 		select
 		id,name,password,create_time as
 		createTime,address,signature,update_time as updateTime from t_user
 		where
 		name=#name# and password=#password#;
+		]]>
 	</select>
 	<insert id="insertUser">
+		<![CDATA[
 		insert into t_user
 		(id,name,password,create_time,address,signature,update_time) values
 		(#id#,#name#,#password#,now(),#address#,#signature#,now());
+		]]>
 	</insert>
 
 	<delete id="deleteUser">
+		<![CDATA[
 		delete from t_user where id=#id#;
+		]]>
 	</delete>
 
 	<update id="updateUser">
+		<![CDATA[
 		update t_user set
 		name=#name#,password=#password#,
 		address=#address#,signature=#signature#,update_time=now()
 		where
 		id=#id#;
+		]]>
 	</update>
 </sqlMap>

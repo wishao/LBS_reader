@@ -5,49 +5,63 @@
 <sqlMap>
 	<typeAlias alias="Reader" type="com.reader.core.model.Reader" />
 	<select id="selectReaderById" resultClass="Reader">
+		<![CDATA[
 		select id,user_id as
 		user,font,background_color as backgroundColor,font_color as
 		fontColor,create_time as createTime from
 		t_reader
 		where
 		id=#id#;
+		]]>
 	</select>
 	<select id="selectAllReader" resultClass="Reader">
+		<![CDATA[
 		select id,user_id as
 		user,font,background_color as backgroundColor,font_color as
 		fontColor,create_time as createTime from t_reader
 		order by create_time
 		desc
 		limit #start#,#limit#;
+		]]>
 	</select>
 	<select id="countAllReader" resultClass="int">
+		<![CDATA[
 		select count(*) from
 		t_reader;
+		]]>
 	</select>
 	<select id="selectReaderByUser" resultClass="Reader">
+		<![CDATA[
 		select id,user_id as
 		user,font,background_color as backgroundColor,font_color as
 		fontColor,create_time as createTime from
 		t_reader order by create_time
 		desc
 		where user_id=#userId#;
+		]]>
 	</select>
 	<insert id="insertReader">
+		<![CDATA[
 		insert into t_reader
 		(id,user_id,font,background_color,font_color,create_time)
 		values
 		(#id#,#userId#,#font#,#backgroundColor#,#fontColor#,now());
+		]]>
 	</insert>
 
 	<delete id="deleteReader">
+		<![CDATA[
 		delete from t_reader where id=#id#;
+		]]>
 	</delete>
 
 	<update id="updateReader">
+		<![CDATA[
 		update t_reader set
 		user_id=#userId#,
 		font=#font#,background_color=#backgroundColor#,
 		font_color=#fontColor#
 		where id=#id#;
+		]]>
 	</update>
 </sqlMap>

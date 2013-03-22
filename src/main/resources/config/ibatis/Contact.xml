@@ -5,26 +5,33 @@
 <sqlMap>
 	<typeAlias alias="Contact" type="com.reader.core.model.Contact" />
 	<select id="selectContactById" resultClass="Contact">
+		<![CDATA[
 		select
 		id,send_user_id as sendUser,receive_user_id as
 		receiveUser,content,create_time as createTime from
 		t_contact
 		where
 		id=#id#;
+		]]>
 	</select>
 	<select id="selectAllContact" resultClass="Contact">
+		<![CDATA[
 		select id,send_user_id
 		as sendUser,receive_user_id as receiveUser,content,create_time as
-		createTime from order by
+		createTime from t_contact order by
 		create_time desc
-		t_contact limit
+		limit
 		#start#,#limit#;
+		]]>
 	</select>
 	<select id="countAllContact" resultClass="int">
+		<![CDATA[
 		select count(*) from
 		t_contact;
+		]]>
 	</select>
 	<select id="selectContactByUser" resultClass="Contact">
+		<![CDATA[
 		select
 		id,send_user_id as sendUser,receive_user_id as
 		receiveUser,content,create_time as createTime from
@@ -35,26 +42,35 @@
 		by create_time
 		desc limit
 		#start#,#limit#;
+		]]>
 	</select>
 	<select id="countContactByUser" resultClass="int">
+		<![CDATA[
 		select count(*) from
 		t_contact where send_user_id=#userId# or
 		receive_user_id=#userId#;
+		]]>
 	</select>
 	<insert id="insertContact">
+		<![CDATA[
 		insert into t_contact
 		(id,send_user_id,receive_user_id,content,create_time)
 		values
 		(#id#,#sendUserId#,#receiveUserId#,#content#,now());
+		]]>
 	</insert>
 
 	<delete id="deleteContact">
+		<![CDATA[
 		delete from t_contact where id=#id#;
+		]]>
 	</delete>
 
 	<update id="updateContact">
+		<![CDATA[
 		update t_contact set
 		send_user_id=#sendUserId#,
 		receive_user_id=#receiveUserId#,content=#content# where id=#id#;
+		]]>
 	</update>
 </sqlMap>

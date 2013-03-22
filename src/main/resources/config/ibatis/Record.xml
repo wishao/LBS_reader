@@ -5,26 +5,33 @@
 <sqlMap>
 	<typeAlias alias="Record" type="com.reader.core.model.Record" />
 	<select id="selectRecordById" resultClass="Record">
+		<![CDATA[
 		select id,user_id as
 		user,book_id as book,record,evaluation,score,create_time as
 		createTime,share from
 		t_record
 		where
 		id=#id#;
+		]]>
 	</select>
 	<select id="selectAllRecord" resultClass="Record">
+		<![CDATA[
 		select id,user_id as
 		user,book_id as book,record,evaluation,score,create_time as
 		createTime,share from t_record
 		order by create_time desc
 		limit
 		#start#,#limit#;
+		]]>
 	</select>
 	<select id="countAllRecord" resultClass="int">
+		<![CDATA[
 		select count(*) from
 		t_record;
+		]]>
 	</select>
 	<select id="selectRecordByUserId" resultClass="Record">
+		<![CDATA[
 		select id,user_id
 		as user,book_id as book,record,evaluation,score,create_time as
 		createTime,share from
@@ -32,27 +39,36 @@
 		where
 		user_id=#userId# limit
 		#start#,#limit#;
+		]]>
 	</select>
 	<select id="countRecordByUserId" resultClass="int">
+		<![CDATA[
 		select count(*)
 		from
 		t_record where user_id=#userId#;
+		]]>
 	</select>
 	<insert id="insertRecord">
+		<![CDATA[
 		insert into t_record
 		(id,user_id,book_id,record,evaluation,score,create_time,share)
 		values
 		(#id#,#userId#,#bookId#,#record#,#evaluation#,#score#,now(),#share#);
+		]]>
 	</insert>
 
 	<delete id="deleteRecord">
+		<![CDATA[
 		delete from t_record where id=#id#;
+		]]>
 	</delete>
 
 	<update id="updateRecord">
+		<![CDATA[
 		update t_record set
 		user_id=#userId#,
 		book_id=#bookId#,record=#record#,
 		evaluation=#evaluation#,score=#score#,share=#share# where id=#id#;
+		]]>
 	</update>
 </sqlMap>
