@@ -20,7 +20,7 @@ public class Record {
 
 	@Override
 	public String toString() {
-		String str = "id=" + this.id + ";userId=" + this.user + ";bookId="
+		String str = "id=" + this.id + ";user=" + this.user + ";book="
 				+ this.book + ";record=" + this.record + ";evaluation="
 				+ this.evaluation + ";score=" + this.score + ";createTime="
 				+ this.createTime + ";share=" + this.share + ";";

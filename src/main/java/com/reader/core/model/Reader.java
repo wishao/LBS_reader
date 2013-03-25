@@ -18,7 +18,7 @@ public class Reader {
 
 	@Override
 	public String toString() {
-		String str = "id=" + this.id + ";userId=" + this.user + ";font="
+		String str = "id=" + this.id + ";user=" + this.user + ";font="
 				+ this.font + ";backgroundColor=" + this.backgroundColor
 				+ ";fontColor=" + this.fontColor + ";createTime="
 				+ this.createTime + ";";

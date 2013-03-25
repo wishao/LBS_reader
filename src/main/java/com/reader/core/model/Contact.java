@@ -17,8 +17,8 @@ public class Contact {
 
 	@Override
 	public String toString() {
-		String str = "id=" + this.id + ";sendUserId=" + this.sendUser
-				+ ";receiveUserId=" + this.receiveUser + ";content="
+		String str = "id=" + this.id + ";sendUser=" + this.sendUser
+				+ ";receiveUser=" + this.receiveUser + ";content="
 				+ this.content + ";createTime=" + this.createTime + ";";
 		return str;
 	}
