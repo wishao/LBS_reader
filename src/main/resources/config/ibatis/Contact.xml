@@ -4,56 +4,77 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Contact" type="com.reader.core.model.Contact" />
-	<select id="selectContactById" resultClass="Contact">
+	<typeAlias alias="User" type="com.reader.core.model.User" /> 
+	<resultMap id="user" class="User">  
+        <result property="id" column="id" />  
+        <result property="name" column="name" />  
+        <result property="password" column="password" />  
+        <result property="createTime" column="create_time" />  
+        <result property="address" column="address" />  
+        <result property="signature" column="signature" />  
+        <result property="updateTime" column="update_time" />  
+    </resultMap> 
+    <resultMap id="contact" class="Contact">  
+        <result property="id" column="id" />  
+        <result property="sendUser" column="send_user_id" select="selectUserById" />  
+        <result property="receiveUser" column="receive_user_id" select="selectUserById" />  
+        <result property="content" column="content" />  
+        <result property="createTime" column="create_time" />  
+    </resultMap> 
+	<select id="selectContactById" resultClass="contact">
 		<![CDATA[
 		select
-		id,send_user_id as sendUser,receive_user_id as
-		receiveUser,content,create_time as createTime from
+		* 
+		from
 		t_contact
 		where
 		id=#id#;
 		]]>
 	</select>
-	<select id="selectAllContact" resultClass="Contact">
+	<select id="selectAllContact" resultClass="contact">
 		<![CDATA[
-		select id,send_user_id
-		as sendUser,receive_user_id as receiveUser,content,create_time as
-		createTime from t_contact order by
-		create_time desc
+		select 
+		* 
+		from t_contact 
+		order by create_time desc
 		limit
 		#start#,#limit#;
 		]]>
 	</select>
 	<select id="countAllContact" resultClass="int">
 		<![CDATA[
-		select count(*) from
+		select 
+		count(*) 
+		from
 		t_contact;
 		]]>
 	</select>
-	<select id="selectContactByUser" resultClass="Contact">
+	<select id="selectContactByUser" resultClass="contact">
 		<![CDATA[
 		select
-		id,send_user_id as sendUser,receive_user_id as
-		receiveUser,content,create_time as createTime from
+		* 
+		from
 		t_contact
 		where
-		send_user_id=#userId# or
-		receive_user_id=#userId# order
-		by create_time
-		desc limit
-		#start#,#limit#;
+		send_user_id=#userId# or receive_user_id=#userId# 
+		order by create_time desc 
+		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countContactByUser" resultClass="int">
 		<![CDATA[
-		select count(*) from
-		t_contact where send_user_id=#userId# or
-		receive_user_id=#userId#;
+		select 
+		count(*) 
+		from
+		t_contact 
+		where 
+		send_user_id=#userId# or receive_user_id=#userId#;
 		]]>
 	</select>
 	<insert id="insertContact">
 		<![CDATA[
-		insert into t_contact
+		insert into 
+		t_contact
 		(id,send_user_id,receive_user_id,content,create_time)
 		values
 		(#id#,#sendUserId#,#receiveUserId#,#content#,now());
@@ -62,15 +83,20 @@
 
 	<delete id="deleteContact">
 		<![CDATA[
-		delete from t_contact where id=#id#;
+		delete 
+		from 
+		t_contact 
+		where 
+		id=#id#;
 		]]>
 	</delete>
 
 	<update id="updateContact">
 		<![CDATA[
-		update t_contact set
-		send_user_id=#sendUserId#,
-		receive_user_id=#receiveUserId#,content=#content# where id=#id#;
+		update 
+		t_contact 
+		set
+		send_user_id=#sendUserId#,receive_user_id=#receiveUserId#,content=#content# where id=#id#;
 		]]>
 	</update>
 </sqlMap>

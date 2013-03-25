@@ -22,57 +22,46 @@ public class Test1Action extends ActionSupport {
 	private static final String LOGIN_PASSWORD = "loginPassword";
 
 	private static final long serialVersionUID = 1L;
-	private Admin admin;
+	private Contact contact;
 	private long results;
-	private AdminService as = new AdminServiceImpl();
-	private ContactService cs = new ContactServiceImpl();
+	private ContactService as = new ContactServiceImpl();
 
 	public String login() {
 		// TODO Auto-generated method stub
-		String name = ServletActionContext.getRequest().getParameter(LOGIN_NAME);
+		String name = ServletActionContext.getRequest()
+				.getParameter(LOGIN_NAME);
 		String password = ServletActionContext.getRequest().getParameter(
 				LOGIN_PASSWORD);
-		admin = as.loginAdmin(name, password);
-		Map<String,Object> c  = cs.selectAllContact(0, 1);
+		// contact = as.selectAllContact(0, 1);
+		Map<String, Object> c = as.selectAllContact(0, 1);
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 		} catch (UnsupportedEncodingException e) { // TODO Auto-generated catch
 			e.printStackTrace();
 		}
-		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
-		JSONObject json = new JSONObject();
-		if (admin != null) {
-			json.put("success", true);
-			json.put("msg", admin + "µÇÂ¼³É¹¦");
-			try {
-				ServletActionContext.getResponse().getWriter()
-						.println(json.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		} else {
-			json.put("failure", true);
-			json.put("msg", "µÇÂ¼Ê§°Ü");
-			try {
-				ServletActionContext.getResponse().getWriter()
-						.println(json.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-		}
+		System.out.println(((List<Contact>)c.get("contactList")).get(0));
+		return null;
+		/*
+		 * ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		 * JSONObject json = new JSONObject(); if (admin != null) {
+		 * json.put("success", true); json.put("msg", admin + "µÇÂ¼³É¹¦"); try {
+		 * ServletActionContext.getResponse().getWriter()
+		 * .println(json.toString()); } catch (IOException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); } return null; } else
+		 * { json.put("failure", true); json.put("msg", "µÇÂ¼Ê§°Ü"); try {
+		 * ServletActionContext.getResponse().getWriter()
+		 * .println(json.toString()); } catch (IOException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); } return null; }
+		 */
 		// return null;
 	}
 
-	public Admin getAdmin() {
-		return admin;
+	public Contact getContact() {
+		return contact;
 	}
 
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 	public long getResults() {
@@ -83,12 +72,16 @@ public class Test1Action extends ActionSupport {
 		this.results = results;
 	}
 
-	public AdminService getAs() {
+	public ContactService getAs() {
 		return as;
 	}
 
-	public void setAs(AdminService as) {
+	public void setAs(ContactService as) {
 		this.as = as;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

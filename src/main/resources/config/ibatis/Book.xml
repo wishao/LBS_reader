@@ -4,50 +4,71 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Book" type="com.reader.core.model.Book" />
-	<select id="selectBookById" resultClass="Book">
+	<resultMap id="book" class="Book">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="author" column="author" />
+		<result property="content" column="content" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="recommend" column="recommend" />
+		<result property="cover" column="cover" />
+		<result property="reader" column="reader" />
+		<result property="focus" column="focus" />
+		<result property="catalog" column="catalog" />
+		<result property="score" column="score" />
+	</resultMap>
+	<select id="selectBookById" resultClass="book">
 		<![CDATA[
 		select
-		id,name,author,content,create_time as CreateTime,update_time as
-		updateTime,recommend,cover,reader,focus,catalog,score from t_book
+		* 
+		from t_book
 		where
 		id=#id#;
 		]]>
 	</select>
-	<select id="selectAllBook" resultClass="Book">
+	<select id="selectAllBook" resultClass="book">
 		<![CDATA[
 		select
-		id,name,author,content,create_time as CreateTime,update_time as
-		updateTime,recommend,cover,reader,focus,catalog,score from t_book
+		* 
+		from t_book
 		order by update_time desc
 		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countAllBook" resultClass="int">
 		<![CDATA[
-		select count(*) from
+		select 
+		count(*) 
+		from
 		t_book;
 		]]>
 	</select>
-	<select id="selectBookByName" resultClass="Book">
+	<select id="selectBookByName" resultClass="book">
 		<![CDATA[
 		select
-		id,name,author,content,create_time as CreateTime,update_time as
-		updateTime,recommend,cover,reader,focus,catalog,score from t_book
+		* 
+		from t_book
 		order by update_time desc
-		where name like %#name#% limit
-		#start#,#limit#;
+		where 
+		name like %#name#% 
+		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countBookByName" resultClass="int">
 		<![CDATA[
-		select count(*) from
+		select 
+		count(*) 
+		from
 		t_book
-		where name like %#name#%;
+		where 
+		name like %#name#%;
 		]]>
 	</select>
 	<insert id="insertBook">
 		<![CDATA[
-		insert into t_book
+		insert 
+		into t_book
 		(id,name,author,content,create_time,update_time,recommend,cover,reader,focus,catalog,score)
 		values
 		(#id#,#name#,#author#,#content#,now(),now(),0,#cover#,0,0,#catalog#,0);
@@ -56,17 +77,24 @@
 
 	<delete id="deleteBook">
 		<![CDATA[
-		delete from t_book where id=#id#;
+		delete 
+		from 
+		t_book 
+		where 
+		id=#id#;
 		]]>
 	</delete>
 
 	<update id="updateBook">
 		<![CDATA[
-		update t_book set
-		name=#name#,
-		author=#author#,content=#content#,update_time=now(),
+		update 
+		t_book 
+		set
+		name=#name#,author=#author#,content=#content#,update_time=now(),
 		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
-		catalog=#catalog#,score=#score#,create_time=now() where id=#id#;
+		catalog=#catalog#,score=#score#,create_time=now() 
+		where 
+		id=#id#;
 		]]>
 	</update>
 </sqlMap>

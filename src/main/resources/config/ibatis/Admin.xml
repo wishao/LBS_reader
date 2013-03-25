@@ -4,63 +4,80 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Admin" type="com.reader.core.model.Admin" />
-	<select id="selectAdminById" resultClass="Admin">
+	<resultMap id="admin" class="Admin">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="role" column="role" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+	<select id="selectAdminById" resultClass="admin">
 		<![CDATA[
-		select
-		id,name,password,role,create_time as createTime from t_admin
-		where
+		select 
+		* 
+		from t_admin 
+		where 
 		id=#id#;
 		]]>
 	</select>
-	<select id="selectAdminByName" resultClass="Admin">
+	<select id="selectAdminByName" resultClass="admin">
 		<![CDATA[
-		select
-		id,name,password,role,create_time as createTime from t_admin
-		where
+		select * 
+		from t_admin 
+		where 
 		name=#name#;
 		]]>
 	</select>
-	<select id="selectAllAdmin" resultClass="Admin">
+	<select id="selectAllAdmin" resultClass="admin">
 		<![CDATA[
-		select
-		id,name,password,role,create_time as createTime from t_admin
-		order by
-		create_time desc
+		select 
+		* 
+		from t_admin 
+		order by create_time desc 
 		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countAllAdmin" resultClass="int">
 		<![CDATA[
-		select count(*) from
-		t_admin;
+		select 
+		count(*) 
+		from t_admin;
 		]]>
 	</select>
-	<select id="loginAdmin" resultClass="Admin">
+	<select id="loginAdmin" resultClass="admin">
 		<![CDATA[
-		select
-		id,name,password,role,create_time as createTime from t_admin where
+		select 
+		* 
+		from t_admin 
+		where 
 		name=#name# and password=#password#;
 		]]>
 	</select>
 	<insert id="insertAdmin">
 		<![CDATA[
-		insert into t_admin
-		(id,name,password,role,create_time) values
+		insert into 
+		t_admin 
+		(id,name,password,role,create_time) 
+		values 
 		(#id#,#name#,#password#,#role#,now());
 		]]>
 	</insert>
 
 	<delete id="deleteAdmin">
 		<![CDATA[
-		delete from t_admin where id=#id#;
+		delete 
+		from t_admin 
+		where 
+		id=#id#;
 		]]>
 	</delete>
 
 	<update id="updateAdmin">
 		<![CDATA[
-		update t_admin set
-		name=#name#,password=#password#,role=#role#
-		where id=#id#;
+		update 
+		t_admin 
+		set 
+		name=#name#,password=#password#,role=#role# where id=#id#;
 		]]>
 	</update>
 </sqlMap>

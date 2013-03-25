@@ -4,69 +4,89 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="User" type="com.reader.core.model.User" />
-	<select id="selectUserById" resultClass="User">
+	<resultMap id="user" class="User">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="createTime" column="create_time" />
+		<result property="address" column="address" />
+		<result property="signature" column="signature" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	<select id="selectUserById" resultClass="user">
 		<![CDATA[
 		select
-		id,name,password,create_time as
-		createTime,address,signature,update_time as updateTime from
+		* 
+		from
 		t_user
 		where
 		id=#id#;
 		]]>
 	</select>
-	<select id="selectUserByName" resultClass="User">
+	<select id="selectUserByName" resultClass="user">
 		<![CDATA[
 		select
-		id,name,password,create_time as
-		createTime,address,signature,update_time as updateTime from
+		* 
+		from
 		t_user
 		where
 		name=#name#;
 		]]>
 	</select>
-	<select id="selectAllUser" resultClass="User">
+	<select id="selectAllUser" resultClass="user">
 		<![CDATA[
 		select
-		id,name,password,create_time as
-		createTime,address,signature,update_time as updateTime from t_user
+		* 
+		from 
+		t_user
 		order by create_time desc
 		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countAllUser" resultClass="int">
 		<![CDATA[
-		select count(*) from
+		select 
+		count(*) 
+		from
 		t_user;
 		]]>
 	</select>
-	<select id="loginUser" resultClass="User">
+	<select id="loginUser" resultClass="user">
 		<![CDATA[
 		select
-		id,name,password,create_time as
-		createTime,address,signature,update_time as updateTime from t_user
+		* 
+		from 
+		t_user
 		where
 		name=#name# and password=#password#;
 		]]>
 	</select>
 	<insert id="insertUser">
 		<![CDATA[
-		insert into t_user
-		(id,name,password,create_time,address,signature,update_time) values
+		insert into 
+		t_user
+		(id,name,password,create_time,address,signature,update_time) 
+		values
 		(#id#,#name#,#password#,now(),#address#,#signature#,now());
 		]]>
 	</insert>
 
 	<delete id="deleteUser">
 		<![CDATA[
-		delete from t_user where id=#id#;
+		delete 
+		from 
+		t_user 
+		where 
+		id=#id#;
 		]]>
 	</delete>
 
 	<update id="updateUser">
 		<![CDATA[
-		update t_user set
-		name=#name#,password=#password#,
-		address=#address#,signature=#signature#,update_time=now()
+		update 
+		t_user 
+		set
+		name=#name#,password=#password#,address=#address#,signature=#signature#,update_time=now()
 		where
 		id=#id#;
 		]]>

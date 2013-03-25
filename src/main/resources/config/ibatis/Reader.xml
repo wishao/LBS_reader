@@ -4,45 +4,67 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Reader" type="com.reader.core.model.Reader" />
-	<select id="selectReaderById" resultClass="Reader">
+	<typeAlias alias="User" type="com.reader.core.model.User" />
+	<resultMap id="user" class="User">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="createTime" column="create_time" />
+		<result property="address" column="address" />
+		<result property="signature" column="signature" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	<resultMap id="reader" class="Reader">
+		<result property="id" column="id" />
+		<result property="user" column="user_id" select="selectUserById" />
+		<result property="font" column="font" />
+		<result property="backgroundColor" column="background_color" />
+		<result property="fontColor" column="font_color" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+	<select id="selectReaderById" resultClass="reader">
 		<![CDATA[
-		select id,user_id as
-		user,font,background_color as backgroundColor,font_color as
-		fontColor,create_time as createTime from
+		select 
+		* 
+		from
 		t_reader
 		where
 		id=#id#;
 		]]>
 	</select>
-	<select id="selectAllReader" resultClass="Reader">
+	<select id="selectAllReader" resultClass="reader">
 		<![CDATA[
-		select id,user_id as
-		user,font,background_color as backgroundColor,font_color as
-		fontColor,create_time as createTime from t_reader
-		order by create_time
-		desc
+		select 
+		* 
+		from 
+		t_reader
+		order by create_time desc
 		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countAllReader" resultClass="int">
 		<![CDATA[
-		select count(*) from
+		select 
+		count(*) 
+		from
 		t_reader;
 		]]>
 	</select>
-	<select id="selectReaderByUser" resultClass="Reader">
+	<select id="selectReaderByUser" resultClass="reader">
 		<![CDATA[
-		select id,user_id as
-		user,font,background_color as backgroundColor,font_color as
-		fontColor,create_time as createTime from
-		t_reader order by create_time
-		desc
-		where user_id=#userId#;
+		select 
+		* 
+		from
+		t_reader 
+		order by create_time desc
+		where 
+		user_id=#userId#;
 		]]>
 	</select>
 	<insert id="insertReader">
 		<![CDATA[
-		insert into t_reader
+		insert into 
+		t_reader
 		(id,user_id,font,background_color,font_color,create_time)
 		values
 		(#id#,#userId#,#font#,#backgroundColor#,#fontColor#,now());
@@ -51,17 +73,22 @@
 
 	<delete id="deleteReader">
 		<![CDATA[
-		delete from t_reader where id=#id#;
+		delete 
+		from 
+		t_reader 
+		where 
+		id=#id#;
 		]]>
 	</delete>
 
 	<update id="updateReader">
 		<![CDATA[
-		update t_reader set
-		user_id=#userId#,
-		font=#font#,background_color=#backgroundColor#,
-		font_color=#fontColor#
-		where id=#id#;
+		update 
+		t_reader 
+		set
+		user_id=#userId#,font=#font#,background_color=#backgroundColor#,font_color=#fontColor#
+		where 
+		id=#id#;
 		]]>
 	</update>
 </sqlMap>

@@ -4,53 +4,104 @@
   "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Record" type="com.reader.core.model.Record" />
-	<select id="selectRecordById" resultClass="Record">
+	<typeAlias alias="User" type="com.reader.core.model.User" />
+	<typeAlias alias="Book" type="com.reader.core.model.Book" />
+	<resultMap id="user" class="User">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="createTime" column="create_time" />
+		<result property="address" column="address" />
+		<result property="signature" column="signature" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	<resultMap id="user" class="User">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="createTime" column="create_time" />
+		<result property="address" column="address" />
+		<result property="signature" column="signature" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	<resultMap id="book" class="Book">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="author" column="author" />
+		<result property="content" column="content" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="recommend" column="recommend" />
+		<result property="cover" column="cover" />
+		<result property="reader" column="reader" />
+		<result property="focus" column="focus" />
+		<result property="catalog" column="catalog" />
+		<result property="score" column="score" />
+	</resultMap>
+	<resultMap id="record" class="Record">
+		<result property="id" column="id" />
+		<result property="user" column="user_id" select="selectUserById" />
+		<result property="book" column="book_id" select="selectBookById" />
+		<result property="record" column="record" />
+		<result property="evaluation" column="evaluation" />
+		<result property="score" column="score" />
+		<result property="createTime" column="create_time" />
+		<result property="share" column="share" />
+	</resultMap>
+	<select id="selectRecordById" resultClass="record">
 		<![CDATA[
-		select id,user_id as
-		user,book_id as book,record,evaluation,score,create_time as
-		createTime,share from
+		select 
+		* 
+		from
 		t_record
 		where
 		id=#id#;
 		]]>
 	</select>
-	<select id="selectAllRecord" resultClass="Record">
+	<select id="selectAllRecord" resultClass="record">
 		<![CDATA[
-		select id,user_id as
-		user,book_id as book,record,evaluation,score,create_time as
-		createTime,share from t_record
+		select 
+		* 
+		from 
+		t_record
 		order by create_time desc
-		limit
-		#start#,#limit#;
+		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countAllRecord" resultClass="int">
 		<![CDATA[
-		select count(*) from
+		select 
+		count(*) 
+		from
 		t_record;
 		]]>
 	</select>
-	<select id="selectRecordByUserId" resultClass="Record">
+	<select id="selectRecordByUserId" resultClass="record">
 		<![CDATA[
-		select id,user_id
-		as user,book_id as book,record,evaluation,score,create_time as
-		createTime,share from
-		t_record order by create_time desc
+		select 
+		* 
+		from
+		t_record 
+		order by create_time desc
 		where
-		user_id=#userId# limit
-		#start#,#limit#;
+		user_id=#userId# 
+		limit #start#,#limit#;
 		]]>
 	</select>
 	<select id="countRecordByUserId" resultClass="int">
 		<![CDATA[
-		select count(*)
+		select 
+		count(*)
 		from
-		t_record where user_id=#userId#;
+		t_record 
+		where 
+		user_id=#userId#;
 		]]>
 	</select>
 	<insert id="insertRecord">
 		<![CDATA[
-		insert into t_record
+		insert into 
+		t_record
 		(id,user_id,book_id,record,evaluation,score,create_time,share)
 		values
 		(#id#,#userId#,#bookId#,#record#,#evaluation#,#score#,now(),#share#);
@@ -59,16 +110,22 @@
 
 	<delete id="deleteRecord">
 		<![CDATA[
-		delete from t_record where id=#id#;
+		delete 
+		from 
+		t_record 
+		where 
+		id=#id#;
 		]]>
 	</delete>
 
 	<update id="updateRecord">
 		<![CDATA[
-		update t_record set
-		user_id=#userId#,
-		book_id=#bookId#,record=#record#,
-		evaluation=#evaluation#,score=#score#,share=#share# where id=#id#;
+		update 
+		t_record 
+		set
+		user_id=#userId#,book_id=#bookId#,record=#record#,evaluation=#evaluation#,score=#score#,share=#share# 
+		where 
+		id=#id#;
 		]]>
 	</update>
 </sqlMap>
