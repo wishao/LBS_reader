@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap
-  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
-  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	  "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="User" type="com.reader.core.model.User" />
 	<resultMap id="user" class="User">
@@ -13,82 +13,82 @@
 		<result property="signature" column="signature" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>
-	<select id="selectUserById" resultClass="user">
-		<![CDATA[
+	<select id="selectUserById" resultMap="user">
+	<![CDATA[
 		select
 		* 
 		from
 		t_user
 		where
 		id=#id#;
-		]]>
+	]]>
 	</select>
-	<select id="selectUserByName" resultClass="user">
-		<![CDATA[
+	<select id="selectUserByName" resultMap="user">
+	<![CDATA[
 		select
 		* 
 		from
 		t_user
 		where
 		name=#name#;
-		]]>
+	]]>
 	</select>
-	<select id="selectAllUser" resultClass="user">
-		<![CDATA[
+	<select id="selectAllUser" resultMap="user">
+	<![CDATA[
 		select
 		* 
 		from 
 		t_user
 		order by create_time desc
 		limit #start#,#limit#;
-		]]>
+	]]>
 	</select>
 	<select id="countAllUser" resultClass="int">
-		<![CDATA[
+	<![CDATA[
 		select 
 		count(*) 
 		from
 		t_user;
-		]]>
+	]]>
 	</select>
-	<select id="loginUser" resultClass="user">
-		<![CDATA[
+	<select id="loginUser" resultMap="user">
+	<![CDATA[
 		select
 		* 
 		from 
 		t_user
 		where
 		name=#name# and password=#password#;
-		]]>
+	]]>
 	</select>
 	<insert id="insertUser">
-		<![CDATA[
+	<![CDATA[
 		insert into 
 		t_user
 		(id,name,password,create_time,address,signature,update_time) 
 		values
 		(#id#,#name#,#password#,now(),#address#,#signature#,now());
-		]]>
+	]]>
 	</insert>
 
 	<delete id="deleteUser">
-		<![CDATA[
+	<![CDATA[
 		delete 
 		from 
 		t_user 
 		where 
 		id=#id#;
-		]]>
+	]]>
 	</delete>
 
 	<update id="updateUser">
-		<![CDATA[
+	<![CDATA[
 		update 
 		t_user 
 		set
 		name=#name#,password=#password#,address=#address#,signature=#signature#,update_time=now()
 		where
 		id=#id#;
-		]]>
+	]]>
 	</update>
 </sqlMap>

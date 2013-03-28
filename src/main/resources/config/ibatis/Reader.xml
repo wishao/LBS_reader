@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap
-  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
-  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	  "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Reader" type="com.reader.core.model.Reader" />
 	<typeAlias alias="User" type="com.reader.core.model.User" />
@@ -22,36 +22,36 @@
 		<result property="fontColor" column="font_color" />
 		<result property="createTime" column="create_time" />
 	</resultMap>
-	<select id="selectReaderById" resultClass="reader">
-		<![CDATA[
+	<select id="selectReaderById" resultMap="reader">
+	<![CDATA[
 		select 
 		* 
 		from
 		t_reader
 		where
 		id=#id#;
-		]]>
+	]]>
 	</select>
-	<select id="selectAllReader" resultClass="reader">
-		<![CDATA[
+	<select id="selectAllReader" resultMap="reader">
+	<![CDATA[
 		select 
 		* 
 		from 
 		t_reader
 		order by create_time desc
 		limit #start#,#limit#;
-		]]>
+	]]>
 	</select>
 	<select id="countAllReader" resultClass="int">
-		<![CDATA[
+	<![CDATA[
 		select 
 		count(*) 
 		from
 		t_reader;
-		]]>
+	]]>
 	</select>
-	<select id="selectReaderByUser" resultClass="reader">
-		<![CDATA[
+	<select id="selectReaderByUser" resultMap="reader">
+	<![CDATA[
 		select 
 		* 
 		from
@@ -59,36 +59,36 @@
 		order by create_time desc
 		where 
 		user_id=#userId#;
-		]]>
+	]]>
 	</select>
 	<insert id="insertReader">
-		<![CDATA[
+	<![CDATA[
 		insert into 
 		t_reader
 		(id,user_id,font,background_color,font_color,create_time)
 		values
 		(#id#,#userId#,#font#,#backgroundColor#,#fontColor#,now());
-		]]>
+	]]>
 	</insert>
 
 	<delete id="deleteReader">
-		<![CDATA[
+	<![CDATA[
 		delete 
 		from 
 		t_reader 
 		where 
 		id=#id#;
-		]]>
+	]]>
 	</delete>
 
 	<update id="updateReader">
-		<![CDATA[
+	<![CDATA[
 		update 
 		t_reader 
 		set
 		user_id=#userId#,font=#font#,background_color=#backgroundColor#,font_color=#fontColor#
 		where 
 		id=#id#;
-		]]>
+	]]>
 	</update>
 </sqlMap>

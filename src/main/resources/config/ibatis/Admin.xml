@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap
-  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
-  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	  "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Admin" type="com.reader.core.model.Admin" />
 	<resultMap id="admin" class="Admin">
@@ -11,73 +11,73 @@
 		<result property="role" column="role" />
 		<result property="createTime" column="create_time" />
 	</resultMap>
-	<select id="selectAdminById" resultClass="admin">
-		<![CDATA[
+	<select id="selectAdminById" resultMap="admin">
+	<![CDATA[
 		select 
 		* 
 		from t_admin 
 		where 
 		id=#id#;
-		]]>
+	]]>
 	</select>
-	<select id="selectAdminByName" resultClass="admin">
-		<![CDATA[
+	<select id="selectAdminByName" resultMap="admin">
+	<![CDATA[
 		select * 
 		from t_admin 
 		where 
 		name=#name#;
-		]]>
+	]]>
 	</select>
-	<select id="selectAllAdmin" resultClass="admin">
-		<![CDATA[
+	<select id="selectAllAdmin" resultMap="admin">
+	<![CDATA[
 		select 
 		* 
 		from t_admin 
 		order by create_time desc 
 		limit #start#,#limit#;
-		]]>
+	]]>
 	</select>
 	<select id="countAllAdmin" resultClass="int">
-		<![CDATA[
+	<![CDATA[
 		select 
 		count(*) 
 		from t_admin;
-		]]>
+	]]>
 	</select>
-	<select id="loginAdmin" resultClass="admin">
-		<![CDATA[
+	<select id="loginAdmin" resultMap="admin">
+	<![CDATA[
 		select 
 		* 
 		from t_admin 
 		where 
 		name=#name# and password=#password#;
-		]]>
+	]]>
 	</select>
 	<insert id="insertAdmin">
-		<![CDATA[
+	<![CDATA[
 		insert into 
 		t_admin 
 		(id,name,password,role,create_time) 
 		values 
 		(#id#,#name#,#password#,#role#,now());
-		]]>
+	]]>
 	</insert>
 
 	<delete id="deleteAdmin">
-		<![CDATA[
+	<![CDATA[
 		delete 
 		from t_admin 
 		where 
 		id=#id#;
-		]]>
+	]]>
 	</delete>
 
 	<update id="updateAdmin">
-		<![CDATA[
+	<![CDATA[
 		update 
 		t_admin 
 		set 
 		name=#name#,password=#password#,role=#role# where id=#id#;
-		]]>
+	]]>
 	</update>
 </sqlMap>

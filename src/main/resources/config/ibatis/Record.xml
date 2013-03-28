@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap
-  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
-  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	  "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Record" type="com.reader.core.model.Record" />
 	<typeAlias alias="User" type="com.reader.core.model.User" />
@@ -48,36 +48,36 @@
 		<result property="createTime" column="create_time" />
 		<result property="share" column="share" />
 	</resultMap>
-	<select id="selectRecordById" resultClass="record">
-		<![CDATA[
+	<select id="selectRecordById" resultMap="record">
+	<![CDATA[
 		select 
 		* 
 		from
 		t_record
 		where
 		id=#id#;
-		]]>
+	]]>
 	</select>
-	<select id="selectAllRecord" resultClass="record">
-		<![CDATA[
+	<select id="selectAllRecord" resultMap="record">
+	<![CDATA[
 		select 
 		* 
 		from 
 		t_record
 		order by create_time desc
 		limit #start#,#limit#;
-		]]>
+	]]>
 	</select>
 	<select id="countAllRecord" resultClass="int">
-		<![CDATA[
+	<![CDATA[
 		select 
 		count(*) 
 		from
 		t_record;
-		]]>
+	]]>
 	</select>
-	<select id="selectRecordByUserId" resultClass="record">
-		<![CDATA[
+	<select id="selectRecordByUserId" resultMap="record">
+	<![CDATA[
 		select 
 		* 
 		from
@@ -86,46 +86,46 @@
 		where
 		user_id=#userId# 
 		limit #start#,#limit#;
-		]]>
+	]]>
 	</select>
 	<select id="countRecordByUserId" resultClass="int">
-		<![CDATA[
+	<![CDATA[
 		select 
 		count(*)
 		from
 		t_record 
 		where 
 		user_id=#userId#;
-		]]>
+	]]>
 	</select>
 	<insert id="insertRecord">
-		<![CDATA[
+	<![CDATA[
 		insert into 
 		t_record
 		(id,user_id,book_id,record,evaluation,score,create_time,share)
 		values
 		(#id#,#userId#,#bookId#,#record#,#evaluation#,#score#,now(),#share#);
-		]]>
+	]]>
 	</insert>
 
 	<delete id="deleteRecord">
-		<![CDATA[
+	<![CDATA[
 		delete 
 		from 
 		t_record 
 		where 
 		id=#id#;
-		]]>
+	]]>
 	</delete>
 
 	<update id="updateRecord">
-		<![CDATA[
+	<![CDATA[
 		update 
 		t_record 
 		set
 		user_id=#userId#,book_id=#bookId#,record=#record#,evaluation=#evaluation#,score=#score#,share=#share# 
 		where 
 		id=#id#;
-		]]>
+	]]>
 	</update>
 </sqlMap>

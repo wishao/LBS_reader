@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap
-  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
-  "http://www.ibatis.com/dtd/sql-map-2.dtd">
+	  PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	  "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap>
 	<typeAlias alias="Contact" type="com.reader.core.model.Contact" />
 	<typeAlias alias="User" type="com.reader.core.model.User" /> 
@@ -21,7 +21,7 @@
         <result property="content" column="content" />  
         <result property="createTime" column="create_time" />  
     </resultMap> 
-	<select id="selectContactById" resultClass="contact">
+	<select id="selectContactById" resultMap="contact">
 		<![CDATA[
 		select
 		* 
@@ -31,7 +31,7 @@
 		id=#id#;
 		]]>
 	</select>
-	<select id="selectAllContact" resultClass="contact">
+	<select id="selectAllContact" resultMap="contact">
 		<![CDATA[
 		select 
 		* 
@@ -49,7 +49,7 @@
 		t_contact;
 		]]>
 	</select>
-	<select id="selectContactByUser" resultClass="contact">
+	<select id="selectContactByUser" resultMap="contact">
 		<![CDATA[
 		select
 		* 
