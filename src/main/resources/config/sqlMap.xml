@@ -4,6 +4,7 @@
   "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
+	
 	<sqlMap resource="config/ibatis/Admin.xml" />
 	<sqlMap resource="config/ibatis/Book.xml" />
 	<sqlMap resource="config/ibatis/Contact.xml" />
@@ -11,4 +12,5 @@
 	<sqlMap resource="config/ibatis/Record.xml" />
 	<sqlMap resource="config/ibatis/Test.xml" />
 	<sqlMap resource="config/ibatis/User.xml" />
+	
 </sqlMapConfig>
