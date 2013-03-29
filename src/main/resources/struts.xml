@@ -8,7 +8,7 @@
 	<constant name="struts.convention.classes.reload" value="false" />
 
 	<!-- 默认所有的结果页面都存储在WEB-INF/content下 -->
-	<constant name="struts.convention.result.path" value="/WEB-INF/page" />
+	<constant name="struts.convention.result.path" value="/" />
 
 	<constant name="struts.multipart.maxSize" value="1000000000" />
 	<package name="reader" extends="json-default" namespace="/">
