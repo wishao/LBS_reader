@@ -1,64 +1,63 @@
 /**
  * @author farago
  */
-Ext.namespace('IsmpHB', 'IsmpHB.monitor_GD168');
-IsmpHB.monitor_GD168.DataGrid = Ext.extend(Ext.grid.GridPanel,
-		{
-			title : '全省联网168',
-			autoScroll : true,
-			store : Ext.StoreMgr.get('monitor_gd168'),
-			cls : 'box-dataGrid',
+Ext.namespace('LBSReader', 'LBSReader.monitor_GD168');
+LBSReader.monitor_GD168.DataGrid = Ext.extend(Ext.grid.GridPanel, {
+	title : '全省联网168',
+	autoScroll : true,
+	store : Ext.StoreMgr.get('monitor_gd168'),
+	cls : 'box-dataGrid',
 
-			dateField : new Ext.form.DateField({
+	dateField : new Ext.form.DateField({
 				format : 'Y-m-d',
 				allowBlank : false,
 				emptyText : '选择->',
 				msgTarget : 'side',
 				width : 100
 			}),
-			searchBtn : new Ext.Button({
+	searchBtn : new Ext.Button({
 				text : '查询',
 				cls : 'btn-search btn-common'
 			}),
-			resetBtn : new Ext.Button({
+	resetBtn : new Ext.Button({
 				text : '重置查询条件',
 				cls : 'btn-common-wide btn-common'
 			}),
-			cmRenderer : function(value, cellmeta, record, rowIndex,
-					columnIndex, store) {
-			},
-			htmlTxt : "<span class='note'>说明：该统计每天执行，检查对象为前一天的数据。请选择相应的日期。</span>",
-			constructor : function(config) {
-				config = config || {};
-				config.tbar = config.tbar || [];
-				var arr = [];
-				arr.push(this.searchBtn);
-				arr.push(this.resetBtn);
-				config.tbar.push(new Ext.Panel({
+	cmRenderer : function(value, cellmeta, record, rowIndex, columnIndex, store) {
+	},
+	htmlTxt : "<span class='note'>说明：该统计每天执行，检查对象为前一天的数据。请选择相应的日期。</span>",
+	constructor : function(config) {
+		config = config || {};
+		config.tbar = config.tbar || [];
+		var arr = [];
+		arr.push(this.searchBtn);
+		arr.push(this.resetBtn);
+		config.tbar.push(new Ext.Panel({
 					border : false,
 					// width : '900',
-					items : [ {
+					items : [{
 						xtype : 'toolbar',
 						border : false,
-						items : [ '统计时间：', this.dateField, arr, '->', this.htmlTxt  ]
-					} ]
+						items : ['统计时间：', this.dateField, arr, '->',
+								this.htmlTxt]
+					}]
 				}));
-				//
-				this.pagingbar = new Ext.PagingToolbar({
+		//
+		this.pagingbar = new Ext.PagingToolbar({
 					pageSize : 20,
 					store : this.getStore(),
 					displayInfo : true,
 					displayMsg : '当前第{0}项到第{1}项，共{2}项',
 					emptyMsg : "没有查询到任何结果！"
 				});
-				config.bbar = this.pagingbar;
-				//
-				this.sm = new Ext.grid.CheckboxSelectionModel({
+		config.bbar = this.pagingbar;
+		//
+		this.sm = new Ext.grid.CheckboxSelectionModel({
 					header : '',
 					renderer : this.cmRenderer.createDelegate(this),
 					checkOnly : true
 				});
-				this.cm = new Ext.grid.ColumnModel([ this.sm, {
+		this.cm = new Ext.grid.ColumnModel([this.sm, {
 					header : '被叫',
 					align : 'center',
 					menuDisabled : true,
@@ -151,50 +150,50 @@ IsmpHB.monitor_GD168.DataGrid = Ext.extend(Ext.grid.GridPanel,
 					menuDisabled : true,
 					dataIndex : 'term_end',
 					width : 120
-				// }, {
+					// }, {
 				// header : '状态',
 				// align : 'left',
 				// menuDisabled : true,
 				// dataIndex : 'hbPackageCode',
 				// width : 120
-				} ]);
-				IsmpHB.monitor_GD168.DataGrid.superclass.constructor.apply(
-						this, arguments);
+			}]);
+		LBSReader.monitor_GD168.DataGrid.superclass.constructor.apply(this,
+				arguments);
 
-				this.searchBtn.on('click', function() {
+		this.searchBtn.on('click', function() {
 					if (!this.isValid()) {
 						return;
 					}
 					this.searchItems();
 				}, this);
-				this.resetBtn.on('click', function() {
+		this.resetBtn.on('click', function() {
 					this.resetAllConditions();
 				}, this);
-			},
-			isValid : function() {
-				return this.dateField.isValid();
-			},
-			resetAllConditions : function() {
-				this.dateField.reset();
-			},
-			// loadItems : function(s, l) {
-			// this.getStore().load({
-			// params : {
-			// timestamp : new Date().valueOf(),
-			// start : s || 0,
-			// limit : l || this.pagingbar.pageSize
-			// },
-			// callback : function(r, o, s) {
-			// },
-			// scope : this
-			// });
-			// },
-			searchItems : function(name) {
-				this.getStore().baseParams = {
-					type : 'GD168',
-					record_time : this.dateField.getRawValue()
-				};
-				this.getStore().load({
+	},
+	isValid : function() {
+		return this.dateField.isValid();
+	},
+	resetAllConditions : function() {
+		this.dateField.reset();
+	},
+	// loadItems : function(s, l) {
+	// this.getStore().load({
+	// params : {
+	// timestamp : new Date().valueOf(),
+	// start : s || 0,
+	// limit : l || this.pagingbar.pageSize
+	// },
+	// callback : function(r, o, s) {
+	// },
+	// scope : this
+	// });
+	// },
+	searchItems : function(name) {
+		this.getStore().baseParams = {
+			type : 'GD168',
+			record_time : this.dateField.getRawValue()
+		};
+		this.getStore().load({
 					params : {
 						timestamp : new Date().valueOf(),
 						start : 0,
@@ -211,5 +210,5 @@ IsmpHB.monitor_GD168.DataGrid = Ext.extend(Ext.grid.GridPanel,
 					},
 					scope : this
 				});
-			}
-		});
+	}
+});

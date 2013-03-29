@@ -1,9 +1,9 @@
 /**
  * @author
  */
-Ext.namespace('IsmpHB', 'IsmpHB.ecrmorderworkflow');
+Ext.namespace('LBSReader', 'LBSReader.ecrmorderworkflow');
 
-IsmpHB.ecrmorderworkflow.WorkflowTree = Ext.extend(Ext.tree.TreePanel, {
+LBSReader.ecrmorderworkflow.WorkflowTree = Ext.extend(Ext.tree.TreePanel, {
 			useArrows : true,
 			autoScroll : true,
 			animate : false,
@@ -12,7 +12,7 @@ IsmpHB.ecrmorderworkflow.WorkflowTree = Ext.extend(Ext.tree.TreePanel, {
 			collapsible : false,
 			border : false,
 			loader : new Ext.tree.TreeLoader({
-						dataUrl : IsmpHB.req.ZQWORKFLOW_QUERY,
+						dataUrl : LBSReader.req.ZQWORKFLOW_QUERY,
 						preloadChildren : true,
 						baseParams : {
 							timestamp : new Date().valueOf(),
@@ -28,7 +28,7 @@ IsmpHB.ecrmorderworkflow.WorkflowTree = Ext.extend(Ext.tree.TreePanel, {
 
 			constructor : function(config) {
 				config = config || {};
-				IsmpHB.ecrmorderworkflow.WorkflowTree.superclass.constructor
+				LBSReader.ecrmorderworkflow.WorkflowTree.superclass.constructor
 						.apply(this, arguments);
 
 				this.getLoader().on("beforeload", function(treeLoader, node) {
@@ -58,7 +58,7 @@ IsmpHB.ecrmorderworkflow.WorkflowTree = Ext.extend(Ext.tree.TreePanel, {
 			}
 		});
 
-IsmpHB.ecrmorderworkflow.WorkflowTreeDlg = Ext.extend(Ext.Window, {
+LBSReader.ecrmorderworkflow.WorkflowTreeDlg = Ext.extend(Ext.Window, {
 			title : '查看流程',
 			layout : 'fit',
 			modal : true,
@@ -72,9 +72,9 @@ IsmpHB.ecrmorderworkflow.WorkflowTreeDlg = Ext.extend(Ext.Window, {
 			constructor : function(config) {
 				config = config || {};
 				config.items = config.items || [];
-				this.tree = new IsmpHB.ecrmorderworkflow.WorkflowTree({});
+				this.tree = new LBSReader.ecrmorderworkflow.WorkflowTree({});
 				config.items.push(this.tree);
-				IsmpHB.ecrmorderworkflow.WorkflowTreeDlg.superclass.constructor
+				LBSReader.ecrmorderworkflow.WorkflowTreeDlg.superclass.constructor
 						.apply(this, arguments);
 
 				this.on('show', function() {
@@ -88,7 +88,7 @@ IsmpHB.ecrmorderworkflow.WorkflowTreeDlg = Ext.extend(Ext.Window, {
 				this.tree.CUR_ORDER_ID = id;
 			}
 		});
-IsmpHB.ecrmorderworkflow.basicItemForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.ecrmorderworkflow.basicItemForm = Ext.extend(Ext.form.FormPanel, {
 			title : '基本信息',
 			labelWidth : 100,
 			labelAlign : 'right',
@@ -196,7 +196,7 @@ IsmpHB.ecrmorderworkflow.basicItemForm = Ext.extend(Ext.form.FormPanel, {
 					items : [this.ibOrderNumField, this.newProductTypeField,
 							this.orderStatusField,this.discNameField]
 				}]);
-				IsmpHB.ecrmorderworkflow.basicItemForm.superclass.constructor
+				LBSReader.ecrmorderworkflow.basicItemForm.superclass.constructor
 						.apply(this, arguments);
 
 			},
@@ -241,7 +241,7 @@ IsmpHB.ecrmorderworkflow.basicItemForm = Ext.extend(Ext.form.FormPanel, {
 				}
 			}
 		});
-IsmpHB.ecrmorderworkflow.workFlowItemForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.ecrmorderworkflow.workFlowItemForm = Ext.extend(Ext.form.FormPanel, {
 			title : '流程信息',
 			labelWidth : 100,
 			labelAlign : 'right',
@@ -289,28 +289,28 @@ IsmpHB.ecrmorderworkflow.workFlowItemForm = Ext.extend(Ext.form.FormPanel, {
 							items : [this.returnOrderStatusField,
 									this.crmreturnOrderStatusField]
 						}]);
-				IsmpHB.ecrmorderworkflow.workFlowItemForm.superclass.constructor
+				LBSReader.ecrmorderworkflow.workFlowItemForm.superclass.constructor
 						.apply(this, arguments);
 
 			},
 			setValue : function(o) {
-				this.orderStatueField.setValue(IsmpHB.renderer
+				this.orderStatueField.setValue(LBSReader.renderer
 						.ECRM_SERVICE_STATUS(o[1]));
-				this.receiveTimeField.setValue(IsmpHB.renderer
+				this.receiveTimeField.setValue(LBSReader.renderer
 						.ECRM_CREATETIME(o[2]));
 				this.returnOrderStatusField.setValue(o[3]);
-				this.crmreturnOrderStatusField.setValue(IsmpHB.renderer
+				this.crmreturnOrderStatusField.setValue(LBSReader.renderer
 						.ECRM_RETURNSTRING(o[4]));
 			}
 		});
-IsmpHB.ecrmorderworkflow.productItemForm = Ext.extend(Ext.Panel, {
+LBSReader.ecrmorderworkflow.productItemForm = Ext.extend(Ext.Panel, {
 			title : '产品属性',
 			id : 'productString',
 			height : 212,
 			autoScroll : true,// 自动显示滚动条
 			bodyPadding : 5
 		});
-IsmpHB.ecrmorderworkflow.productItemDlg = Ext.extend(Ext.Window, {
+LBSReader.ecrmorderworkflow.productItemDlg = Ext.extend(Ext.Window, {
 	title : '相关信息',
 	autoScroll : true,
 	modal : true,
@@ -326,19 +326,19 @@ IsmpHB.ecrmorderworkflow.productItemDlg = Ext.extend(Ext.Window, {
 	constructor : function(config) {
 		config = config || {};
 		config.items = config.items || [];
-		this.basicconfigForm = new IsmpHB.ecrmorderworkflow.basicItemForm({});
-		this.workFlowconfigForm = new IsmpHB.ecrmorderworkflow.workFlowItemForm(
+		this.basicconfigForm = new LBSReader.ecrmorderworkflow.basicItemForm({});
+		this.workFlowconfigForm = new LBSReader.ecrmorderworkflow.workFlowItemForm(
 				{});
-		this.productconfigForm = new IsmpHB.ecrmorderworkflow.productItemForm(
+		this.productconfigForm = new LBSReader.ecrmorderworkflow.productItemForm(
 				{});
 		config.items.push([this.basicconfigForm, this.workFlowconfigForm,
 				this.productconfigForm]);
-		IsmpHB.ecrmorderworkflow.productItemDlg.superclass.constructor.apply(
+		LBSReader.ecrmorderworkflow.productItemDlg.superclass.constructor.apply(
 				this, arguments);
 	},
 	showProduct : function(data) {
 		var req = {
-			url : IsmpHB.req.ECRM_ORDERWORKFLOW_PRODUCT,
+			url : LBSReader.req.ECRM_ORDERWORKFLOW_PRODUCT,
 			params : {
 				timestamp : new Date().valueOf(),
 				crm_sourceString : data[0]
@@ -350,13 +350,13 @@ IsmpHB.ecrmorderworkflow.productItemDlg = Ext.extend(Ext.Window, {
 				this.productconfigForm.body.update(o.productString)
 			}
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	}
 
 });
 // 存放列表环节表格
 // TODO
-IsmpHB.ecrmorderworkflow.linkDataGrid = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.ecrmorderworkflow.linkDataGrid = Ext.extend(Ext.grid.GridPanel, {
 			autoScroll : true,
 			store : Ext.StoreMgr.get('ecrm_order_action'),
 			autoHeight : true,
@@ -375,7 +375,7 @@ IsmpHB.ecrmorderworkflow.linkDataGrid = Ext.extend(Ext.grid.GridPanel, {
 							align : 'left',
 							menuDisabled : true,
 							dataIndex : 'status',
-							renderer : IsmpHB.renderer.ECRM_ACTION_STATUS,
+							renderer : LBSReader.renderer.ECRM_ACTION_STATUS,
 							width : 80
 						}, {
 							header : '创建时间',
@@ -414,7 +414,7 @@ IsmpHB.ecrmorderworkflow.linkDataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'retryTimes',
 							width : 65
 						}]);
-				IsmpHB.ecrmorderworkflow.linkDataGrid.superclass.constructor
+				LBSReader.ecrmorderworkflow.linkDataGrid.superclass.constructor
 						.apply(this, arguments);
 				this.on('show', function() {
 						}, this);
@@ -422,7 +422,7 @@ IsmpHB.ecrmorderworkflow.linkDataGrid = Ext.extend(Ext.grid.GridPanel, {
 		});
 // 存放环节列表的面板
 // TODO
-IsmpHB.ecrmorderworkflow.linkDataPanel = Ext.extend(Ext.Panel, {
+LBSReader.ecrmorderworkflow.linkDataPanel = Ext.extend(Ext.Panel, {
 			labelWidth : 80,
 			title : "环节列表",
 			hideLabels : false,
@@ -431,7 +431,7 @@ IsmpHB.ecrmorderworkflow.linkDataPanel = Ext.extend(Ext.Panel, {
 			constructor : function(config) {
 				config = config || {};
 				config.items = config.items || [];
-				this.linkDataGrid = new IsmpHB.ecrmorderworkflow.linkDataGrid(
+				this.linkDataGrid = new LBSReader.ecrmorderworkflow.linkDataGrid(
 						{});
 				this.linkDataGrid.getStore().baseParams = {
 					orderId : config.orderId
@@ -446,7 +446,7 @@ IsmpHB.ecrmorderworkflow.linkDataPanel = Ext.extend(Ext.Panel, {
 							scope : this
 						});
 				config.items.push([this.linkDataGrid]);
-				IsmpHB.ecrmorderworkflow.linkDataPanel.superclass.constructor
+				LBSReader.ecrmorderworkflow.linkDataPanel.superclass.constructor
 						.apply(this, arguments);
 				this.on('show', function() {
 						})
@@ -454,7 +454,7 @@ IsmpHB.ecrmorderworkflow.linkDataPanel = Ext.extend(Ext.Panel, {
 		});
 // 存放流程信息
 // zzx TODO
-IsmpHB.ecrmorderworkflow.workFlowPanel = Ext.extend(Ext.Panel, {
+LBSReader.ecrmorderworkflow.workFlowPanel = Ext.extend(Ext.Panel, {
 			labelWidth : 80,
 			title : "流程图",
 			hideLabels : false,
@@ -464,10 +464,10 @@ IsmpHB.ecrmorderworkflow.workFlowPanel = Ext.extend(Ext.Panel, {
 			constructor : function(config) {
 				config = config || {};
 				config.items = config.items || [];
-				this.tree = new IsmpHB.ecrmorderworkflow.WorkflowTree({});
+				this.tree = new LBSReader.ecrmorderworkflow.WorkflowTree({});
 				this.tree.autoDestroy = false;
 				config.items.push([this.tree]);
-				IsmpHB.ecrmorderworkflow.workFlowPanel.superclass.constructor
+				LBSReader.ecrmorderworkflow.workFlowPanel.superclass.constructor
 						.apply(this, arguments);
 				this.on('show', function(tab) {
 							this.tree.reload();
@@ -479,7 +479,7 @@ IsmpHB.ecrmorderworkflow.workFlowPanel = Ext.extend(Ext.Panel, {
 		});
 // 存放相关信息的面板
 // TODO
-IsmpHB.ecrmorderworkflow.releInfoPanel = Ext.extend(Ext.Panel, {
+LBSReader.ecrmorderworkflow.releInfoPanel = Ext.extend(Ext.Panel, {
 	labelWidth : 80,
 	title : "相关信息",
 	hideLabels : false,
@@ -492,19 +492,19 @@ IsmpHB.ecrmorderworkflow.releInfoPanel = Ext.extend(Ext.Panel, {
 	constructor : function(config) {
 		config = config || {};
 		config.items = config.items || [];
-		this.basicconfigForm = new IsmpHB.ecrmorderworkflow.basicItemForm({});
-		this.workFlowconfigForm = new IsmpHB.ecrmorderworkflow.workFlowItemForm(
+		this.basicconfigForm = new LBSReader.ecrmorderworkflow.basicItemForm({});
+		this.workFlowconfigForm = new LBSReader.ecrmorderworkflow.workFlowItemForm(
 				{});
-		this.productconfigForm = new IsmpHB.ecrmorderworkflow.productItemForm(
+		this.productconfigForm = new LBSReader.ecrmorderworkflow.productItemForm(
 				{});
 		config.items.push([this.basicconfigForm, this.workFlowconfigForm,
 				this.productconfigForm]);
-		IsmpHB.ecrmorderworkflow.releInfoPanel.superclass.constructor.apply(
+		LBSReader.ecrmorderworkflow.releInfoPanel.superclass.constructor.apply(
 				this, arguments);
 	},
 	showReleInfo : function(data) {
 		var req = {
-			url : IsmpHB.req.ECRM_ORDERWORKFLOW_PRODUCT,
+			url : LBSReader.req.ECRM_ORDERWORKFLOW_PRODUCT,
 			params : {
 				timestamp : new Date().valueOf(),
 				crm_sourceString : data[0]
@@ -518,11 +518,11 @@ IsmpHB.ecrmorderworkflow.releInfoPanel = Ext.extend(Ext.Panel, {
 				}
 			}
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	}
 });
 // 选择面板
-IsmpHB.ecrmorderworkflow.infoTabPanel = Ext.extend(Ext.TabPanel, {
+LBSReader.ecrmorderworkflow.infoTabPanel = Ext.extend(Ext.TabPanel, {
 			id : 'mytab', // 添加一个id
 			activeTab : 0,// 默认激活第一个tab页
 			width : 1000,
@@ -532,7 +532,7 @@ IsmpHB.ecrmorderworkflow.infoTabPanel = Ext.extend(Ext.TabPanel, {
 		});
 // 信息窗口
 // TODO
-IsmpHB.ecrmorderworkflow.infoDetailsDlg = Ext.extend(Ext.Window, {
+LBSReader.ecrmorderworkflow.infoDetailsDlg = Ext.extend(Ext.Window, {
 			autoScroll : true,
 			modal : true,
 			width : 1014,
@@ -549,18 +549,18 @@ IsmpHB.ecrmorderworkflow.infoDetailsDlg = Ext.extend(Ext.Window, {
 			constructor : function(config) {
 				config = config || {};
 				config.items = config.items || [];
-				this.infoTabPanel = new IsmpHB.ecrmorderworkflow.infoTabPanel(
+				this.infoTabPanel = new LBSReader.ecrmorderworkflow.infoTabPanel(
 						{});
-				this.releInfoPanel = new IsmpHB.ecrmorderworkflow.releInfoPanel(
+				this.releInfoPanel = new LBSReader.ecrmorderworkflow.releInfoPanel(
 						{});
-				this.linkDataPanel = new IsmpHB.ecrmorderworkflow.linkDataPanel(
+				this.linkDataPanel = new LBSReader.ecrmorderworkflow.linkDataPanel(
 						{
 							"orderId" : config.orderId
 						});
-				this.workFlowPanel = new IsmpHB.ecrmorderworkflow.workFlowPanel(
+				this.workFlowPanel = new LBSReader.ecrmorderworkflow.workFlowPanel(
 						{});
 				config.items.push([this.infoTabPanel]);
-				IsmpHB.ecrmorderworkflow.infoDetailsDlg.superclass.constructor
+				LBSReader.ecrmorderworkflow.infoDetailsDlg.superclass.constructor
 						.apply(this, arguments);
 				this.on('hide', function() {
 							this.workFlowPanel.tree.UN_LOAD = true;
@@ -577,7 +577,7 @@ IsmpHB.ecrmorderworkflow.infoDetailsDlg = Ext.extend(Ext.Window, {
 				Ext.getCmp('mytab').add(this.linkDataPanel);
 			}
 		});
-IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 	title : '工单流程管理',
 	autoScroll : true,
 	store : Ext.StoreMgr.get('zqorder'),
@@ -601,7 +601,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				width : 130,
 				forceSelection : false,
 				displayText : '所有产品',
-				store : IsmpHB.store.ECRMSUPPRODUCTBYTYPE,
+				store : LBSReader.store.ECRMSUPPRODUCTBYTYPE,
 				listeners : {
 					"focus" : function() {
 						this.getStore().load();
@@ -684,7 +684,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				editable : false,
 				mode : 'local',
 				triggerAction : 'all',
-				store : IsmpHB.store.CITY_GD,
+				store : LBSReader.store.CITY_GD,
 				width : 90
 			}),
 	prodAccessNumField : new Ext.form.TextField({
@@ -781,8 +781,8 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 		}
 	},
 	constructor : function(config) {
-		this.dlg = new IsmpHB.ecrmorderworkflow.WorkflowTreeDlg({});
-		this.productdlg = new IsmpHB.ecrmorderworkflow.productItemDlg({});
+		this.dlg = new LBSReader.ecrmorderworkflow.WorkflowTreeDlg({});
+		this.productdlg = new LBSReader.ecrmorderworkflow.productItemDlg({});
 		this.pagingbar = new Ext.PagingToolbar({
 					pageSize : 20,
 					store : this.getStore(),
@@ -808,35 +808,35 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						}
 					}
 				});
-		var a = IsmpHB.common.getPermission('10-2');
+		var a = LBSReader.common.getPermission('10-2');
 		var arr = [];
-		if (IsmpHB.common.isHasPermission(a, 1)) {
+		if (LBSReader.common.isHasPermission(a, 1)) {
 			arr.push(this.searchBtn);
 			arr.push(this.resetBtn);
 		}
 		arr.push('->');
-		if (IsmpHB.common.isHasPermission(a, 19)) {
+		if (LBSReader.common.isHasPermission(a, 19)) {
 			arr.push(this.normalReplyCrmBtn);
 		}
-		if (IsmpHB.common.isHasPermission(a, 20)) {
+		if (LBSReader.common.isHasPermission(a, 20)) {
 			arr.push(this.unusualReplyCrmBtn);
 		}
-		if (IsmpHB.common.isHasPermission(a, 15)) {
+		if (LBSReader.common.isHasPermission(a, 15)) {
 			arr.push(this.relevantInfoBtn);
 		}
-		if (IsmpHB.common.isHasPermission(a, 16)) {
+		if (LBSReader.common.isHasPermission(a, 16)) {
 			arr.push(this.sendToBusinessBtn);
 		}
-		if (IsmpHB.common.isHasPermission(a, 17)) {
+		if (LBSReader.common.isHasPermission(a, 17)) {
 			arr.push(this.replyCrmBtn);
 		}
-		if (IsmpHB.common.isHasPermission(a, 11)) {
+		if (LBSReader.common.isHasPermission(a, 11)) {
 			arr.push(this.redoBtn);
 		}
-		// if (IsmpHB.common.isHasPermission(a, 3)) {
+		// if (LBSReader.common.isHasPermission(a, 3)) {
 		// arr.push(this.changeStatusBtn);
 		// }
-		var nc = IsmpHB.common.getSession("loginInfo").nodeCode;
+		var nc = LBSReader.common.getSession("loginInfo").nodeCode;
 		config.tbar.push(new Ext.Panel({
 					autoScroll : true,
 					autoWidth : true,
@@ -918,7 +918,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'serviceType',
-							renderer : IsmpHB.renderer.ECRM_SERVICE_TYPE,
+							renderer : LBSReader.renderer.ECRM_SERVICE_TYPE,
 							width : 80
 						}, {
 							header : '服务编号',
@@ -931,7 +931,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'status',
-							renderer : IsmpHB.renderer.ECRM_ORDER_STATUS,
+							renderer : LBSReader.renderer.ECRM_ORDER_STATUS,
 							width : 100
 						}, {
 							xtype : 'actioncolumn',
@@ -979,14 +979,14 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
                             align : 'center',
                             menuDisabled : true,
                             dataIndex : 'source',
-                            renderer : IsmpHB.renderer.ECRM_ORDER_SOURCE_RENDERER,
+                            renderer : LBSReader.renderer.ECRM_ORDER_SOURCE_RENDERER,
                             width : 70
                         }, {
 							header : '所属地市',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'areaCode',
-							renderer : IsmpHB.renderer.CITYCOBO,
+							renderer : LBSReader.renderer.CITYCOBO,
 							width : 70
 						}, {
 							header : '创建日期',
@@ -1020,7 +1020,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'returnFromCRM',
 							width : 200
 						}]);
-		IsmpHB.ecrmorderworkflow.DataGrid.superclass.constructor.apply(this,
+		LBSReader.ecrmorderworkflow.DataGrid.superclass.constructor.apply(this,
 				arguments);
 		this.searchBtn.on('click', function() {
 					this.searchItems();
@@ -1218,7 +1218,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 		arrayObj.push(r.data.returnCRM);
 		arrayObj.push(r.data.crmReturnString);
 		if (null != r) {
-			this.infoDetailsdlg = new IsmpHB.ecrmorderworkflow.infoDetailsDlg({
+			this.infoDetailsdlg = new LBSReader.ecrmorderworkflow.infoDetailsDlg({
 						"orderId" : r.data.id
 					});
 			this.infoDetailsdlg.showInfo(arrayObj, r.data.id);
@@ -1246,7 +1246,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 		if (this.ddField.getValue().length != 0) {
 			update_time = this.ddField.getValue().format('Y-m-d H:i:s')
 		}
-		var dateValid = IsmpHB.customFunctions.dateValid(this.dbField
+		var dateValid = LBSReader.customFunctions.dateValid(this.dbField
 						.getValue(), this.ddField.getValue());
 		if (!dateValid) {
 			Ext.MessageBox.alert('搜索条件有误', '创建日期不能在更新日期之后，请修正！', null, this);
@@ -1257,7 +1257,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			if(!reg.test(this.custIdField.getValue())){
 				Ext.MessageBox.alert('搜索条件有误', '客户ID要填写正整数，请修正！', null, this);
 				return;				
-			}			
+			}
 		}
 		this.getStore().baseParams = {
 			method : 'search',
@@ -1313,7 +1313,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					});
 		}
 		var req = {
-			url : IsmpHB.req.SENDTOBUSINESS,
+			url : LBSReader.req.SENDTOBUSINESS,
 			params : {
 				timestamp : new Date().valueOf(),
 				data : Ext.encode(ps)
@@ -1333,10 +1333,10 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			},
 			scope : this
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	},
 	replyCrmItems : function(replyStatus) {
-		var hanlder = IsmpHB.common.getSession("loginInfo").name;
+		var hanlder = LBSReader.common.getSession("loginInfo").name;
 		var rs = this.getSelectionModel().getSelections();
 		var ps = [];
 		for (var i = 0; i < rs.length; i++) {
@@ -1348,7 +1348,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					});
 		}
 		var req = {
-			url : IsmpHB.req.REPLYCRM,
+			url : LBSReader.req.REPLYCRM,
 			params : {
 				timestamp : new Date().valueOf(),
 				data : Ext.encode(ps),
@@ -1365,7 +1365,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			},
 			scope : this
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	},
 	redoItems : function() {
 		var rs = this.getSelectionModel().getSelections();
@@ -1376,7 +1376,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					});
 		}
 		var req = {
-			url : IsmpHB.req.ECRMORDER_REDO,
+			url : LBSReader.req.ECRMORDER_REDO,
 			params : {
 				timestamp : new Date().valueOf(),
 				data : Ext.encode(ps)
@@ -1389,7 +1389,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			},
 			scope : this
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	},
 	changeItemsStatus : function() {
 		var rs = this.getSelectionModel().getSelections();
@@ -1400,7 +1400,7 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					});
 		}
 		var req = {
-			url : IsmpHB.req.ECRMORDER_CHANGESTATUS,
+			url : LBSReader.req.ECRMORDER_CHANGESTATUS,
 			params : {
 				timestamp : new Date().valueOf(),
 				data : Ext.encode(ps)
@@ -1410,6 +1410,6 @@ IsmpHB.ecrmorderworkflow.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				this.store.reload();
 			}
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	}
 });

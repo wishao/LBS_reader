@@ -1,9 +1,9 @@
 /**
  * @author johnny0086
  */
-Ext.namespace('IsmpHB', 'IsmpHB.dynform');
+Ext.namespace('LBSReader', 'LBSReader.dynform');
 
-IsmpHB.dynform.DynamicForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.dynform.DynamicForm = Ext.extend(Ext.form.FormPanel, {
 	labelWidth : 70,
 	labelAlign : 'right',
 	autoScroll : true,
@@ -22,8 +22,8 @@ IsmpHB.dynform.DynamicForm = Ext.extend(Ext.form.FormPanel, {
 		config.items = config.items || [];
 		config.buttons = config.buttons || [];
 		config.buttons.push(this.commitBtn);
-		IsmpHB.dynform.DynamicForm.superclass.constructor
-				.apply(this, arguments);
+		LBSReader.dynform.DynamicForm.superclass.constructor.apply(this,
+				arguments);
 
 		this.commitBtn.on('click', function() {
 					if (!this.isValid()) {
@@ -85,7 +85,7 @@ IsmpHB.dynform.DynamicForm = Ext.extend(Ext.form.FormPanel, {
 	}
 });
 
-IsmpHB.dynform.DynamicDlg = Ext.extend(Ext.Window, {
+LBSReader.dynform.DynamicDlg = Ext.extend(Ext.Window, {
 	title : '订购该产品要求填写以下附加信息',
 	layout : 'fit',
 	modal : true,
@@ -97,7 +97,7 @@ IsmpHB.dynform.DynamicDlg = Ext.extend(Ext.Window, {
 		config.items = config.items || [];
 		config.width = 350;
 		config.height = 100 + 25 * Ext.StoreMgr.get('productattr').getCount();
-		this.configForm = new IsmpHB.dynform.DynamicForm({
+		this.configForm = new LBSReader.dynform.DynamicForm({
 					items : this.getDynFormItems(),// XXX
 					parentCt : config.parentCt,
 					productId : config.productId,
@@ -105,7 +105,8 @@ IsmpHB.dynform.DynamicDlg = Ext.extend(Ext.Window, {
 					oper : config.oper
 				});
 		config.items.push(this.configForm);
-		IsmpHB.dynform.DynamicDlg.superclass.constructor.apply(this, arguments);
+		LBSReader.dynform.DynamicDlg.superclass.constructor.apply(this,
+				arguments);
 
 		this.on('show', function() {
 					this.setValues(this.configForm.oper, this.configForm.attrs);

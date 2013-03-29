@@ -1,33 +1,33 @@
 /**
  * @author johnny0086
  */
-Ext.namespace('IsmpHB');
+Ext.namespace('LBSReader');
 
-IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
+LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 	tabWidth : 150,
 	activeGroup : 0,
 	bodyStyle : 'border:0px',
 
 	constructor : function(config) {
-		var a = IsmpHB.common.getPermission('rootMod');
+		var a = LBSReader.common.getPermission('rootMod');
 		config = config || {};
 		config.items = this.items || [];
-		if (IsmpHB.common.isHasPermission(a, 1)) {
+		if (LBSReader.common.isHasPermission(a, 1)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-1');
+			var b = LBSReader.common.getPermission('m-1');
 			arr.push({
 						title : '产品信息'
 					});
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.spkg = new IsmpHB.spkg.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.spkg = new LBSReader.spkg.DataGrid({});
 				arr.push(this.spkg);
 			}
-			if (IsmpHB.common.isHasPermission(b, 2)) {
-				this.prdt = new IsmpHB.product.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 2)) {
+				this.prdt = new LBSReader.product.DataGrid({});
 				arr.push(this.prdt);
 			}
-			if (IsmpHB.common.isHasPermission(b, 3)) {
-				this.auditing = new IsmpHB.auditing.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 3)) {
+				this.auditing = new LBSReader.auditing.DataGrid({});
 				arr.push(this.auditing);
 			}
 			var pro = {
@@ -36,26 +36,26 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			}
 			config.items.push(pro);
 		}
-		if (IsmpHB.common.isHasPermission(a, 2)) {
+		if (LBSReader.common.isHasPermission(a, 2)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-2');
+			var b = LBSReader.common.getPermission('m-2');
 			arr.push({
 						title : '订购关系'
 					});
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.orderuser = new IsmpHB.orderuser.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.orderuser = new LBSReader.orderuser.DataGrid({});
 				arr.push(this.orderuser);
 			}
-			if (IsmpHB.common.isHasPermission(b, 2)) {
-				this.orderUserExtra = new IsmpHB.orderUserExtra.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 2)) {
+				this.orderUserExtra = new LBSReader.orderUserExtra.DataGrid({});
 				arr.push(this.orderUserExtra);
 			}
-			// if (IsmpHB.common.isHasPermission(b, 3)) {
-			// this.batchOrderUser = new IsmpHB.batchOrderUser.DataPanel({});
+			// if (LBSReader.common.isHasPermission(b, 3)) {
+			// this.batchOrderUser = new LBSReader.batchOrderUser.DataPanel({});
 			// arr.push(this.batchOrderUser);
 			// }
-			if (IsmpHB.common.isHasPermission(b, 4)) {
-				this.task = new IsmpHB.task.Task({});
+			if (LBSReader.common.isHasPermission(b, 4)) {
+				this.task = new LBSReader.task.Task({});
 				arr.push(this.task);
 			}
 
@@ -65,14 +65,14 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			}
 			config.items.push(ord);
 		}
-		if (IsmpHB.common.isHasPermission(a, 3)) {
+		if (LBSReader.common.isHasPermission(a, 3)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-3');
+			var b = LBSReader.common.getPermission('m-3');
 			arr.push({
 						title : '工单信息'
 					});
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.orderworkflow = new IsmpHB.orderworkflow.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.orderworkflow = new LBSReader.orderworkflow.DataGrid({});
 				arr.push(this.orderworkflow);
 			}
 			var odw = {
@@ -82,21 +82,21 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			config.items.push(odw);
 		};
 
-		if (IsmpHB.common.permission[0] == IsmpHB.common
+		if (LBSReader.common.permission[0] == LBSReader.common
 				.getSession('loginInfo').type) {
-			if (IsmpHB.common.isHasPermission(a, 4)) {
+			if (LBSReader.common.isHasPermission(a, 4)) {
 				var arr = [];
-				var b = IsmpHB.common.getPermission('m-4');
+				var b = LBSReader.common.getPermission('m-4');
 				arr.push({
 							title : '系统信息'
 						});
-				if (IsmpHB.common.isHasPermission(b, 1)) {
+				if (LBSReader.common.isHasPermission(b, 1)) {
 					this.loadRoles();
-					this.admin = new IsmpHB.admin.DataGrid({});
+					this.admin = new LBSReader.admin.DataGrid({});
 					arr.push(this.admin);
 				}
-				if (IsmpHB.common.isHasPermission(b, 2)) {
-					this.information = new IsmpHB.admin.Information({});
+				if (LBSReader.common.isHasPermission(b, 2)) {
+					this.information = new LBSReader.admin.Information({});
 					arr.push(this.information);
 				}
 				var sys = {
@@ -107,18 +107,18 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			}
 
 		};
-		if (IsmpHB.common.isHasPermission(a, 5)) {
+		if (LBSReader.common.isHasPermission(a, 5)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-5');
+			var b = LBSReader.common.getPermission('m-5');
 			arr.push({
 						title : 'MBOSS信息'
 					});
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.crmInfo = new IsmpHB.crmInfo.DataPanel({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.crmInfo = new LBSReader.crmInfo.DataPanel({});
 				arr.push(this.crmInfo);
 			}
-			if (IsmpHB.common.isHasPermission(b, 2)) {
-				this.premium = new IsmpHB.premiumMg.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 2)) {
+				this.premium = new LBSReader.premiumMg.DataGrid({});
 				arr.push(this.premium);
 			}
 			var mbos = {
@@ -127,14 +127,14 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			}
 			config.items.push(mbos);
 		}
-		if (IsmpHB.common.isHasPermission(a, 6)) {
+		if (LBSReader.common.isHasPermission(a, 6)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-6');
+			var b = LBSReader.common.getPermission('m-6');
 			arr.push({
 						title : 'CP/SP信息'
 					});
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.sptel = new IsmpHB.sptel.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.sptel = new LBSReader.sptel.DataGrid({});
 				arr.push(this.sptel);
 			}
 			var sp = {
@@ -143,14 +143,14 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			}
 			config.items.push(sp);
 		}
-		if (IsmpHB.common.isHasPermission(a, 7)) {
+		if (LBSReader.common.isHasPermission(a, 7)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-7');
+			var b = LBSReader.common.getPermission('m-7');
 			arr.push({
 						title : '业务辅助信息'
 					});
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.blacklist = new IsmpHB.blacklist.Blacklist({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.blacklist = new LBSReader.blacklist.Blacklist({});
 				arr.push(this.blacklist);
 			}
 			var bl = {
@@ -159,23 +159,23 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			}
 			config.items.push(bl);
 		}
-		if (IsmpHB.common.isHasPermission(a, 8)) {
+		if (LBSReader.common.isHasPermission(a, 8)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-8');
+			var b = LBSReader.common.getPermission('m-8');
 			arr.push({
 						title : '业务计费信息'
 					});
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.statistics = new IsmpHB.statistics.Ct_Statistics({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.statistics = new LBSReader.statistics.Ct_Statistics({});
 				arr.push(this.statistics);
 			}
 			// 未配置权限
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.billOffer = new IsmpHB.billOffer.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.billOffer = new LBSReader.billOffer.DataGrid({});
 				arr.push(this.billOffer);
 			}
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.offerFree = new IsmpHB.offerFree.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.offerFree = new LBSReader.offerFree.DataGrid({});
 				arr.push(this.offerFree);
 			}
 			var bl = {
@@ -185,15 +185,15 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			config.items.push(bl);
 		}
 		// zengjw 2012-07-17 这里新增了单用户查询
-		if (IsmpHB.common.isHasPermission(a, 9)) {
+		if (LBSReader.common.isHasPermission(a, 9)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-9');
+			var b = LBSReader.common.getPermission('m-9');
 			arr.push({
 						title : '单用户订购信息'
 					});
 
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.crmOrderInfo = new IsmpHB.crmOrderInfo.DataPanel({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.crmOrderInfo = new LBSReader.crmOrderInfo.DataPanel({});
 				arr.push(this.crmOrderInfo);
 			}
 			var mbos = {
@@ -205,38 +205,38 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 		/**
 		 * pansenxin 2012-08-03
 		 */
-		if (IsmpHB.common.isHasPermission(a, 10)) {
+		if (LBSReader.common.isHasPermission(a, 10)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-10');
+			var b = LBSReader.common.getPermission('m-10');
 			arr.push({
 						title : '政企模块管理'
 					});
 
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.business = new IsmpHB.business.DataPanel({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.business = new LBSReader.business.DataPanel({});
 				arr.push(this.business);
 			}
-			if (IsmpHB.common.isHasPermission(b, 2)) {
-				this.ecrmorderworkflow = new IsmpHB.ecrmorderworkflow.DataGrid(
+			if (LBSReader.common.isHasPermission(b, 2)) {
+				this.ecrmorderworkflow = new LBSReader.ecrmorderworkflow.DataGrid(
 						{});
 				arr.push(this.ecrmorderworkflow);
 			}
-			if (IsmpHB.common.isHasPermission(b, 3)) {
-				this.ecrmorderstatistics = new IsmpHB.ecrmorderstatistics.DataGrid(
+			if (LBSReader.common.isHasPermission(b, 3)) {
+				this.ecrmorderstatistics = new LBSReader.ecrmorderstatistics.DataGrid(
 						{});
 				arr.push(this.ecrmorderstatistics);
 			}
-			if (IsmpHB.common.isHasPermission(b, 4)) {
-				this.ecrmproduct = new IsmpHB.ecrmProduct.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 4)) {
+				this.ecrmproduct = new LBSReader.ecrmProduct.DataGrid({});
 				arr.push(this.ecrmproduct);
 			}
-			if (IsmpHB.common.isHasPermission(b, 5)) {
-				this.ecrmorderuser = new IsmpHB.ecrmOrderUser.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 5)) {
+				this.ecrmorderuser = new LBSReader.ecrmOrderUser.DataGrid({});
 				arr.push(this.ecrmorderuser);
 			}
 			/*
-			 * if (IsmpHB.common.isHasPermission(b, 6)) { this.ecrmproductadd =
-			 * new IsmpHB.ecrmProductAdd.DataPanel({});
+			 * if (LBSReader.common.isHasPermission(b, 6)) { this.ecrmproductadd =
+			 * new LBSReader.ecrmProductAdd.DataPanel({});
 			 * arr.push(this.ecrmproductadd); }
 			 */
 
@@ -247,31 +247,31 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			config.items.push(busi);
 		}
 
-		if (IsmpHB.common.isHasPermission(a, 11)) {
+		if (LBSReader.common.isHasPermission(a, 11)) {
 			var arr = [];
-			var b = IsmpHB.common.getPermission('m-11');
+			var b = LBSReader.common.getPermission('m-11');
 			arr.push({
 						title : '计费监控管理'
 					});
 			// 全国联网
-			if (IsmpHB.common.isHasPermission(b, 1)) {
-				this.monitor_CN = new IsmpHB.monitor_CN.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 1)) {
+				this.monitor_CN = new LBSReader.monitor_CN.DataGrid({});
 				arr.push(this.monitor_CN);
 			}
 
 			// 全省联网160
-			if (IsmpHB.common.isHasPermission(b, 2)) {
-				this.monitor_GD160 = new IsmpHB.monitor_GD160.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 2)) {
+				this.monitor_GD160 = new LBSReader.monitor_GD160.DataGrid({});
 				arr.push(this.monitor_GD160);
 			}
 			// 全省联网168(按时按次)
-			if (IsmpHB.common.isHasPermission(b, 3)) {
-				this.monitor_GD168 = new IsmpHB.monitor_GD168.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 3)) {
+				this.monitor_GD168 = new LBSReader.monitor_GD168.DataGrid({});
 				arr.push(this.monitor_GD168);
 			}
 			// 
-			if (IsmpHB.common.isHasPermission(b, 4)) {
-				this.monitor_term = new IsmpHB.monitor_term.DataGrid({});
+			if (LBSReader.common.isHasPermission(b, 4)) {
+				this.monitor_term = new LBSReader.monitor_term.DataGrid({});
 				arr.push(this.monitor_term);
 			}
 
@@ -282,7 +282,7 @@ IsmpHB.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			config.items.push(module_monitor);
 		}
 
-		IsmpHB.CenterPanel.superclass.constructor.apply(this, arguments);
+		LBSReader.CenterPanel.superclass.constructor.apply(this, arguments);
 	},
 	loadRoles : function() {
 		Ext.StoreMgr.get('adminRole').load();

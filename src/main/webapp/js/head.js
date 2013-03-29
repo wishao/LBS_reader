@@ -1,5 +1,5 @@
-Ext.namespace('IsmpHB','IsmpHB.head');
-IsmpHB.head.ModPwdForm = Ext.extend(Ext.form.FormPanel, {
+Ext.namespace('LBSReader','LBSReader.head');
+LBSReader.head.ModPwdForm = Ext.extend(Ext.form.FormPanel, {
 	labelWidth : 70,
 	labelAlign : 'right',
 	bodyStyle : 'padding:5px 5px 5px 5px;',
@@ -42,7 +42,7 @@ IsmpHB.head.ModPwdForm = Ext.extend(Ext.form.FormPanel, {
 		config.items.push(this.pwd);
 		config.items.push(this.pwd1);
 		config.buttons.push(this.addBtn);
-		IsmpHB.head.ModPwdForm.superclass.constructor.apply(this, arguments);
+		LBSReader.head.ModPwdForm.superclass.constructor.apply(this, arguments);
 		
 		this.addBtn.on('click', function() {
 			if(this.pwd.getValue() != this.pwd1.getValue()){
@@ -63,9 +63,9 @@ IsmpHB.head.ModPwdForm = Ext.extend(Ext.form.FormPanel, {
 			return;
 		}
 		var req = {
-			url : IsmpHB.req.CHANG_PWD,
+			url : LBSReader.req.CHANG_PWD,
 			params : {
-				account : IsmpHB.common.getSession("loginInfo").account,
+				account : LBSReader.common.getSession("loginInfo").account,
 				oldPwd : this.oldpwd.getValue(),
 				pwd : this.pwd.getValue()
 			},
@@ -89,12 +89,12 @@ IsmpHB.head.ModPwdForm = Ext.extend(Ext.form.FormPanel, {
 				}
 			}
 		}
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	}
 	
 });	
 
-IsmpHB.head.modPwdDlg = Ext.extend(Ext.Window, {
+LBSReader.head.modPwdDlg = Ext.extend(Ext.Window, {
 	title : "修改密码窗口",
 	layout : 'fit',
 	modal : true,
@@ -108,19 +108,19 @@ IsmpHB.head.modPwdDlg = Ext.extend(Ext.Window, {
 	constructor : function(config) {
 		var config = config || {};
 		config.items = this.items || [];
-		this.configForm = new IsmpHB.head.ModPwdForm({});
+		this.configForm = new LBSReader.head.ModPwdForm({});
 		config.items.push(this.configForm);
-		IsmpHB.head.modPwdDlg.superclass.constructor.apply(this, arguments);
+		LBSReader.head.modPwdDlg.superclass.constructor.apply(this, arguments);
 	}
 });
 
-IsmpHB.head.HeadPanel = Ext.extend(Ext.Panel,{
+LBSReader.head.HeadPanel = Ext.extend(Ext.Panel,{
 	region: 'north',
 	border: false,
 //	html: '<div id="h_main">' +
 //	'<div id="h_left"><img src="./images/logo.png"/></div>' +
 //	'<div class="top"><span>尊敬的<strong>'
-//		+IsmpHB.common.getSession('loginInfo').account
+//		+LBSReader.common.getSession('loginInfo').account
 //	    +'</strong>号百综合业务管理平台欢迎你</span></div><div/>',
 	pwdItem : new Ext.menu.Item({
 		text : '修改密码'
@@ -129,34 +129,34 @@ IsmpHB.head.HeadPanel = Ext.extend(Ext.Panel,{
 		text : '退出'
 	}),
 	constructor : function(config) {
-		var ac = IsmpHB.common.getSession('loginInfo').name;
+		var ac = LBSReader.common.getSession('loginInfo').name;
 		this.html='<div id="h_main">' +
 			'<div id="h_left"><img src="./images/logo.png"/></div>' +
 			'<div class="top"><span class="welcomeSlogan">尊敬的<strong>'
 			+ac
 	    	+'</strong>,号百综合业务管理平台欢迎您!</span></div><div/>';
-		this.dlg = new IsmpHB.head.modPwdDlg({});
+		this.dlg = new LBSReader.head.modPwdDlg({});
 		this.bbar = {
 			 cls : 'tbar_style',
 			 items :[{
-				text : IsmpHB.common.getSession('loginInfo').account||'未登录',
+				text : LBSReader.common.getSession('loginInfo').account||'未登录',
 				menu:[this.pwdItem,this.outItem]
-			 },'->','<font style="color:#fff">[ 版本号 ：</font> v',IsmpHB.version.number,'<font style="color:#fff">]</font>']
+			 },'->','<font style="color:#fff">[ 版本号 ：</font> v',LBSReader.version.number,'<font style="color:#fff">]</font>']
 		};
 		
-		IsmpHB.head.HeadPanel.superclass.constructor.apply(this, arguments);
+		LBSReader.head.HeadPanel.superclass.constructor.apply(this, arguments);
 		this.pwdItem.on('click',function(){
 			this.dlg.show();
 		},this);
 		this.outItem.on('click',function(){
 			Ext.MessageBox.confirm('提示', '确定要退出重新登录吗？', function(va) {
 				if(va=='yes'){
-					IsmpHB.common.clearSession("loginInfo");
+					LBSReader.common.clearSession("loginInfo");
 					window.location.reload(true);
 				}
 			}, this);
-		},this);
-	}
+		}, this);
+			}
 });
 
 

@@ -1,8 +1,8 @@
 /**
  * @author johnny0086
  */
-Ext.namespace('IsmpHB', 'IsmpHB.crmInfo');
-IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
+Ext.namespace('LBSReader', 'LBSReader.crmInfo');
+LBSReader.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 	title : '客户信息查询',
 	autoScroll : true,
 	cls : 'box-dataGrid',
@@ -28,18 +28,18 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 				text : '清除',
 				cls : 'btn-common'
 			}),
-	updateBtn:new Ext.Button({
-              text : '更新入库',
-              cls : 'btn-common',
-              hidden:true
-    }),
+	updateBtn : new Ext.Button({
+				text : '更新入库',
+				cls : 'btn-common',
+				hidden : true
+			}),
 	constructor : function(config) {
 		config = config || {};
 		config.tbar = config.tbar || [];
 		config.tbar.push('电话号码: ');
 		config.tbar.push(this.telField);
-		var a = IsmpHB.common.getPermission('5-1');
-		if (IsmpHB.common.isHasPermission(a, 1)){
+		var a = LBSReader.common.getPermission('5-1');
+		if (LBSReader.common.isHasPermission(a, 1)) {
 			config.tbar.push(this.searchBtn);
 			config.tbar.push(this.esbSearchBtn);
 			config.tbar.push(this.updateBtn);
@@ -112,14 +112,14 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 													name : 'terminal_id',
 													width : 220,
 													disabled : true
-												},{
-                                                    fieldLabel : '终端类型',
-                                                    id : 'yterminal_id',
-                                                    name : 'yterminal_id',
-                                                    width : 220,
-                                                    disabled : true,
-                                                    hidden:true
-                                                }, {
+												}, {
+													fieldLabel : '终端类型',
+													id : 'yterminal_id',
+													name : 'yterminal_id',
+													width : 220,
+													disabled : true,
+													hidden : true
+												}, {
 													fieldLabel : '客户服务分群',
 													id : 'serv_group_type',
 													name : 'serv_group_type',
@@ -138,13 +138,13 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 													width : 220,
 													disabled : true
 												}, {
-                                                    fieldLabel : '付费类型',
-                                                    id : 'ypayment_id',
-                                                    name : 'ypayment_id',
-                                                    width : 220,
-                                                    disabled : true,
-                                                    hidden:true
-                                                },{
+													fieldLabel : '付费类型',
+													id : 'ypayment_id',
+													name : 'ypayment_id',
+													width : 220,
+													disabled : true,
+													hidden : true
+												}, {
 													fieldLabel : '服务等级',
 													id : 'serv_level',
 													name : 'serv_level',
@@ -156,27 +156,27 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 													name : 'state',
 													width : 220,
 													disabled : true
-												},  {
-                                                    fieldLabel : '状态',
-                                                    id : 'ystate',
-                                                    name : 'ystate',
-                                                    width : 220,
-                                                    disabled : true,
-                                                    hidden:true
-                                                },{
+												}, {
+													fieldLabel : '状态',
+													id : 'ystate',
+													name : 'ystate',
+													width : 220,
+													disabled : true,
+													hidden : true
+												}, {
 													fieldLabel : '地市',
 													id : 'nodeCode',
 													name : 'nodeCode',
 													width : 220,
 													disabled : true
 												}, {
-                                                    fieldLabel : '地市',
-                                                    id : 'ynodeCode',
-                                                    name : 'ynodeCode',
-                                                    width : 220,
-                                                    disabled : true,
-                                                    hidden:true
-                                                },{
+													fieldLabel : '地市',
+													id : 'ynodeCode',
+													name : 'ynodeCode',
+													width : 220,
+													disabled : true,
+													hidden : true
+												}, {
 													fieldLabel : '区号',
 													id : 'area_code',
 													name : 'area_code',
@@ -211,7 +211,8 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 				});
 		config.items.push(this.formBox);
 
-		IsmpHB.crmInfo.DataPanel.superclass.constructor.apply(this, arguments);
+		LBSReader.crmInfo.DataPanel.superclass.constructor.apply(this,
+				arguments);
 
 		this.telField.on('specialkey', function(field, e) {
 					if (e.getKey() == e.ENTER) {
@@ -234,34 +235,34 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 					this.resetFormBox();
 				});
 	},
-	updateToPcrm:function(){
+	updateToPcrm : function() {
 		var fm1 = this.formBox.items.get(0).items;
-        var fm2 = this.formBox.items.get(1).items;
+		var fm2 = this.formBox.items.get(1).items;
 		var req = {
-            url : IsmpHB.req.ESB_BASIS_INFO_QUERY,
-            params : {
-                timestamp : new Date().valueOf(),
-                tel : fm1.get('tel').getValue(),
-                name:fm1.get('name').getValue(),
-                ypayment_id:fm2.get('ypayment_id').getValue(),
-                ystate:fm2.get('ystate').getValue(),
-                serv_nbr:fm2.get('serv_nbr').getValue(),
-                ynodeCode:fm2.get('ynodeCode').getValue(),
-                yterminal_id:fm2.get('yterminal_id').getValue(),
-                area_code:fm2.get('area_code').getValue(),
-                method:'add'
-            },
-            scope : this,
-            callback : function(o) {
-                if (o.Result_Code!=0) {
-                    Ext.Msg.alert('提示', '失败'+o.Result_Detail);
-                } else {
-                	this.updateBtn.hide();
-                	Ext.Msg.alert('提示', "成功");
-                }
-            }
-        };
-        IsmpHB.Ajax.send(req);
+			url : LBSReader.req.ESB_BASIS_INFO_QUERY,
+			params : {
+				timestamp : new Date().valueOf(),
+				tel : fm1.get('tel').getValue(),
+				name : fm1.get('name').getValue(),
+				ypayment_id : fm2.get('ypayment_id').getValue(),
+				ystate : fm2.get('ystate').getValue(),
+				serv_nbr : fm2.get('serv_nbr').getValue(),
+				ynodeCode : fm2.get('ynodeCode').getValue(),
+				yterminal_id : fm2.get('yterminal_id').getValue(),
+				area_code : fm2.get('area_code').getValue(),
+				method : 'add'
+			},
+			scope : this,
+			callback : function(o) {
+				if (o.Result_Code != 0) {
+					Ext.Msg.alert('提示', '失败' + o.Result_Detail);
+				} else {
+					this.updateBtn.hide();
+					Ext.Msg.alert('提示', "成功");
+				}
+			}
+		};
+		LBSReader.Ajax.send(req);
 	},
 	searchItems : function() {
 		this.updateBtn.hide();
@@ -285,11 +286,11 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 		// return;
 		// }
 		var req = {
-			url : IsmpHB.req.CRM_INFO_QUERY,
+			url : LBSReader.req.CRM_INFO_QUERY,
 			params : {
 				timestamp : new Date().valueOf(),
 				tel : this.telField.getValue(),
-				method:'query'
+				method : 'query'
 			},
 			scope : this,
 			callback : function(o) {
@@ -310,41 +311,37 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 					}
 					fm1.get('tel').setValue(o.data.tel);
 					fm1.get('name').setValue(o.data.name);
-					fm1.get('sex').setValue(IsmpHB.renderer.SEX(o.data.sex));
+					fm1.get('sex').setValue(LBSReader.renderer.SEX(o.data.sex));
 					fm1.get('birthday').setValue(o.data.birthday);
 					fm1.get('address').setValue(o.data.address);
-					fm1.get('social_id_type').setValue(IsmpHB.renderer
-									.IDENTITY_TYPE(o.data.social_id_type));
+					fm1.get('social_id_type').setValue(LBSReader.renderer
+							.IDENTITY_TYPE(o.data.social_id_type));
 					fm1.get('social_id').setValue(o.data.social_id);
 
-					fm2.get('terminal_id').setValue(IsmpHB.renderer
-									.TERMINAL_TYPE(o.data.terminal_id));
-					fm2.get('serv_group_type').setValue(IsmpHB.renderer
-									.SERV_GROUP_TYPE(o.data.serv_group_type));
+					fm2.get('terminal_id').setValue(LBSReader.renderer
+							.TERMINAL_TYPE(o.data.terminal_id));
+					fm2.get('serv_group_type').setValue(LBSReader.renderer
+							.SERV_GROUP_TYPE(o.data.serv_group_type));
 					fm2.get('area_code').setValue(o.data.area_code);
-					fm2.get('state').setValue(IsmpHB.renderer
-									.TEL_STATE(o.data.state));
+					fm2.get('state').setValue(LBSReader.renderer
+							.TEL_STATE(o.data.state));
 					fm2.get('postcode').setValue(o.data.postcode);
 					fm2.get('serv_nbr').setValue(o.data.serv_nbr);
 					fm2.get('subs_id').setValue(o.data.subs_id);
-					fm2.get('payment_id').setValue(IsmpHB.renderer
-									.PAY_TYPE_NO_STYLE(o.data.payment_id));
-					fm2.get('serv_level').setValue(IsmpHB.renderer
-									.SERV_LEVEL(o.data.serv_level));
-					fm2.get('nodeCode').setValue(IsmpHB.renderer
-									.CITYlIST(o.data.nodeCode));
-					fm2
-							.get('create_time')
-							.setValue(IsmpHB.common
-											.getSmpFormatDateByLong(o.data.create_time));
-					fm2
-							.get('update_time')
-							.setValue(IsmpHB.common
-											.getSmpFormatDateByLong(o.data.update_time));
+					fm2.get('payment_id').setValue(LBSReader.renderer
+							.PAY_TYPE_NO_STYLE(o.data.payment_id));
+					fm2.get('serv_level').setValue(LBSReader.renderer
+							.SERV_LEVEL(o.data.serv_level));
+					fm2.get('nodeCode').setValue(LBSReader.renderer
+							.CITYlIST(o.data.nodeCode));
+					fm2.get('create_time').setValue(LBSReader.common
+							.getSmpFormatDateByLong(o.data.create_time));
+					fm2.get('update_time').setValue(LBSReader.common
+							.getSmpFormatDateByLong(o.data.update_time));
 				}
 			}
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	},
 	validTel : function(tel) {
 		if (tel < 1) {
@@ -366,11 +363,11 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 		this.validTel(this.telField.getValue().trim());
 		this.resetFormBoxExcel();
 		var req = {
-			url : IsmpHB.req.ESB_BASIS_INFO_QUERY,
+			url : LBSReader.req.ESB_BASIS_INFO_QUERY,
 			params : {
 				timestamp : new Date().valueOf(),
 				Tel : this.telField.getValue(),
-				method:'query'
+				method : 'query'
 			},
 			scope : this,
 			callback : function(o) {
@@ -388,24 +385,24 @@ IsmpHB.crmInfo.DataPanel = Ext.extend(Ext.Panel, {
 					}
 					fm1.get('tel').setValue(this.telField.getValue());
 					fm1.get('name').setValue(o.data.name);
-					fm2.get('terminal_id').setValue(IsmpHB.renderer
-									.TERMINAL_TYPE(o.data.terminal_id));
+					fm2.get('terminal_id').setValue(LBSReader.renderer
+							.TERMINAL_TYPE(o.data.terminal_id));
 					fm2.get('yterminal_id').setValue(o.data.terminal_id);
 					fm2.get('area_code').setValue(o.data.areaCode);
-					fm2.get('state').setValue(IsmpHB.renderer
-									.TEL_STATE(o.data.status));
+					fm2.get('state').setValue(LBSReader.renderer
+							.TEL_STATE(o.data.status));
 					fm2.get('ystate').setValue(o.data.status);
 					fm2.get('serv_nbr').setValue(o.data.serv_nbr);
 					fm2.get('ypayment_id').setValue(o.data.paymentId);
-					fm2.get('payment_id').setValue(IsmpHB.renderer
-									.PAY_TYPE_NO_STYLE(o.data.paymentId));
-					fm2.get('nodeCode').setValue(IsmpHB.renderer
-									.ECRMPRODUCTCITYCOBO(o.data.areaCode));
+					fm2.get('payment_id').setValue(LBSReader.renderer
+							.PAY_TYPE_NO_STYLE(o.data.paymentId));
+					fm2.get('nodeCode').setValue(LBSReader.renderer
+							.ECRMPRODUCTCITYCOBO(o.data.areaCode));
 					fm2.get('create_time').setValue(o.data.createDate);
 				}
 			}
 		};
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 	},
 	resetFormBox : function() {
 		this.telField.reset();

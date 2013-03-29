@@ -1,10 +1,6 @@
-/**
- * @author guoguangfu
- * 2011.07.01
- */
-Ext.namespace('IsmpHB', 'IsmpHB.login');
+Ext.namespace('LBSReader', 'LBSReader.login');
 
-IsmpHB.login.LoginForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.login.LoginForm = Ext.extend(Ext.form.FormPanel, {
     frame:true,
     width: 300,
     height: 110,
@@ -45,12 +41,8 @@ IsmpHB.login.LoginForm = Ext.extend(Ext.form.FormPanel, {
         this.items = [this.account, this.password];
         
         this.buttons = [this.btnLogin];
-        IsmpHB.login.LoginForm.superclass.constructor.apply(this, arguments);
+        LBSReader.login.LoginForm.superclass.constructor.apply(this, arguments);
          
-//        this.btnLogin.on('click',function(){
-//        	this.commit();
-//        },this);
-        
          this.keys = {
             key: 13,
             scope: this,
@@ -61,78 +53,6 @@ IsmpHB.login.LoginForm = Ext.extend(Ext.form.FormPanel, {
         };
          
     },
-//    commit : function() {
-//		if (!this.isValid()) {
-//			return;
-//		}
-//		req = {
-//			url : IsmpHB.req.ADMIN_LOGIN,
-//			params : {
-//				account : this.account.getValue(),
-//				password : this.password.getValue()
-//			},
-//			scope : this,
-//			callback : function(o) {
-//				this.ownerCt.close();
-//				if(o){
-//					url = document.URL.split('admin')[0] +'admin';
-//					location.href = url+'/main.html';
-//				}
-//				
-//			}
-//		}
-//		Ext.Ajax.request({
-//				url : req.url,
-//				params : req.params,
-//				method : 'POST',
-//				scope : req.scope,
-//				disableCaching : false,
-//				callback : function(o, s, r) {
-//					Ext.getBody().unmask();
-//					if (s != false) {
-//						try {
-//							var o = Ext.decode(r.responseText);
-//							if ('true' == o.success || true == o.success) {
-//								req.callback.call(req.scope, o);
-//							} 
-//							if('fail' == o.fail){
-//								Ext.Msg.show({
-//									title : '登录提示',
-//									msg : o.message || '用户不存在或密码不正确',
-//									buttons : Ext.Msg.OK,
-//									icon : Ext.MessageBox.ERROR
-//								});
-//								
-//							}
-//							if('authError'== o.auth){
-//									Ext.Msg.show({
-//									title : '登录提示',
-//									msg : o.message || '你没有权限',
-//									buttons : Ext.Msg.OK,
-//									icon : Ext.MessageBox.ERROR})
-//							}
-//							
-//						} catch (e) {
-//							Ext.Msg.show({
-//								title : '数据格式化错误',
-//								msg : e.message,
-//								buttons : Ext.Msg.OK,
-//								icon : Ext.MessageBox.ERROR
-//							});
-//						}
-//					} else {
-//						var errormsg = r.responseText || '请求失败！这可能是您没有鉴权该资源！';
-//						Ext.Msg.show({
-//							title : '请求失败',
-//							msg : errormsg,
-//							buttons : Ext.Msg.OK,
-//							icon : Ext.MessageBox.ERROR
-//						});
-//					}
-//				}
-//			});
-//	},
-	
 	isValid:function(){
 		return this.account.isValid()&& this.password.isValid();
 	},
@@ -143,7 +63,7 @@ IsmpHB.login.LoginForm = Ext.extend(Ext.form.FormPanel, {
 });
 
 
-IsmpHB.login.LoginWindow = Ext.extend(Ext.Window, {
+LBSReader.login.LoginWindow = Ext.extend(Ext.Window, {
     width: 310,
     title:"管理员登录入口",
     height: 135,
@@ -157,12 +77,12 @@ IsmpHB.login.LoginWindow = Ext.extend(Ext.Window, {
         var config = arguments[0] ||
         {};
         
-        this.form = new IsmpHB.login.LoginForm({
+        this.form = new LBSReader.login.LoginForm({
             border: false
         });
         
         this.items = [this.form];
         
-        IsmpHB.login.LoginWindow.superclass.constructor.apply(this, arguments);
+        LBSReader.login.LoginWindow.superclass.constructor.apply(this, arguments);
     }
 });

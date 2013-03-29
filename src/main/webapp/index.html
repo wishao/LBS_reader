@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>号百综合管理系统</title>
+<title>LBS云阅读管理系统</title>
  <link href="images/favicon.ico" rel="Shortcut Icon" />
 		<link rel="stylesheet" href="resources/ext.3.3.1/resources/css/ext-all.css" type="text/css" />
 		<link rel="stylesheet" href="resources/ext.3.3.1/ux/css/ux-all.css" type="text/css" />
@@ -105,7 +105,7 @@
 		<script type="text/javascript">			
 			Ext.onReady(function(){
 				document.getElementById('index-loading-msg').innerHTML = '100% 加载页面完成';
-				var loginForm = new IsmpHB.login.LoginForm({
+				var loginForm = new LBSReader.login.LoginForm({
 					frame:true
 				});
 				var distroyLogin = function(){
@@ -126,8 +126,8 @@
 				}
 				Ext.QuickTips.init();
 				var init = function(){					
-					if(!IsmpHB.common.getSession("loginInfo")){
-						IsmpHB.common.setSession("loginInfo",{
+					if(!LBSReader.common.getSession("loginInfo")){
+						LBSReader.common.setSession("loginInfo",{
 							type: -1,
                             account: '未登录',
                             nodeCode: '未知',
@@ -137,7 +137,7 @@
 					};					
 					loginForm.btnLogin.on('click',function(){
 						var req = {
-							url : IsmpHB.req.ADMIN_LOGIN,
+							url : LBSReader.req.ADMIN_LOGIN,
 							params : loginForm.getForm().getValues(),
 							scope : this,
 							callback : function(o){}
@@ -159,9 +159,9 @@
 									    	Ext.MessageBox.alert("提示",re.exDesc);
 									    	return;
 									    }
-									 	if(IsmpHB.common.permission.indexOf(re.loginInfo.type)>-1){
+									 	if(LBSReader.common.permission.indexOf(re.loginInfo.type)>-1){
 									 		if(re.loginInfo.permission.rootMod){
-										 		IsmpHB.common.setSession('loginInfo',re.loginInfo);
+										 		LBSReader.common.setSession('loginInfo',re.loginInfo);
 										 		initMainProv(re.loginInfo);									 		
 									 		}else{
 									 			Ext.MessageBox.alert("提示","抱歉，你没有足够的权限，请联系管理员！");
@@ -188,8 +188,8 @@
 				    	return;
 				    } 
 				    distroyLogin();
-					var topx = new IsmpHB.head.HeadPanel({});
-					var proMain = new IsmpHB.CenterPanel({
+					var topx = new LBSReader.head.HeadPanel({});
+					var proMain = new LBSReader.CenterPanel({
 						margins : '1px 3px 3px 3px',
 						region : 'center'
 					});
@@ -201,8 +201,8 @@
 				};
 				
 				inintLoginView();
-				if(IsmpHB.common.getSession('loginInfo').account!='未登录'&&IsmpHB.common.permission.indexOf(IsmpHB.common.getSession('loginInfo').type)>-1){
-					initMainProv(IsmpHB.common.getSession('loginInfo'));
+				if(LBSReader.common.getSession('loginInfo').account!='未登录'&&LBSReader.common.permission.indexOf(LBSReader.common.getSession('loginInfo').type)>-1){
+					initMainProv(LBSReader.common.getSession('loginInfo'));
 					return;
 				}
 					

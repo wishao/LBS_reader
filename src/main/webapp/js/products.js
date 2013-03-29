@@ -1,9 +1,9 @@
 /**
  * @author zzx
  */
-Ext.namespace('IsmpHB', 'IsmpHB.product');
+Ext.namespace('LBSReader', 'LBSReader.product');
 
-IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 	title : '产品维护',
 	autoScroll : true,
 	store : Ext.StoreMgr.get('product'),
@@ -69,24 +69,24 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					emptyMsg : "没有查询到任何结果！"
 				});
 		config = config || {};
-		this.addProductWind = new IsmpHB.product.productWin({});
-		this.pdlg = new IsmpHB.product.ProductDlg({});
+		this.addProductWind = new LBSReader.product.productWin({});
+		this.pdlg = new LBSReader.product.ProductDlg({});
 		config.tbar = config.tbar || [];
-		var a = IsmpHB.common.getPermission('1-2');
-		if (IsmpHB.common.isHasPermission(a, 2))
+		var a = LBSReader.common.getPermission('1-2');
+		if (LBSReader.common.isHasPermission(a, 2))
 			config.tbar.push(this.addBtn);
-		if (IsmpHB.common.isHasPermission(a, 14))
+		if (LBSReader.common.isHasPermission(a, 14))
 			config.tbar.push(this.syncBtn);
-		if (IsmpHB.common.isHasPermission(a, 3))
+		if (LBSReader.common.isHasPermission(a, 3))
 			config.tbar.push(this.uptBtn);
-		if (IsmpHB.common.isHasPermission(a, 8))
+		if (LBSReader.common.isHasPermission(a, 8))
 			config.tbar.push(this.remvBtn);
-		if (IsmpHB.common.isHasPermission(a, 7))
+		if (LBSReader.common.isHasPermission(a, 7))
 			config.tbar.push(this.issueBtn);
 		config.tbar.push('->');
 		config.tbar.push('产品名称：');
 		config.tbar.push(this.nameField);
-		if (IsmpHB.common.isHasPermission(a, 1))
+		if (LBSReader.common.isHasPermission(a, 1))
 			config.tbar.push(this.searchBtn);
 		config.bbar = this.pagingbar;
 		this.sm = new Ext.grid.CheckboxSelectionModel({
@@ -141,7 +141,7 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					header : '系统标识',
 					align : 'center',
 					menuDisabled : true,
-					renderer : IsmpHB.renderer.SYSTEM_CODE,
+					renderer : LBSReader.renderer.SYSTEM_CODE,
 					dataIndex : 'systemId',
 					width : 100
 				}, {
@@ -156,23 +156,24 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					menuDisabled : true,
 					dataIndex : 'beginCharg',
 					width : 100,
-					renderer : IsmpHB.renderer.BEGIN_RULE
+					renderer : LBSReader.renderer.BEGIN_RULE
 				}, {
 					header : '注销当月预付费计费规则',
 					align : 'left',
 					menuDisabled : true,
 					dataIndex : 'endPreCharg',
 					width : 100,
-					renderer : IsmpHB.renderer.END_PRE_CHARG
+					renderer : LBSReader.renderer.END_PRE_CHARG
 				}, {
 					header : '注销当月后付费计费规则',
 					align : 'left',
 					menuDisabled : true,
 					dataIndex : 'endAfterCharg',
 					width : 100,
-					renderer : IsmpHB.renderer.END_AFTER_CHARG
+					renderer : LBSReader.renderer.END_AFTER_CHARG
 				}]);
-		IsmpHB.product.DataGrid.superclass.constructor.apply(this, arguments);
+		LBSReader.product.DataGrid.superclass.constructor
+				.apply(this, arguments);
 
 		this.on('show', function() {
 					if (this.store.data.length == 0) {
@@ -274,7 +275,7 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 		}
 		if (null != r && null != r.data) {
 			var req = {
-				url : IsmpHB.req.PRODUCT_MGR,
+				url : LBSReader.req.PRODUCT_MGR,
 				params : {
 					pId : r.data.id,
 					pCode : r.data.code,
@@ -295,14 +296,14 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 
 				}
 			};
-			IsmpHB.Ajax.send(req);
+			LBSReader.Ajax.send(req);
 		}
 	},
 	syncItems : function() {
 		var r = this.getSelectionModel().getSelected();
 		if (null != r && null != r.data) {
 			var req = {
-				url : IsmpHB.req.PRODUCT_MGR,
+				url : LBSReader.req.PRODUCT_MGR,
 				params : {
 					pCode : r.data.code,
 					spCode : r.data.spCode,
@@ -324,14 +325,14 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					}
 				}
 			};
-			IsmpHB.Ajax.send(req);
+			LBSReader.Ajax.send(req);
 		}
 	},
 	issueItems : function() {
 		var r = this.getSelectionModel().getSelected();
 		if (null != r && null != r.data) {
 			var req = {
-				url : IsmpHB.req.PRODUCT_QUERY,
+				url : LBSReader.req.PRODUCT_QUERY,
 				params : {
 					pid : r.data.id,
 					code : r.data.code,
@@ -349,7 +350,7 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						Ext.MessageBox.confirm('提示', '已经发布，确认修改后再次发布',
 								function(isT) {
 									if (isT) {
-										var pdlg2 = new IsmpHB.product.ProductDlg(
+										var pdlg2 = new LBSReader.product.ProductDlg(
 												{});
 										pdlg2.setArrayRecords(r.data);
 										pdlg2.show();
@@ -366,7 +367,7 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 
 				}
 			};
-			IsmpHB.Ajax.send(req);
+			LBSReader.Ajax.send(req);
 		}
 	},
 	confimDeploy : function(isT) {
@@ -409,7 +410,7 @@ IsmpHB.product.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				});
 	}
 });
-IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.product.productForm = Ext.extend(Ext.form.FormPanel, {
 			id : "productAdd",
 			labelWidth : 80,
 			labelAlign : 'right',
@@ -435,14 +436,14 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 						fieldLabel : '产品名称',
 						name : 'pName',
 						allowBlank : false,
-						validator : IsmpHB.customFunctions.validateBankTrim,
+						validator : LBSReader.customFunctions.validateBankTrim,
 						invalidText : '产品规格名称不能为空',
 						width : 240
 					}),
 			pCode : new Ext.form.TextField({
 						fieldLabel : '产品编码',
 						name : 'pCode',
-						validator : IsmpHB.customFunctions.validateBankTrim,
+						validator : LBSReader.customFunctions.validateBankTrim,
 						regex : /^[^\u4E00-\u9FA5]*?$/,
 						regexText : '请输入有效的值，不能有中文',
 						emptyText : "产品编码不能为空",
@@ -462,7 +463,7 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 			busiCode : new Ext.form.TextField({
 						fieldLabel : '业务号码',
 						name : 'busiCode',
-						validator : IsmpHB.customFunctions.validateBankTrim,
+						validator : LBSReader.customFunctions.validateBankTrim,
 						emptyText : "业务号码不能为空",
 						width : 240
 					}),
@@ -476,8 +477,8 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 						valueField : 'code',
 						listWidth : 400,
 						width : 240,
-						store : IsmpHB.store.SYSTEM_CODE,
-						value : IsmpHB.data.SYSTEM_CODE.BASE_HB
+						store : LBSReader.store.SYSTEM_CODE,
+						value : LBSReader.data.SYSTEM_CODE.BASE_HB
 					}),
 			fairValue : new Ext.form.NumberField({
 						fieldLabel : '业务资费(元)',
@@ -494,7 +495,7 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 			nodeList : new Ext.form.TextField({
 						fieldLabel : '所属地市编码',
 						name : 'nodeList',
-						validator : IsmpHB.customFunctions.validateBankTrim,
+						validator : LBSReader.customFunctions.validateBankTrim,
 						emptyText : "所属地市编码，以逗号分隔，默认表示全省",
 						width : 278
 					}),
@@ -540,7 +541,7 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 						valueField : 'mode',
 						listWidth : 400,
 						width : 240,
-						store : IsmpHB.store.BEGIN_RULE,
+						store : LBSReader.store.BEGIN_RULE,
 						value : 2
 					}),
 			endPreCmb : new Ext.form.ComboBox({
@@ -553,7 +554,7 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 						valueField : 'mode',
 						listWidth : 420,
 						width : 240,
-						store : IsmpHB.store.END_PER_RULE,
+						store : LBSReader.store.END_PER_RULE,
 						value : 3
 					}),
 			endAfterCmb : new Ext.form.ComboBox({
@@ -566,7 +567,7 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 						valueField : 'mode',
 						listWidth : 420,
 						width : 240,
-						store : IsmpHB.store.END_AFTER_RULE,
+						store : LBSReader.store.END_AFTER_RULE,
 						value : 3
 					}),
 			addBtn : new Ext.Button({
@@ -596,8 +597,8 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 
 				config.buttons.push(this.addBtn);
 				config.buttons.push(this.cancelBtn);
-				IsmpHB.product.productForm.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.product.productForm.superclass.constructor.apply(
+						this, arguments);
 				this.addBtn.on('click', function() {
 							if (this.isEDIT) {
 								this.toEdit();
@@ -676,7 +677,7 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 					return;
 				}
 				var req = {
-					url : IsmpHB.req.PRODUCT_MGR,
+					url : LBSReader.req.PRODUCT_MGR,
 					params : {
 						pCode : this.pCode.getValue(),
 						pName : this.pName.getValue(),
@@ -729,14 +730,14 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 						}
 					}
 				}
-				IsmpHB.Ajax.send(req);
+				LBSReader.Ajax.send(req);
 			},
 			toEdit : function() {
 				if (!this.isValid()) {
 					return;
 				}
 				var req = {
-					url : IsmpHB.req.PRODUCT_MGR,
+					url : LBSReader.req.PRODUCT_MGR,
 					params : {
 						pid : this.pid.getValue(),
 						pName : this.pName.getValue(),
@@ -772,50 +773,51 @@ IsmpHB.product.productForm = Ext.extend(Ext.form.FormPanel, {
 						}
 					}
 				}
-				IsmpHB.Ajax.send(req);
+				LBSReader.Ajax.send(req);
 			},
 			cancelOp : function() {
 				this.ownerCt.hide();
 			}
 
 		});
-IsmpHB.product.productWin = Ext.extend(Ext.Window, {
-	layout : 'fit',
-	modal : true,
-	width : 440,
-	height : 400,
-	closeAction : 'hide',
-	constrainHeader : true,
-	header : true,
-	title : '',
+LBSReader.product.productWin = Ext.extend(Ext.Window, {
+			layout : 'fit',
+			modal : true,
+			width : 440,
+			height : 400,
+			closeAction : 'hide',
+			constrainHeader : true,
+			header : true,
+			title : '',
 
-	configForm : null,
+			configForm : null,
 
-	constructor : function(config) {
-		var config = config || {};
-		config.items = this.items || [];
-		this.configForm = new IsmpHB.product.productForm({});
-		config.items.push(this.configForm);
-		IsmpHB.product.productWin.superclass.constructor.apply(this, arguments);
-		this.on('show', function() {
-					this.configForm.spCode.getStore().load();
-				}, this);
-		this.on('hide', function() {
-				}, this);
-	},
-	toAdd : function() {
-		this.configForm.isEDIT = false;
-		this.configForm.pCode.setDisabled(false);
-		this.setTitle('新增产品');
-	},
-	toEdit : function() {
-		this.configForm.isEDIT = true;
-		this.configForm.pCode.setDisabled(true);
-		this.setTitle('修改产品');
-	}
-});
+			constructor : function(config) {
+				var config = config || {};
+				config.items = this.items || [];
+				this.configForm = new LBSReader.product.productForm({});
+				config.items.push(this.configForm);
+				LBSReader.product.productWin.superclass.constructor.apply(this,
+						arguments);
+				this.on('show', function() {
+							this.configForm.spCode.getStore().load();
+						}, this);
+				this.on('hide', function() {
+						}, this);
+			},
+			toAdd : function() {
+				this.configForm.isEDIT = false;
+				this.configForm.pCode.setDisabled(false);
+				this.setTitle('新增产品');
+			},
+			toEdit : function() {
+				this.configForm.isEDIT = true;
+				this.configForm.pCode.setDisabled(true);
+				this.setTitle('修改产品');
+			}
+		});
 
-IsmpHB.product.GroupItemGrid = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.product.GroupItemGrid = Ext.extend(Ext.grid.GridPanel, {
 			autoScroll : true,
 			height : 310,
 			store : Ext.StoreMgr.get('deployPackage'),
@@ -857,15 +859,15 @@ IsmpHB.product.GroupItemGrid = Ext.extend(Ext.grid.GridPanel, {
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'chargingCycle',
-							renderer : IsmpHB.renderer.CHARGINGCYCLE,
+							renderer : LBSReader.renderer.CHARGINGCYCLE,
 							width : 100
 						}]);
-				IsmpHB.product.GroupItemGrid.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.product.GroupItemGrid.superclass.constructor.apply(
+						this, arguments);
 			}
 		});
 
-IsmpHB.product.syncPoductForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.product.syncPoductForm = Ext.extend(Ext.form.FormPanel, {
 			id : "syncProduct",
 			labelWidth : 80,
 			labelAlign : 'right',
@@ -881,12 +883,12 @@ IsmpHB.product.syncPoductForm = Ext.extend(Ext.form.FormPanel, {
 				this.isEDIT = false;
 				var config = config || {};
 				config.items = this.items || [];
-				this.grid = new IsmpHB.product.GroupItemGrid({});
+				this.grid = new LBSReader.product.GroupItemGrid({});
 				config.buttons = config.buttons || [];
 				config.items.push(this.grid);
 				config.buttons.push(this.addBtn);
-				IsmpHB.product.productForm.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.product.productForm.superclass.constructor.apply(
+						this, arguments);
 				this.addBtn.on('click', function() {
 							this.deployProduct();
 						}, this)
@@ -901,7 +903,7 @@ IsmpHB.product.syncPoductForm = Ext.extend(Ext.form.FormPanel, {
 					return null;
 				}
 				var req = {
-					url : IsmpHB.req.PRODUCT_MGR,
+					url : LBSReader.req.PRODUCT_MGR,
 					params : {
 						pid : r.data.pid,
 						spCode : r.data.spCode,
@@ -952,44 +954,45 @@ IsmpHB.product.syncPoductForm = Ext.extend(Ext.form.FormPanel, {
 						}
 					}
 				}
-				IsmpHB.Ajax.send(req);
+				LBSReader.Ajax.send(req);
 			}
 		});
 
-IsmpHB.product.ProductDlg = Ext.extend(Ext.Window, {
-	title : '选择要发布的产品',
-	layout : 'fit',
-	modal : true,
-	width : 480,
-	height : 390,
-	constrainHeader : true,
-	closeAction : 'hide',
-	constructor : function(config) {
-		config = config || {};
-		config.items = config.items || [];
-		this.syncPoductForm = new IsmpHB.product.syncPoductForm({});
-		config.items.push(this.syncPoductForm);
-		IsmpHB.product.ProductDlg.superclass.constructor.apply(this, arguments);
-		this.on('show', function() {
-				}, this);
-		this.on('hide', function() {
-				}, this);
-	},
-	setArrayRecords : function(os) {
-		this.syncPoductForm.grid.getStore().load({
-					params : {
-						pid : os.id,
-						spCode : os.spCode,
-						code : os.code,
-						name : os.name,
-						usestatus : os.status,
-						systemId : os.systemId,
-						busiCode : os.busiCode,
-						method : 'issue'
-					},
-					callback : function(r, o, s) {
-					},
-					scope : this
-				});
-	}
-});
+LBSReader.product.ProductDlg = Ext.extend(Ext.Window, {
+			title : '选择要发布的产品',
+			layout : 'fit',
+			modal : true,
+			width : 480,
+			height : 390,
+			constrainHeader : true,
+			closeAction : 'hide',
+			constructor : function(config) {
+				config = config || {};
+				config.items = config.items || [];
+				this.syncPoductForm = new LBSReader.product.syncPoductForm({});
+				config.items.push(this.syncPoductForm);
+				LBSReader.product.ProductDlg.superclass.constructor.apply(this,
+						arguments);
+				this.on('show', function() {
+						}, this);
+				this.on('hide', function() {
+						}, this);
+			},
+			setArrayRecords : function(os) {
+				this.syncPoductForm.grid.getStore().load({
+							params : {
+								pid : os.id,
+								spCode : os.spCode,
+								code : os.code,
+								name : os.name,
+								usestatus : os.status,
+								systemId : os.systemId,
+								busiCode : os.busiCode,
+								method : 'issue'
+							},
+							callback : function(r, o, s) {
+							},
+							scope : this
+						});
+			}
+		});

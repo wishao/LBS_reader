@@ -1,8 +1,8 @@
 // zengjw 2012-07-23 单用户查询订购信息与工单查询
 // 命名空间
-Ext.namespace('IsmpHB', 'IsmpHB.crmOrderInfo');
+Ext.namespace('LBSReader', 'LBSReader.crmOrderInfo');
 // 主界面（中）
-IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
+LBSReader.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 	title : '信息查询',
 	autoScroll : true,
 	layout : "fit",
@@ -34,8 +34,8 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 		config.tbar = config.tbar || [];
 		config.tbar.push('电话号码: ');
 		config.tbar.push(this.telField);
-		var a = IsmpHB.common.getPermission('5-1');
-		if (IsmpHB.common.isHasPermission(a, 1))
+		var a = LBSReader.common.getPermission('5-1');
+		if (LBSReader.common.isHasPermission(a, 1))
 			config.tbar.push(this.searchBtn);
 		config.tbar.push(this.resetInfoArea);
 		OrderAddButton = this.addBtn;
@@ -52,7 +52,8 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 								layout : 'border',
 								region : 'west',
 								width : 600,
-								items : [new Ext.form.FieldSet({// 客户信息框
+								items : [
+										new Ext.form.FieldSet({// 客户信息框
 											labelAlign : 'right',
 											autoHeight : true,
 											region : 'north',
@@ -101,16 +102,17 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 														disabled : true
 													}]
 										}),// 订购信息框
-										new IsmpHB.crmOrderInfo.ProductPanel({
+										new LBSReader.crmOrderInfo.ProductPanel(
+												{
 													region : 'center'
 												})]
-							}), new IsmpHB.crmOrderInfo.OrderPanel({// 工单信息框
+							}), new LBSReader.crmOrderInfo.OrderPanel({// 工单信息框
 								region : 'center'
 							})]
 				});
 		config.items.push(this.formBox);
 
-		IsmpHB.crmOrderInfo.DataPanel.superclass.constructor.apply(this,
+		LBSReader.crmOrderInfo.DataPanel.superclass.constructor.apply(this,
 				arguments);
 
 		this.telField.on('specialkey', function(field, e) {
@@ -147,7 +149,7 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 
 		// 查询客户信息
 		var req = {
-			url : IsmpHB.req.UNITE_ORDER_CRM_INFO_QUERY,
+			url : LBSReader.req.UNITE_ORDER_CRM_INFO_QUERY,
 			params : {
 				timestamp : new Date().valueOf(),
 				tel : this.telField.getValue()
@@ -170,15 +172,15 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 					for (var i = 0; i < fm1.length; i++) {
 						fm1.get(i).setDisabled(false);
 					}
-					IsmpHB.crmOrderInfo.productAddDlg.setTitle('新增订购('
+					LBSReader.crmOrderInfo.productAddDlg.setTitle('新增订购('
 							+ OrderAddTel + '-' + OrderAddName + ')');
 					fm1.get('order_tel').setValue(o.data.tel);
 					fm1.get('order_name').setValue(o.data.name);
-					fm1.get('order_state').setValue(IsmpHB.renderer
+					fm1.get('order_state').setValue(LBSReader.renderer
 							.TEL_STATE(o.data.state));
 					fm1.get('order_birthday').setValue(o.data.birthday);
 					fm1.get('order_address').setValue(o.data.address);
-					fm1.get('order_social_id_type').setValue(IsmpHB.renderer
+					fm1.get('order_social_id_type').setValue(LBSReader.renderer
 							.IDENTITY_TYPE(o.data.social_id_type));
 					fm1.get('order_social_id').setValue(o.data.social_id);
 					// 设置查询出来的数据不可改
@@ -214,7 +216,7 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 			}
 		};
 		// 发送请求
-		IsmpHB.Ajax.send(req);
+		LBSReader.Ajax.send(req);
 
 	},
 	// 清空按钮事件
@@ -239,7 +241,7 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 		Ext.StoreMgr.get('searchPackage').removeAll();
 		Ext.StoreMgr.get('addEffectPackage').removeAll();
 		crm_ProductAttr.removeAll();
-		IsmpHB.crmOrderInfo.productAddDlg.show();
+		LBSReader.crmOrderInfo.productAddDlg.show();
 		crm_submitButton.buttons[0].setDisabled(true);
 		crm_chargeType.setDisabled(true);
 		crm_flagCombo.reset();
@@ -250,54 +252,54 @@ IsmpHB.crmOrderInfo.DataPanel = Ext.extend(Ext.Panel, {
 });
 
 // 填充产品包信息弹出框内容（弹左下弹）
-IsmpHB.crmOrderInfo.showAddView = function(grid, rowIndex, colIndex) {
+LBSReader.crmOrderInfo.showAddView = function(grid, rowIndex, colIndex) {
 	var r = Ext.StoreMgr.get('addEffectPackage').getAt(rowIndex);
 	productAddForm.get('package_id').setValue(r.data.id);
 	productAddForm.get('package_name').setValue(r.data.name);
 	productAddForm.get('package_code').setValue(r.data.code);
 	productAddForm.get('package_pairValue').setValue(r.data.pairValue);
-	productAddForm.get('package_billFlag').setValue(IsmpHB.renderer
+	productAddForm.get('package_billFlag').setValue(LBSReader.renderer
 			.CHARGINGMODE(r.data.billFlag));
 	productAddForm.get('package_chargingCode').setValue(r.data.chargingCode);
 	productAddForm.get('package_chargingDesc').setValue(r.data.chargingDesc);
-	productAddForm.get('package_chargingCycle').setValue(IsmpHB.renderer
+	productAddForm.get('package_chargingCycle').setValue(LBSReader.renderer
 			.CHARGINGCYCLE(r.data.chargingCycle));
-	productAddForm.get('package_effectMode').setValue(IsmpHB.renderer
+	productAddForm.get('package_effectMode').setValue(LBSReader.renderer
 			.EFFECTMODE(r.data.effectMode));
-	productAddForm.get('package_withDrawMode').setValue(IsmpHB.renderer
+	productAddForm.get('package_withDrawMode').setValue(LBSReader.renderer
 			.EFFECTMODE(r.data.withDrawMode));
-	productAddForm.get('package_trialType').setValue(IsmpHB.renderer
+	productAddForm.get('package_trialType').setValue(LBSReader.renderer
 			.TRIAL_TYPE(r.data.trialType));
 	productAddForm.get('package_trialTerm').setValue(r.data.trialTerm);
-	productAddForm.get('package_useFlag').setValue(IsmpHB.renderer
+	productAddForm.get('package_useFlag').setValue(LBSReader.renderer
 			.VIEW_STATUS_FLAG(r.data.useFlag));
-	productAddForm.get('package_beginCharg').setValue(IsmpHB.renderer
+	productAddForm.get('package_beginCharg').setValue(LBSReader.renderer
 			.BEGIN_RULE(r.data.beginCharg));
-	productAddForm.get('package_endPreCharg').setValue(IsmpHB.renderer
+	productAddForm.get('package_endPreCharg').setValue(LBSReader.renderer
 			.END_PRE_CHARG(r.data.endPreCharg));
-	productAddForm.get('package_endAfterCharg').setValue(IsmpHB.renderer
+	productAddForm.get('package_endAfterCharg').setValue(LBSReader.renderer
 			.END_AFTER_CHARG(r.data.endAfterCharg));
-	IsmpHB.crmOrderInfo.packageDlg.show();
+	LBSReader.crmOrderInfo.packageDlg.show();
 }
 
 // 新增订购框搜索产品包（弹左下）
-IsmpHB.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
 	title : '产品包列表',
 	autoScroll : true,
 	store : Ext.StoreMgr.get('addEffectPackage'),
 	crm_packageNameField : new Ext.form.TextField({
-		emptyText : '请填写产品包名称',
-		maxLength : 80,
-		msgTarget : 'side',
-		width : 180,
-		listeners : {
-			specialkey : function(field, e) {
-				if (e.getKey() == Ext.EventObject.ENTER) {
-					crm_submitButton.buttons[0].setDisabled(true);
-					Ext.StoreMgr.get('searchPackage').removeAll();
-					Ext.StoreMgr.get('addEffectPackage').removeAll();
-					crm_ProductAttr.removeAll();
-					Ext.StoreMgr.get('addEffectPackage').load({
+				emptyText : '请填写产品包名称',
+				maxLength : 80,
+				msgTarget : 'side',
+				width : 180,
+				listeners : {
+					specialkey : function(field, e) {
+						if (e.getKey() == Ext.EventObject.ENTER) {
+							crm_submitButton.buttons[0].setDisabled(true);
+							Ext.StoreMgr.get('searchPackage').removeAll();
+							Ext.StoreMgr.get('addEffectPackage').removeAll();
+							crm_ProductAttr.removeAll();
+							Ext.StoreMgr.get('addEffectPackage').load({
 								params : {
 									method : 'search',
 									name : this.getValue(),
@@ -313,10 +315,10 @@ IsmpHB.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
 								},
 								scope : this
 							});
+						}
+					}
 				}
-			}
-		}
-	}),
+			}),
 	flagCombo : new Ext.form.ComboBox({
 				editable : false,
 				mode : 'local',
@@ -373,20 +375,20 @@ IsmpHB.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
 					menuDisabled : true,
 					dataIndex : 'chargingCycle',
 					width : 70,
-					renderer : IsmpHB.renderer.CHARGINGCYCLE
+					renderer : LBSReader.renderer.CHARGINGCYCLE
 				}, {
 					header : '计费标识',
 					align : 'center',
 					menuDisabled : true,
 					dataIndex : 'billFlag',
-					renderer : IsmpHB.renderer.CHARGINGMODE,
+					renderer : LBSReader.renderer.CHARGINGMODE,
 					width : 70
 				}, {
 					header : '状态',
 					align : 'center',
 					menuDisabled : true,
 					dataIndex : 'useFlag',
-					renderer : IsmpHB.renderer.STATUS_FLAG,
+					renderer : LBSReader.renderer.STATUS_FLAG,
 					width : 60
 				}, {
 					xtype : 'actioncolumn',
@@ -396,7 +398,7 @@ IsmpHB.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
 					items : [{
 						icon : 'images/btn_search.png',
 						tooltip : '查看产品包详细信息',
-						handler : IsmpHB.crmOrderInfo.showAddView
+						handler : LBSReader.crmOrderInfo.showAddView
 								.createDelegate(this)
 					}]
 				}, {
@@ -406,7 +408,7 @@ IsmpHB.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
 					width : 40,
 					items : [{
 						getClass : function(html, meta, rec) {
-							if (rec.get("useFlag") == IsmpHB.data.STATUS_FLAG.EFFECT) {
+							if (rec.get("useFlag") == LBSReader.data.STATUS_FLAG.EFFECT) {
 								this.items[0].tooltip = '订购该产品包';
 								return 'reportAvailableCss';
 							} else {
@@ -414,13 +416,13 @@ IsmpHB.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
 								return 'reportSentCss';
 							}
 						},
-						handler : IsmpHB.crmOrderInfo.showProduct
+						handler : LBSReader.crmOrderInfo.showProduct
 								.createDelegate(this)
 
 					}]
 				}]);
-		IsmpHB.crmOrderInfo.AddProductSearchPanel.superclass.constructor.apply(
-				this, arguments);
+		LBSReader.crmOrderInfo.AddProductSearchPanel.superclass.constructor
+				.apply(this, arguments);
 		// 查询产品包事件
 		this.addSearchBtn.on('click', function() {
 
@@ -450,7 +452,7 @@ IsmpHB.crmOrderInfo.AddProductSearchPanel = Ext.extend(Ext.grid.GridPanel, {
 });
 
 // 新增订购框产品包中的产品额外信息（弹右下）
-IsmpHB.crmOrderInfo.AddProductAttrPanel = Ext.extend(Ext.Panel, {
+LBSReader.crmOrderInfo.AddProductAttrPanel = Ext.extend(Ext.Panel, {
 			title : '产品附加信息',
 			autoScroll : true,
 			formBox : null,
@@ -470,14 +472,14 @@ IsmpHB.crmOrderInfo.AddProductAttrPanel = Ext.extend(Ext.Panel, {
 				});
 				crm_ProductAttr = this.formBox;
 				config.items.push(this.formBox);
-				IsmpHB.crmOrderInfo.AddProductAttrPanel.superclass.constructor
+				LBSReader.crmOrderInfo.AddProductAttrPanel.superclass.constructor
 						.apply(this, arguments);
 
 			}
 		});
 
 // 新增订购框产品包中的产品（弹右上）
-IsmpHB.crmOrderInfo.AddProductPanel = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.crmOrderInfo.AddProductPanel = Ext.extend(Ext.grid.GridPanel, {
 	title : '产品列表',
 	autoScroll : true,
 	store : Ext.StoreMgr.get('searchPackage'),
@@ -528,8 +530,8 @@ IsmpHB.crmOrderInfo.AddProductPanel = Ext.extend(Ext.grid.GridPanel, {
 					},
 					width : 100
 				}]);
-		IsmpHB.crmOrderInfo.AddProductPanel.superclass.constructor.apply(this,
-				arguments);
+		LBSReader.crmOrderInfo.AddProductPanel.superclass.constructor.apply(
+				this, arguments);
 		this.getSelectionModel().on('rowselect',
 				function(sm, rowIndex, record) {
 					var id = record.data.id;
@@ -589,7 +591,7 @@ IsmpHB.crmOrderInfo.AddProductPanel = Ext.extend(Ext.grid.GridPanel, {
 });
 
 // 工单信息框（右）
-IsmpHB.crmOrderInfo.OrderPanel = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.crmOrderInfo.OrderPanel = Ext.extend(Ext.grid.GridPanel, {
 			title : '工单信息',
 			autoScroll : true,
 			store : Ext.StoreMgr.get('uniteOrder'),
@@ -611,14 +613,14 @@ IsmpHB.crmOrderInfo.OrderPanel = Ext.extend(Ext.grid.GridPanel, {
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'serviceType',
-							renderer : IsmpHB.renderer.ORDER_SERVICE_TYPE,
+							renderer : LBSReader.renderer.ORDER_SERVICE_TYPE,
 							width : 60
 						}, {
 							header : '状态',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'status',
-							renderer : IsmpHB.renderer.ORDER_STATUS,
+							renderer : LBSReader.renderer.ORDER_STATUS,
 							width : 60
 						}, {
 							header : '号百产品包名称',
@@ -631,7 +633,7 @@ IsmpHB.crmOrderInfo.OrderPanel = Ext.extend(Ext.grid.GridPanel, {
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'source',
-							renderer : IsmpHB.renderer.ORDER_SOURCE,
+							renderer : LBSReader.renderer.ORDER_SOURCE,
 							width : 70
 						}, {
 							header : '创建日期',
@@ -646,14 +648,14 @@ IsmpHB.crmOrderInfo.OrderPanel = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'operator',
 							width : 100
 						}]);
-				IsmpHB.crmOrderInfo.OrderPanel.superclass.constructor.apply(
+				LBSReader.crmOrderInfo.OrderPanel.superclass.constructor.apply(
 						this, arguments);
 
 			}
 		});
 
 // 订购信息框（左下）
-IsmpHB.crmOrderInfo.ProductPanel = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.crmOrderInfo.ProductPanel = Ext.extend(Ext.grid.GridPanel, {
 			title : '订购信息',
 			autoScroll : true,
 			store : Ext.StoreMgr.get('uniteOrderUser'),
@@ -687,14 +689,14 @@ IsmpHB.crmOrderInfo.ProductPanel = Ext.extend(Ext.grid.GridPanel, {
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'source',
-							renderer : IsmpHB.renderer.ORDER_SOURCE,
+							renderer : LBSReader.renderer.ORDER_SOURCE,
 							width : 80
 						}, {
 							header : '状态',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'status',
-							renderer : IsmpHB.renderer.ORDER_USER_STATUS,
+							renderer : LBSReader.renderer.ORDER_USER_STATUS,
 							width : 40
 						}, {
 							header : '更新时间',
@@ -713,7 +715,7 @@ IsmpHB.crmOrderInfo.ProductPanel = Ext.extend(Ext.grid.GridPanel, {
 							items : [{
 								icon : 'images/btn_search.png',
 								tooltip : '查看订购关系',
-								handler : IsmpHB.crmOrderInfo.showView
+								handler : LBSReader.crmOrderInfo.showView
 										.createDelegate(this)
 							}]
 						}, {
@@ -724,17 +726,17 @@ IsmpHB.crmOrderInfo.ProductPanel = Ext.extend(Ext.grid.GridPanel, {
 							items : [{
 								icon : 'images/icon_workflow.png',
 								tooltip : '查看工单',
-								handler : IsmpHB.crmOrderInfo.showOrder
+								handler : LBSReader.crmOrderInfo.showOrder
 										.createDelegate(this)
 							}]
 						}]);
-				IsmpHB.crmOrderInfo.ProductPanel.superclass.constructor.apply(
-						this, arguments);
+				LBSReader.crmOrderInfo.ProductPanel.superclass.constructor
+						.apply(this, arguments);
 			}
 		});
 
 // 添加订购信息框里面的查看工单方法
-IsmpHB.crmOrderInfo.showOrder = function(grid, rowIndex, colIndex) {
+LBSReader.crmOrderInfo.showOrder = function(grid, rowIndex, colIndex) {
 
 	var r = Ext.StoreMgr.get('uniteOrderUser').getAt(rowIndex);
 	Ext.StoreMgr.get('uniteOrder').baseParams = {
@@ -763,13 +765,13 @@ IsmpHB.crmOrderInfo.showOrder = function(grid, rowIndex, colIndex) {
 };
 
 // 产品包信息框里面的选择跳转的方法
-IsmpHB.crmOrderInfo.showProduct = function(grid, rowIndex, colIndex) {
+LBSReader.crmOrderInfo.showProduct = function(grid, rowIndex, colIndex) {
 	Ext.StoreMgr.get('searchPackage').removeAll();
 	var r = Ext.StoreMgr.get('addEffectPackage').getAt(rowIndex);
 	hbPackageId = r.data.id;
 	hbPackageName = r.data.name;
 	hbPackageCode = r.data.code;
-	if (r.data.useFlag == IsmpHB.data.STATUS_FLAG.EFFECT) {
+	if (r.data.useFlag == LBSReader.data.STATUS_FLAG.EFFECT) {
 		Ext.StoreMgr.get('searchPackage').baseParams = {
 			method : 'package',
 			timestamp : new Date().valueOf(),
@@ -813,7 +815,7 @@ IsmpHB.crmOrderInfo.showProduct = function(grid, rowIndex, colIndex) {
 };
 
 // 详细订购信息弹出框（左下弹）
-IsmpHB.crmOrderInfo.productDlg = new Ext.Window({
+LBSReader.crmOrderInfo.productDlg = new Ext.Window({
 			title : '订购信息',
 			layout : 'fit',
 			modal : true,
@@ -937,14 +939,15 @@ IsmpHB.crmOrderInfo.productDlg = new Ext.Window({
 						buttons : [{
 									text : '关闭',
 									handler : function() {// 点击取消按钮的操作事件
-										IsmpHB.crmOrderInfo.productDlg.hide();
+										LBSReader.crmOrderInfo.productDlg
+												.hide();
 									}
 								}]
 					})]
 		});
 
 // 详细产品包信息弹出框（弹左下弹）
-IsmpHB.crmOrderInfo.packageDlg = new Ext.Window({
+LBSReader.crmOrderInfo.packageDlg = new Ext.Window({
 			title : '产品包信息',
 			layout : 'fit',
 			modal : true,
@@ -1075,14 +1078,15 @@ IsmpHB.crmOrderInfo.packageDlg = new Ext.Window({
 						buttons : [{
 									text : '关闭',
 									handler : function() {// 点击取消按钮的操作事件
-										IsmpHB.crmOrderInfo.packageDlg.hide();
+										LBSReader.crmOrderInfo.packageDlg
+												.hide();
 									}
 								}]
 					})]
 		});
 
 // 新增订购信息弹出框（弹）
-IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
+LBSReader.crmOrderInfo.productAddDlg = new Ext.Window({
 	title : '新增订购',
 	layout : 'fit',
 	modal : true,
@@ -1191,7 +1195,7 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 				text : '提交',
 				// 点击提交按钮的操作事件
 				handler : function() {
-					var dateValid = IsmpHB.customFunctions.dateValid(
+					var dateValid = LBSReader.customFunctions.dateValid(
 							crm_dbField.getValue(), crm_ddField.getValue());
 					if (!dateValid) {
 						Ext.MessageBox.alert('提示', '生效日期不能在失效日期之后或相同，请修正！',
@@ -1243,7 +1247,7 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 						product_list : ps
 					};
 					var req = {
-						url : IsmpHB.req.ADD_ORDER_USER,
+						url : LBSReader.req.ADD_ORDER_USER,
 						params : {
 							timestamp : new Date().valueOf(),
 							tel : OrderAddTel,
@@ -1269,7 +1273,7 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 														.get('addEffectPackage')
 														.removeAll();
 												crm_ProductAttr.removeAll();
-												IsmpHB.crmOrderInfo.productAddDlg
+												LBSReader.crmOrderInfo.productAddDlg
 														.show();
 												crm_submitButton.buttons[0]
 														.setDisabled(true);
@@ -1280,7 +1284,7 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 												crm_ddField.reset();
 												crm_packageNameField.reset();
 											} else {
-												IsmpHB.crmOrderInfo.productAddDlg
+												LBSReader.crmOrderInfo.productAddDlg
 														.hide();
 											}
 										});
@@ -1289,7 +1293,7 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 							}
 						}
 					};
-					IsmpHB.Ajax.send(req);
+					LBSReader.Ajax.send(req);
 
 				}
 			}]
@@ -1308,7 +1312,7 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 				items : [new Ext.Panel({// border布局
 					layout : 'border',
 					border : false,
-					items : [new IsmpHB.crmOrderInfo.AddProductPanel({
+					items : [new LBSReader.crmOrderInfo.AddProductPanel({
 										region : 'north',
 										height : 200
 									}), new Ext.Panel({
@@ -1316,11 +1320,11 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 								layout : 'fit',
 								border : false,
 								bodyStyle : 'background-color:#dfe8f6; padding:10px 10px 0px 0px;',
-								items : [new IsmpHB.crmOrderInfo.AddProductAttrPanel(
+								items : [new LBSReader.crmOrderInfo.AddProductAttrPanel(
 										{})]
 							})]
 				})]
-			}), new IsmpHB.crmOrderInfo.AddProductSearchPanel({
+			}), new LBSReader.crmOrderInfo.AddProductSearchPanel({
 						region : 'center'
 					})]
 		})]
@@ -1328,28 +1332,28 @@ IsmpHB.crmOrderInfo.productAddDlg = new Ext.Window({
 });
 
 // 填充订购信息弹出框内容
-IsmpHB.crmOrderInfo.showView = function(grid, rowIndex, colIndex) {
+LBSReader.crmOrderInfo.showView = function(grid, rowIndex, colIndex) {
 	var r = Ext.StoreMgr.get('uniteOrderUser').getAt(rowIndex);
 	productForm.get('tel').setValue(r.data.tel);
 	productForm.get('name').setValue(r.data.name);
-	productForm.get('nodeCode').setValue(IsmpHB.renderer
+	productForm.get('nodeCode').setValue(LBSReader.renderer
 			.CITYlIST(r.data.nodeCode));
 	productForm.get('hbPackageDesc').setValue(r.data.hbPackageDesc);
 	productForm.get('productSpecName').setValue(r.data.productSpecName);
 	productForm.get('crmPackageDesc').setValue(r.data.crmPackageDesc);
-	productForm.get('chargeType').setValue(IsmpHB.renderer
+	productForm.get('chargeType').setValue(LBSReader.renderer
 			.CHARGETYPE(r.data.chargeType));
-	productForm.get('source').setValue(IsmpHB.renderer
+	productForm.get('source').setValue(LBSReader.renderer
 			.ORDER_SOURCE(r.data.source));
 	productForm.get('startTime').setValue(r.data.startTime.split(' ')[0]);
 	productForm.get('endTime').setValue(r.data.endTime.split(' ')[0]);
-	productForm.get('status').setValue(IsmpHB.renderer
+	productForm.get('status').setValue(LBSReader.renderer
 			.ORDER_USER_STATUS_SIMPLE(r.data.status));
-	productForm.get('usageFlag').setValue(IsmpHB.renderer
+	productForm.get('usageFlag').setValue(LBSReader.renderer
 			.USAGE_FLAG(r.data.usageFlag));
 	productForm.get('name').setValue(r.data.name);
 	productForm.get('createTime').setValue(r.data.createTime.split(' ')[0]);
 	productForm.get('updateTime').setValue(r.data.updateTime.split(' ')[0]);
 	productForm.get('operator').setValue(r.data.operator);
-	IsmpHB.crmOrderInfo.productDlg.show();
+	LBSReader.crmOrderInfo.productDlg.show();
 }
