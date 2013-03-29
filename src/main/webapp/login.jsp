@@ -10,7 +10,6 @@
 <script type="text/javascript" src="resources/ext.3.3.1/ext-all.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="resources/ext.3.3.1/resources/css/ext-all.css" />
-
 <title>JSP Page</title>
 </head>
 <body>
