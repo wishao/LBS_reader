@@ -1,0 +1,213 @@
+﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>号百综合管理系统</title>
+ <link href="images/favicon.ico" rel="Shortcut Icon" />
+		<link rel="stylesheet" href="resources/ext.3.3.1/resources/css/ext-all.css" type="text/css" />
+		<link rel="stylesheet" href="resources/ext.3.3.1/ux/css/ux-all.css" type="text/css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="resources/dateTimer/Spinner.css" type="text/css" />
+</head>
+<body>	
+	<div id="main-div" class="wapper">
+		<div id="center">	
+			<table width="100%" height="423" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td height="159"></td>
+				</tr>
+				<tr>
+					<td height="211" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td width="45%" height="153">&nbsp;</td>
+								<td id="loadMsg" width="28%" valign="top">
+								  <center>
+                    				<img src="images/loading.gif"/>
+                				  </center>
+								  <div id="index-loading-msg">
+                    			    0% 加载样式...
+                				  </div>
+								  <div id="loginForm"></div>
+								</td>
+								<td width="27%">&nbsp;</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td style="font-size: 12px; color: #fff; text-align: center" valign="top">中国电信号百信息服务有限公司广东分公司版权所有</td>
+				</tr>
+			</table>
+			
+		</div>
+	</div>
+		<script type="text/javascript">
+            document.getElementById('index-loading-msg').innerHTML = '10% 加载页面';
+        </script>
+		<script type="text/javascript" src="resources/ext.3.3.1/adapter/ext/ext-base.js"></script>		
+		<script type="text/javascript">
+            document.getElementById('index-loading-msg').innerHTML = '50% 加载页面';
+        </script>
+		<script type="text/javascript" src="resources/ext.3.3.1/ext-all.js"></script>		
+		<script type="text/javascript" src="resources/ext.3.3.1/locale/ext-lang-zh_CN.js"></script>		
+		<script type="text/javascript" src="resources/ext.3.3.1/ux/ux-all.js"></script>		
+		<script type="text/javascript" src="resources/raphael.js"></script>
+		<script type="text/javascript" src="resources/dateTimer/Spinner.js"></script>
+		<script type="text/javascript" src="resources/dateTimer/SpinnerField.js"></script>
+		<script type="text/javascript" src="resources/dateTimer/DateTimeField.js"></script>		
+		<script type="text/javascript" src="js/core/customFunctions.js"></script>
+		<script type="text/javascript" src="js/core/config.js"></script>
+		<script type="text/javascript" src="js/core/common.js"></script>
+		<script type="text/javascript" src="js/core/data.js"></script>
+		<script type="text/javascript" src="js/core/renderer.js"></script>
+		<script type="text/javascript" src="js/core/store.js"></script>
+		<script type="text/javascript" src="js/core/dyn_form.js"></script>
+		<script type="text/javascript">
+            document.getElementById('index-loading-msg').innerHTML = '60% 加载页面';
+        </script>
+		<script type="text/javascript" src="js/actions.js"></script>
+		<script type="text/javascript" src="js/products.js"></script>
+		<script type="text/javascript" src="js/spkg.js"></script>
+		<script type="text/javascript" src="js/premium.js"></script>
+		<script type="text/javascript" src="js/order_user.js"></script>
+		<script type="text/javascript" src="js/order_user_extra.js"></script>
+		<script type="text/javascript" src="js/order_workflow.js"></script>
+		<script type="text/javascript" src="js/crmInfo.js"></script>
+		<!--新增查询单用户工单 zengjw 2012-07-17 -->
+		<script type="text/javascript" src="js/crmOrderInfo.js"></script>
+		<script type="text/javascript" src="js/admin.js"></script>
+		<script type="text/javascript" src="js/task.js"></script>
+		<script type="text/javascript" src="js/blacklist.js"></script>
+		<script type="text/javascript" src="js/ct_statistics.js"></script>
+		<script type="text/javascript" src="js/sptel.js"></script>
+		<script type="text/javascript" src="js/product_auditing.js"></script>
+		<script type="text/javascript" src="js/bill_offer.js"></script>
+		<script type="text/javascript" src="js/billOfferFree.js"></script>
+		<!-- pansenxin 2012-08-04 -->
+		<script type="text/javascript" src="js/business.js"></script>
+		<script type="text/javascript" src="js/ecrmorder_workflow.js"></script>
+		<script type="text/javascript" src="js/ecrmorder_statistics.js"></script>
+		<script type="text/javascript" src="js/ecrm_product.js"></script>
+		<script type="text/javascript" src="js/ecrmorder_user.js"></script>
+		<script type="text/javascript" src="js/ecrmproduct_add.js"></script>
+		<!-- monitor -->
+		<script type="text/javascript" src="js/monitor_CN.js"></script>
+		<script type="text/javascript" src="js/monitor_GD160.js"></script>
+		<script type="text/javascript" src="js/monitor_GD168.js"></script>
+		<script type="text/javascript" src="js/monitor_term.js"></script>
+		
+		<script type="text/javascript">
+            document.getElementById('index-loading-msg').innerHTML = '90% 加载页面';
+        </script>
+		<script type="text/javascript" src="js/head.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/login.js"></script>
+		<script type="text/javascript">			
+			Ext.onReady(function(){
+				document.getElementById('index-loading-msg').innerHTML = '100% 加载页面完成';
+				var loginForm = new IsmpHB.login.LoginForm({
+					frame:true
+				});
+				var distroyLogin = function(){
+					if(loginForm){
+						loginForm.destroy();
+					}
+					var dv = document.getElementById('main-div');
+					if(dv){
+						document.body.removeChild(dv);
+					}					
+				};
+				var inintLoginView = function(){
+					document.getElementById('loadMsg').getElementsByTagName('center')[0].style.display = 'none';
+					document.getElementById('index-loading-msg').style.display = 'none';
+					loginForm.render("loginForm");
+					loginForm.account.focus(true,true);
+					init();
+				}
+				Ext.QuickTips.init();
+				var init = function(){					
+					if(!IsmpHB.common.getSession("loginInfo")){
+						IsmpHB.common.setSession("loginInfo",{
+							type: -1,
+                            account: '未登录',
+                            nodeCode: '未知',
+                            name : '未知',
+                            permission : null
+						});
+					};					
+					loginForm.btnLogin.on('click',function(){
+						var req = {
+							url : IsmpHB.req.ADMIN_LOGIN,
+							params : loginForm.getForm().getValues(),
+							scope : this,
+							callback : function(o){}
+						};
+						Ext.Ajax.timeout = 30000;// default
+						Ext.getBody().mask('正在处理请求,请稍候...');
+						Ext.Ajax.request({
+							url : req.url,
+							params : req.params,
+							method : 'POST',
+							scope : req.scope,  
+							disableCaching : false,
+							callback : function(o, s, r) {
+								if(s){
+									Ext.getBody().unmask();
+									 try{
+									 	var re = Ext.decode(r.responseText);
+									 	if(re.exId){
+									    	Ext.MessageBox.alert("提示",re.exDesc);
+									    	return;
+									    }
+									 	if(IsmpHB.common.permission.indexOf(re.loginInfo.type)>-1){
+									 		if(re.loginInfo.permission.rootMod){
+										 		IsmpHB.common.setSession('loginInfo',re.loginInfo);
+										 		initMainProv(re.loginInfo);									 		
+									 		}else{
+									 			Ext.MessageBox.alert("提示","抱歉，你没有足够的权限，请联系管理员！");
+									 		}
+									 	}else{
+									 		Ext.MessageBox.alert("提示","抱歉，你不是管理员");
+									 	}
+									 	
+									 }catch(ex){
+									 	Ext.MessageBox.alert("提示","数据格式错误");
+									 }	
+								}else{
+									Ext.MessageBox.alert("提示","服务器没响应，请你待会在登录");
+								}
+							}
+							});
+					},this);  	
+				};			
+				
+				
+				var initMainProv = function(loginInfo){
+				    if (loginInfo.account == '未登录') {
+				    	inintLoginView();
+				    	return;
+				    } 
+				    distroyLogin();
+					var topx = new IsmpHB.head.HeadPanel({});
+					var proMain = new IsmpHB.CenterPanel({
+						margins : '1px 3px 3px 3px',
+						region : 'center'
+					});
+					var viewPort = new Ext.Viewport({
+						layout : 'border',
+						items : [topx,proMain]
+					});
+					viewPort.render(Ext.getBody());
+				};
+				
+				inintLoginView();
+				if(IsmpHB.common.getSession('loginInfo').account!='未登录'&&IsmpHB.common.permission.indexOf(IsmpHB.common.getSession('loginInfo').type)>-1){
+					initMainProv(IsmpHB.common.getSession('loginInfo'));
+					return;
+				}
+					
+			});
+			 
+	</script>
+</body>
+</html>

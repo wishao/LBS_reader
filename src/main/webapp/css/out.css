@@ -1,0 +1,63 @@
+html,body {
+	padding: 0px;
+	margin: 0px;
+	background: #2875b6 url(../images/line.png) left top repeat-x;
+	text-align: center;
+	height: 100%;
+	font-size: 14px;
+}
+
+.wapper {
+	height: 100%;
+	background: url(../images/bg1.png) top left no-repeat;
+}
+
+#center {
+	position: absolute;
+	margin: -200px 0 0 -450px;
+	height: 416px;
+	width: 934px;
+	background: url(../images/bg.jpg);
+	top: 277px;
+	left: 630px;
+}
+
+img {
+	border: 0px
+}
+
+td.p10 {
+	font-size: 14px;
+	color: #fff;
+	text-align: right;
+}
+
+input.inp {
+	border: 1px solid #30a8e9;
+	height: 18px;
+	line-height: 18px;
+	width: 190px;
+}
+
+input.button2 {
+	background: url(../images/input.png) no-repeat 0 1px;
+	width: 173px;
+	height: 24px;
+	line-height: 24px;
+	border: 0px;
+	padding-left: 6px
+}
+
+input.button3 {
+	background: url(../images/input2.png) no-repeat 0 1px;
+	width: 109px;
+	height: 24px;
+	line-height: 24px;
+	border: 0px;
+	padding-left: 6px
+}
+
+.bg {
+	height: 100%;
+	background: url(../images/top/4.png);
+}
