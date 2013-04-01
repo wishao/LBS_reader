@@ -11,8 +11,8 @@ LBSReader.version = {
 }
 
 LBSReader.URL = document.URL.slice(0, 7) != 'http://'
-		? 'http://localhost:8080/ismp?cmd='
-		: document.URL.split('admin')[0] + 'ismp?cmd=';
+		? 'http://localhost:8080/LBS-Reader/'
+		: document.URL.split('admin')[0] + 'LBS-Reader/';
 
 LBSReader.req = {
 
@@ -39,7 +39,7 @@ LBSReader.req = {
 
 	// guogf登录请求
 	ROLE_QUERY_ALL : LBSReader.URL + 'role',
-	ADMIN_LOGIN : LBSReader.URL + 'login',
+	ADMIN_LOGIN : LBSReader.URL + 'admin!login',
 	ADMIN : LBSReader.URL + 'queryAdmin',
 	ADMIN_MGR : LBSReader.URL + 'AdminMgr',
 	CHANG_PWD : LBSReader.URL + 'changPwd',

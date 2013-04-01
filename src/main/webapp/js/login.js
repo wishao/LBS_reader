@@ -17,7 +17,7 @@ LBSReader.login.LoginForm = Ext.extend(Ext.form.FormPanel, {
         
         this.account = new Ext.form.TextField({
             fieldLabel: '账 号',
-            name: 'account',
+            name: 'loginName',
             allowBlank: false,
             emptyText: '请输入账号',
             width: 150
@@ -25,7 +25,7 @@ LBSReader.login.LoginForm = Ext.extend(Ext.form.FormPanel, {
         
         this.password = new Ext.form.TextField({
             fieldLabel: '密 码',
-            name: 'password',
+            name: 'loginPassword',
             allowBlank: false,
             inputType: 'password',
             width: 150

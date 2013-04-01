@@ -39,21 +39,34 @@ public class Test1Action extends ActionSupport {
 		} catch (UnsupportedEncodingException e) { // TODO Auto-generated catch
 			e.printStackTrace();
 		}
-		System.out.println(((List<Contact>)c.get("contactList")).get(0));
-		return null;
-		/*
-		 * ServletActionContext.getResponse().setCharacterEncoding("utf-8");
-		 * JSONObject json = new JSONObject(); if (admin != null) {
-		 * json.put("success", true); json.put("msg", admin + "µÇÂ¼³É¹¦"); try {
-		 * ServletActionContext.getResponse().getWriter()
-		 * .println(json.toString()); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } return null; } else
-		 * { json.put("failure", true); json.put("msg", "µÇÂ¼Ê§°Ü"); try {
-		 * ServletActionContext.getResponse().getWriter()
-		 * .println(json.toString()); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } return null; }
-		 */
+		System.out.println(((List<Contact>) c.get("contactList")).get(0));
 		// return null;
+
+		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		JSONObject json = new JSONObject();
+	/*	if (admin != null) {
+			json.put("success", true);
+			json.put("msg", admin + "ï¿½ï¿½Â¼ï¿½É¹ï¿½");
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		} else {
+			json.put("failure", true);
+			json.put("msg", "ï¿½ï¿½Â¼Ê§ï¿½ï¿½");
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+*/
+		return null;
 	}
 
 	public Contact getContact() {

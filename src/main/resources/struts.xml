@@ -14,5 +14,7 @@
 	<package name="reader" extends="json-default" namespace="/">
 		<action name="test1" class="com.reader.common.action.Test1Action">
 		</action>
+		<action name="admin" class="com.reader.common.action.AdminAction">
+		</action>
 	</package>
 </struts>

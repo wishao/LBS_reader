@@ -30,6 +30,6 @@
 	</filter-mapping>
 
 	<welcome-file-list>
-		<welcome-file>test1!login</welcome-file>
+		<welcome-file>admin!login</welcome-file>
 	</welcome-file-list>
 </web-app>
