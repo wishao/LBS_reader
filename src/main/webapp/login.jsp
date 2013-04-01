@@ -28,7 +28,7 @@
 								minButtonWidth : 60,
 								labelAlign : "right",
 								defaultType : "textfield",
-								url : "test1!login",
+								url : "admin!login",
 								items : [ {
 									fieldLabel : "用户名",
 									id : "txtName",
