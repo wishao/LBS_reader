@@ -36,7 +36,7 @@ public class AdminAction extends ActionSupport {
 		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
 		JSONObject json = new JSONObject();
 		if (admin != null) {
-			json.put("success", true);
+			json.put("result", true);
 			json.put("msg", admin.getName() + "登陆成功");
 			json.put("id", admin.getId());
 			json.put("name", admin.getName());
@@ -49,7 +49,7 @@ public class AdminAction extends ActionSupport {
 				e.printStackTrace();
 			}
 		} else {
-			json.put("failure", true);
+			json.put("result", false);
 			json.put("msg", "登陆失败");
 			try {
 				ServletActionContext.getResponse().getWriter()

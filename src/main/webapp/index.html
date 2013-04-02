@@ -153,7 +153,7 @@
 							callback : function(o, s, r) {
 								if(s){
 									Ext.getBody().unmask();
-									 try{
+									 /* try{
 									 	var re = Ext.decode(r.responseText);
 									 	if(re.exId){
 									    	Ext.MessageBox.alert("提示",re.exDesc);
@@ -172,7 +172,18 @@
 									 	
 									 }catch(ex){
 									 	Ext.MessageBox.alert("提示","数据格式错误");
-									 }	
+									 } */	
+									distroyLogin();
+									var topx = new LBSReader.head.HeadPanel({});
+									var proMain = new LBSReader.CenterPanel({
+										margins : '1px 3px 3px 3px',
+										region : 'center'
+									});
+									var viewPort = new Ext.Viewport({
+										layout : 'border',
+										items : [topx,proMain]
+									});
+									viewPort.render(Ext.getBody());
 								}else{
 									Ext.MessageBox.alert("提示","服务器没响应，请你待会在登录");
 								}

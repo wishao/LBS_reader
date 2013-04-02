@@ -14,71 +14,57 @@
 </head>
 <body>
 	<script type="text/javascript">
-		Ext
-				.onReady(function() {
-					Ext.QuickTips.init();
-					var form1 = new Ext.FormPanel(
-							{
-								renderTo : "panel1",
-								width : 500,
-								height : 300,
-								frame : true,
-								title : "管理员登陆",
-								collapsible : true,
-								minButtonWidth : 60,
-								labelAlign : "right",
-								defaultType : "textfield",
-								url : "admin!login",
-								items : [ {
-									fieldLabel : "用户名",
-									id : "txtName",
-									name : 'loginName',
-									allowBlank : false,
-									blankText : "用户名不能为空!"
-								}, {
-									fieldLabel : "密码",
-									allowBlank : false,
-									blankText : "密码不能为空!",
-									name : 'loginPassword',
-									inputType : 'name'
-								} ],
-								buttons : [
-										{
-											text : "提交",
-											handler : function() {
-												if (form1.getForm().isValid()) {
-													form1
-															.getForm()
-															.submit(
-																	{
-																		success : function(
-																				from,
-																				action) {
-																			//console.log(action.response.responseText);
-																			Ext.Msg
-																					.alert(
-																							"返回提示",
-																							action.response.responseText);
-																			//window.location = 'index.jsp';
-																		},
-																		failure : function(
-																				form,
-																				action) {
-																			Ext.Msg
-																					.alert(
-																							"返回提示",
-																							"登陆失败，请 检查用户名与密码");
-																		}
-																	});
-												}
-											}
-										}, {
-											text : "重置",
-											handler : function() {
-												form1.getForm().reset();
-											}
-										} ]
-							});
+		Ext.onReady(function() {
+			Ext.QuickTips.init();
+			var form1 = new Ext.FormPanel(
+				{
+					renderTo : "panel1",
+					width : 500,
+					height : 300,
+					frame : true,
+					title : "管理员登陆",
+					collapsible : true,
+					minButtonWidth : 60,
+					labelAlign : "right",
+					defaultType : "textfield",
+					url : "admin!login",
+					items : [ {
+						fieldLabel : "用户名",
+						id : "txtName",
+						name : 'loginName',
+						allowBlank : false,
+						blankText : "用户名不能为空!"
+					}, {
+						fieldLabel : "密码",
+						allowBlank : false,
+						blankText : "密码不能为空!",
+						name : 'loginPassword',
+						inputType : 'name'
+					} ],
+					buttons : [
+						{
+							text : "提交",
+							handler : function() {
+								if (form1.getForm().isValid()) {
+									form1.getForm().submit({
+										result : function(from,action) {
+											//console.log(action.response.responseText);
+											Ext.Msg.alert("返回提示",action.response.responseText);
+											//window.location = 'index.jsp';
+										},
+										failure : function(form,action) {
+											Ext.Msg.alert("返回提示","登陆失败，请 检查用户名与密码");
+										}
+									});
+								}
+							}
+						}, {
+							text : "重置",
+							handler : function() {
+								form1.getForm().reset();
+							}
+						} ]
+					});
 				});
 	</script>
 	<div id="panel1"></div>
