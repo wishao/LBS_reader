@@ -1,21 +1,22 @@
 package com.reader.core.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
- * @类描述：
- * @创建人：wishao
- * @创建时间：2013-3-13 下午11:07:29
+ * @author zengjw
+ * @date 2013-4-2 涓嬪崍2:53:40
+ * @email ws_wishao@163.com
+ * @detail
  */
 public class User {
 
 	private String id;
 	private String name;
 	private String password;
-	private Date createTime;
+	private Timestamp createTime;
 	private String address;
 	private String signature;
-	private Date updateTime;
+	private Timestamp updateTime;
 
 	@Override
 	public String toString() {
@@ -50,11 +51,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
@@ -74,11 +75,11 @@ public class User {
 		this.signature = signature;
 	}
 
-	public Date getUpdateTime() {
+	public Timestamp getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
 }

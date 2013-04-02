@@ -2,11 +2,10 @@ package com.reader.core.action;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 
 import net.sf.json.JSONObject;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -15,7 +14,7 @@ import com.reader.service.dao.AdminService;
 import com.reader.service.impl.AdminServiceImpl;
 
 public class AdminAction extends ActionSupport {
-	protected Log log = LogFactory.getLog(getClass());
+	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final String LOGIN_NAME = "loginName";
 	private static final String LOGIN_PASSWORD = "loginPassword";
 	private static final long serialVersionUID = 1L;
@@ -32,13 +31,17 @@ public class AdminAction extends ActionSupport {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(admin.getCreateTime());
+		System.out.println(admin);
 
 		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
 		JSONObject json = new JSONObject();
 		if (admin != null) {
 			json.put("success", true);
 			json.put("msg", admin.getName() + "登陆成功");
+			json.put("id", admin.getId());
+			json.put("name", admin.getName());
+			json.put("role", admin.getRole());
+			json.put("createTime", sf.format(admin.getCreateTime()));
 			try {
 				ServletActionContext.getResponse().getWriter()
 						.println(json.toString());

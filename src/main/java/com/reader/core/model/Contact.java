@@ -1,11 +1,12 @@
 package com.reader.core.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
- * @类描述：
- * @创建人：wishao
- * @创建时间：2013-3-13 下午11:14:49
+ * @author zengjw
+ * @date 2013-4-2 涓嬪崍2:52:05
+ * @email ws_wishao@163.com
+ * @detail
  */
 public class Contact {
 
@@ -13,7 +14,7 @@ public class Contact {
 	private User sendUser;
 	private User receiveUser;
 	private String content;
-	private Date createTime;
+	private Timestamp createTime;
 
 	@Override
 	public String toString() {
@@ -55,11 +56,11 @@ public class Contact {
 		this.content = content;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 

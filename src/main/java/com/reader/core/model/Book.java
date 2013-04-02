@@ -1,11 +1,12 @@
 package com.reader.core.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
- * @类描述：
- * @创建人：wishao
- * @创建时间：2013-3-13 下午11:07:20
+ * @author zengjw
+ * @date 2013-4-2 涓嬪崍2:51:18
+ * @email ws_wishao@163.com
+ * @detail
  */
 public class Book {
 
@@ -13,8 +14,8 @@ public class Book {
 	private String name;
 	private String author;
 	private String content;
-	private Date createTime;
-	private Date updateTime;
+	private Timestamp createTime;
+	private Timestamp updateTime;
 	private String recommend;
 	private String cover;
 	private int reader;
@@ -66,19 +67,19 @@ public class Book {
 		this.content = content;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
-	public Date getUpdateTime() {
+	public Timestamp getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
 
