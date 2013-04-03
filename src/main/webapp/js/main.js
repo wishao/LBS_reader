@@ -12,31 +12,23 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 		var a = LBSReader.common.getPermission('rootMod');
 		config = config || {};
 		config.items = this.items || [];
-		if (LBSReader.common.isHasPermission(a, 1)) {
 			var arr = [];
 			var b = LBSReader.common.getPermission('m-1');
 			arr.push({
 						title : '产品信息'
 					});
-			if (LBSReader.common.isHasPermission(b, 1)) {
 				this.spkg = new LBSReader.spkg.DataGrid({});
 				arr.push(this.spkg);
-			}
-			if (LBSReader.common.isHasPermission(b, 2)) {
 				this.prdt = new LBSReader.product.DataGrid({});
 				arr.push(this.prdt);
-			}
-			if (LBSReader.common.isHasPermission(b, 3)) {
 				this.auditing = new LBSReader.auditing.DataGrid({});
 				arr.push(this.auditing);
-			}
 			var pro = {
 				expanded : true,
 				items : arr
 			}
 			config.items.push(pro);
-		}
-		if (LBSReader.common.isHasPermission(a, 2)) {
+		/*if (LBSReader.common.isHasPermission(a, 2)) {
 			var arr = [];
 			var b = LBSReader.common.getPermission('m-2');
 			arr.push({
@@ -202,9 +194,9 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 			}
 			config.items.push(mbos);
 		}
-		/**
+		*//**
 		 * pansenxin 2012-08-03
-		 */
+		 *//*
 		if (LBSReader.common.isHasPermission(a, 10)) {
 			var arr = [];
 			var b = LBSReader.common.getPermission('m-10');
@@ -234,11 +226,11 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 				this.ecrmorderuser = new LBSReader.ecrmOrderUser.DataGrid({});
 				arr.push(this.ecrmorderuser);
 			}
-			/*
+			
 			 * if (LBSReader.common.isHasPermission(b, 6)) { this.ecrmproductadd =
 			 * new LBSReader.ecrmProductAdd.DataPanel({});
 			 * arr.push(this.ecrmproductadd); }
-			 */
+			 
 
 			var busi = {
 				expanded : false,
@@ -280,11 +272,11 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 				items : arr
 			}
 			config.items.push(module_monitor);
-		}
+		}*/
 
 		LBSReader.CenterPanel.superclass.constructor.apply(this, arguments);
 	},
 	loadRoles : function() {
-		Ext.StoreMgr.get('adminRole').load();
+		//Ext.StoreMgr.get('adminRole').load();
 	}
 });

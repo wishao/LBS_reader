@@ -47,7 +47,7 @@
 							handler : function() {
 								if (form1.getForm().isValid()) {
 									form1.getForm().submit({
-										result : function(from,action) {
+										success : function(from,action) {
 											//console.log(action.response.responseText);
 											Ext.Msg.alert("返回提示",action.response.responseText);
 											//window.location = 'index.jsp';
