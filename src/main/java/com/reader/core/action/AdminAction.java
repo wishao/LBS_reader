@@ -77,12 +77,10 @@ public class AdminAction extends ActionSupport {
 		if (admin != null) {
 			admin.setPassword(pwd);
 			boolean result = as.updateAdmin(admin);
-			if(result){
-				System.out.println("aaa");
+			if (result) {
 				json.put("success", "true");
 				json.put("message", "操作成功！");
-			}else{
-				System.out.println("bbb");
+			} else {
 				json.put("message", "操作失败！");
 			}
 			try {

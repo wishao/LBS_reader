@@ -128,11 +128,8 @@
 				var init = function(){					
 					if(!LBSReader.common.getSession("loginInfo")){
 						LBSReader.common.setSession("loginInfo",{
-							type: -1,
-                            account: '未登录',
-                            nodeCode: '未知',
                             name : '未知',
-                            permission : null
+                            role : 0
 						});
 					};					
 					loginForm.btnLogin.on('click',function(){
@@ -169,28 +166,6 @@
 									}else{
 										Ext.MessageBox.alert("提示",Ext.decode(r.responseText).msg);
 									}
-									//Ext.getBody().unmask();
-									 /* try{
-									 	var re = Ext.decode(r.responseText);
-									 	if(re.exId){
-									    	Ext.MessageBox.alert("提示",re.exDesc);
-									    	return;
-									    }
-									 	if(LBSReader.common.permission.indexOf(re.loginInfo.type)>-1){
-									 		if(re.loginInfo.permission.rootMod){
-										 		LBSReader.common.setSession('loginInfo',re.loginInfo);
-										 		initMainProv(re.loginInfo);									 		
-									 		}else{
-									 			Ext.MessageBox.alert("提示","抱歉，你没有足够的权限，请联系管理员！");
-									 		}
-									 	}else{
-									 		Ext.MessageBox.alert("提示","抱歉，你不是管理员");
-									 	}
-									 	
-									 }catch(ex){
-									 	Ext.MessageBox.alert("提示","数据格式错误");
-									 } */	
-									
 								}else{
 									Ext.MessageBox.alert("提示","服务器没响应，请你待会在登录");
 								}
@@ -201,7 +176,7 @@
 				
 				
 				var initMainProv = function(loginInfo){
-				    if (loginInfo.account == '未登录') {
+				    if (loginInfo.name == '未知') {
 				    	inintLoginView();
 				    	return;
 				    } 
@@ -219,7 +194,7 @@
 				};
 				
 				inintLoginView();
-				if(LBSReader.common.getSession('loginInfo').account!='未登录'&&LBSReader.common.permission.indexOf(LBSReader.common.getSession('loginInfo').type)>-1){
+				if(LBSReader.common.getSession('loginInfo').name!='未知'){
 					initMainProv(LBSReader.common.getSession('loginInfo'));
 					return;
 				}
