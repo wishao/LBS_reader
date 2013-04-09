@@ -9,12 +9,13 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 	bodyStyle : 'border:0px',
 
 	constructor : function(config) {
-		var a = LBSReader.common.getPermission('rootMod');
+		var role = LBSReader.common.getPermission('loginInfo');
 		config = config || {};
 		config.items = this.items || [];
+		if(role==1){// 超级管理员
 			var arr = [];
 			arr.push({
-						title : '账号管理'
+						title : '管理员账号管理'
 					});
 				this.spkg = new LBSReader.spkg.DataGrid({});
 				arr.push(this.spkg);
@@ -23,72 +24,43 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 				this.auditing = new LBSReader.auditing.DataGrid({});
 				arr.push(this.auditing);
 			var pro = {
-				expanded : true,
-				items : arr
-			}
-			config.items.push(pro);
-			var arr = [];
-			var b = LBSReader.common.getPermission('m-2');
-			arr.push({
-						title : '订购关系'
-					});
-				this.orderuser = new LBSReader.orderuser.DataGrid({});
-				arr.push(this.orderuser);
-				this.orderUserExtra = new LBSReader.orderUserExtra.DataGrid({});
-				arr.push(this.orderUserExtra);
-			// if (LBSReader.common.isHasPermission(b, 3)) {
-			// this.batchOrderUser = new LBSReader.batchOrderUser.DataPanel({});
-			// arr.push(this.batchOrderUser);
-			// }
-			if (LBSReader.common.isHasPermission(b, 4)) {
-				this.task = new LBSReader.task.Task({});
-				arr.push(this.task);
-			}
-
-			var ord = {
 				expanded : false,
 				items : arr
 			}
-			config.items.push(ord);
+			config.items.push(pro);
+		}
+			
+		if(role==1||role==2){// 超级管理员,管理用户
 			var arr = [];
 			arr.push({
-						title : '工单信息'
+						title : '用户账号管理'
 					});
 				this.orderworkflow = new LBSReader.orderworkflow.DataGrid({});
 				arr.push(this.orderworkflow);
 			var odw = {
-				expanded : false,
+				expanded : true,
 				items : arr
 			}
 			config.items.push(odw);
-		;
-
-		/*if (LBSReader.common.permission[0] == LBSReader.common
-				.getSession('loginInfo').type) {
-			if (LBSReader.common.isHasPermission(a, 4)) {
+		}
+		if (role==1||role==3) {// 超级管理员,管理书籍
 				var arr = [];
-				var b = LBSReader.common.getPermission('m-4');
 				arr.push({
-							title : '系统信息'
+							title : '书籍信息'
 						});
-				if (LBSReader.common.isHasPermission(b, 1)) {
 					this.loadRoles();
 					this.admin = new LBSReader.admin.DataGrid({});
 					arr.push(this.admin);
-				}
-				if (LBSReader.common.isHasPermission(b, 2)) {
 					this.information = new LBSReader.admin.Information({});
 					arr.push(this.information);
-				}
 				var sys = {
-					expanded : false,
+					expanded : true,
 					items : arr
 				}
 				config.items.push(sys);
-			}
 
-		};
-		if (LBSReader.common.isHasPermission(a, 5)) {
+		}
+		/*if (LBSReader.common.isHasPermission(a, 5)) {
 			var arr = [];
 			var b = LBSReader.common.getPermission('m-5');
 			arr.push({

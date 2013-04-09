@@ -65,7 +65,7 @@ LBSReader.head.ModPwdForm = Ext.extend(Ext.form.FormPanel, {
 		var req = {
 			url : LBSReader.req.CHANG_PWD,
 			params : {
-				account : LBSReader.common.getSession("loginInfo").account,
+				account : LBSReader.common.getSession("loginInfo").name,
 				oldPwd : this.oldpwd.getValue(),
 				pwd : this.pwd.getValue()
 			},
@@ -129,7 +129,7 @@ LBSReader.head.HeadPanel = Ext.extend(Ext.Panel,{
 		text : '退出'
 	}),
 	constructor : function(config) {
-		var ac = LBSReader.common.getSession('loginInfo').name;
+		var ac = Ext.decode(LBSReader.common.getSession('loginInfo')).name;
 		this.html='<div id="h_main">' +
 			'<div id="h_left"><img src="./images/logo.png"/></div>' +
 			'<div class="top"><span class="welcomeSlogan">尊敬的<strong>'
@@ -139,7 +139,7 @@ LBSReader.head.HeadPanel = Ext.extend(Ext.Panel,{
 		this.bbar = {
 			 cls : 'tbar_style',
 			 items :[{
-				text : LBSReader.common.getSession('loginInfo').account||'未登录',
+				text : Ext.decode(LBSReader.common.getSession('loginInfo')).name||'未登录',
 				menu:[this.pwdItem,this.outItem]
 			 },'->','<font style="color:#fff">[ 版本号 ：</font> v',LBSReader.version.number,'<font style="color:#fff">]</font>']
 		};

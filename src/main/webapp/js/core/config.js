@@ -6,8 +6,8 @@ Ext.namespace('LBSReader');
 Ext.BLANK_IMAGE_URL = 'resources/ext.3.3.1/resources/images/default/s.gif';
 
 LBSReader.version = {
-	number : '1.3.3',
-	proName : 'ismp'
+	number : '1.0.1',
+	proName : 'LBSReader'
 }
 
 LBSReader.URL = document.URL.slice(0, 7) != 'http://'

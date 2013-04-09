@@ -150,15 +150,15 @@ Ext.namespace('LBSReader', 'LBSReader.common');
 	}
 
 	LBSReader.common.getPermission = function(name) {
+		
 		if (LBSReader.common.getSession("loginInfo")) {
-			var obj = LBSReader.common.getSession("loginInfo").permission;
+			var obj = Ext.decode(LBSReader.common.getSession("loginInfo")).role;
 			if (obj)
-				if (obj[name])
-					return obj[name];
+				return obj;
 		}
 		return 0;
 
-	}
+	};
 	/**
 	 * 
 	 * @param {Object}
@@ -171,7 +171,6 @@ Ext.namespace('LBSReader', 'LBSReader.common');
 		var i = Math.pow(2, b);
 		return i == (i & a);
 	};
-
 })();
 
 LBSReader.common.permission = [9, 16];

@@ -154,6 +154,7 @@
 								if(s){
 									Ext.getBody().unmask();
 									if(Ext.decode(r.responseText).result){
+										LBSReader.common.setSession('loginInfo',r.responseText);
 										distroyLogin();
 										var topx = new LBSReader.head.HeadPanel({});
 										var proMain = new LBSReader.CenterPanel({
