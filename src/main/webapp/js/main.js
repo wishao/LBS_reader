@@ -13,9 +13,8 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 		config = config || {};
 		config.items = this.items || [];
 			var arr = [];
-			var b = LBSReader.common.getPermission('m-1');
 			arr.push({
-						title : '产品信息'
+						title : '账号管理'
 					});
 				this.spkg = new LBSReader.spkg.DataGrid({});
 				arr.push(this.spkg);
@@ -28,20 +27,15 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 				items : arr
 			}
 			config.items.push(pro);
-		/*if (LBSReader.common.isHasPermission(a, 2)) {
 			var arr = [];
 			var b = LBSReader.common.getPermission('m-2');
 			arr.push({
 						title : '订购关系'
 					});
-			if (LBSReader.common.isHasPermission(b, 1)) {
 				this.orderuser = new LBSReader.orderuser.DataGrid({});
 				arr.push(this.orderuser);
-			}
-			if (LBSReader.common.isHasPermission(b, 2)) {
 				this.orderUserExtra = new LBSReader.orderUserExtra.DataGrid({});
 				arr.push(this.orderUserExtra);
-			}
 			// if (LBSReader.common.isHasPermission(b, 3)) {
 			// this.batchOrderUser = new LBSReader.batchOrderUser.DataPanel({});
 			// arr.push(this.batchOrderUser);
@@ -56,25 +50,20 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 				items : arr
 			}
 			config.items.push(ord);
-		}
-		if (LBSReader.common.isHasPermission(a, 3)) {
 			var arr = [];
-			var b = LBSReader.common.getPermission('m-3');
 			arr.push({
 						title : '工单信息'
 					});
-			if (LBSReader.common.isHasPermission(b, 1)) {
 				this.orderworkflow = new LBSReader.orderworkflow.DataGrid({});
 				arr.push(this.orderworkflow);
-			}
 			var odw = {
 				expanded : false,
 				items : arr
 			}
 			config.items.push(odw);
-		};
+		;
 
-		if (LBSReader.common.permission[0] == LBSReader.common
+		/*if (LBSReader.common.permission[0] == LBSReader.common
 				.getSession('loginInfo').type) {
 			if (LBSReader.common.isHasPermission(a, 4)) {
 				var arr = [];

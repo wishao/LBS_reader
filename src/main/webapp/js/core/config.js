@@ -3,7 +3,7 @@
  */
 Ext.namespace('LBSReader');
 
-Ext.BLANK_IMAGE_URL = '../resources/ext.3.3.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'resources/ext.3.3.1/resources/images/default/s.gif';
 
 LBSReader.version = {
 	number : '1.3.3',

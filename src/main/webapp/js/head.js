@@ -134,7 +134,7 @@ LBSReader.head.HeadPanel = Ext.extend(Ext.Panel,{
 			'<div id="h_left"><img src="./images/logo.png"/></div>' +
 			'<div class="top"><span class="welcomeSlogan">尊敬的<strong>'
 			+ac
-	    	+'</strong>,号百综合业务管理平台欢迎您!</span></div><div/>';
+	    	+'</strong>,LBS云阅读管理平台欢迎您!</span></div><div/>';
 		this.dlg = new LBSReader.head.modPwdDlg({});
 		this.bbar = {
 			 cls : 'tbar_style',
