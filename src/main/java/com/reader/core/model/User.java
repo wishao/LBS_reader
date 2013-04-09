@@ -17,13 +17,15 @@ public class User {
 	private String address;
 	private String signature;
 	private Timestamp updateTime;
+	private byte status;
 
 	@Override
 	public String toString() {
 		String str = "id=" + this.id + ";name=" + this.name + ";password="
 				+ this.password + ";createTime=" + this.createTime
 				+ ";address=" + this.address + ";signature=" + this.signature
-				+ ";updateTime=" + this.updateTime + ";";
+				+ ";updateTime=" + this.updateTime + ";status=" + this.status
+				+ ";";
 		return str;
 	}
 
@@ -81,5 +83,13 @@ public class User {
 
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(byte status) {
+		this.status = status;
 	}
 }

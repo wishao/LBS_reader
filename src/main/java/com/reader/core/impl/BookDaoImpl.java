@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.reader.common.dao.BaseDao;
+import com.reader.common.util.Constant;
 import com.reader.common.util.IDUtil;
 import com.reader.core.dao.BookDao;
 import com.reader.core.model.Book;
@@ -56,6 +57,7 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 		param.put("focus", book.getFocus());
 		param.put("catalog", book.getCatalog());
 		param.put("score", book.getScore());
+		param.put("status", Constant.STATUS_YES);
 		getSqlMapClientTemplate().insert("insertBook", param);
 
 	}
@@ -77,6 +79,7 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 		param.put("focus", book.getFocus());
 		param.put("catalog", book.getCatalog());
 		param.put("score", book.getScore());
+		param.put("status", book.getStatus());
 		getSqlMapClientTemplate().update("updateBook", param);
 
 	}

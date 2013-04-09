@@ -117,11 +117,6 @@ LBSReader.head.modPwdDlg = Ext.extend(Ext.Window, {
 LBSReader.head.HeadPanel = Ext.extend(Ext.Panel,{
 	region: 'north',
 	border: false,
-//	html: '<div id="h_main">' +
-//	'<div id="h_left"><img src="./images/logo.png"/></div>' +
-//	'<div class="top"><span>尊敬的<strong>'
-//		+LBSReader.common.getSession('loginInfo').account
-//	    +'</strong>号百综合业务管理平台欢迎你</span></div><div/>',
 	pwdItem : new Ext.menu.Item({
 		text : '修改密码'
 	}),

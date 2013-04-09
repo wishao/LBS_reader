@@ -22,6 +22,7 @@ public class Book {
 	private int focus;
 	private String catalog;
 	private int score;
+	private byte status;
 
 	@Override
 	public String toString() {
@@ -31,7 +32,7 @@ public class Book {
 				+ ";recommend=" + this.recommend + ";cover=" + this.cover
 				+ ";reader=" + this.reader + ";focus=" + this.focus
 				+ ";catalog=" + this.reader + ";catalog=" + this.reader
-				+ ";score=" + this.score + ";";
+				+ ";score=" + this.score + ";status=" + this.status + ";";
 		return str;
 	}
 
@@ -129,6 +130,14 @@ public class Book {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(byte status) {
+		this.status = status;
 	}
 
 }

@@ -15,12 +15,13 @@ public class Admin {
 	private String password;
 	private byte role;
 	private Timestamp createTime;
+	private byte status;
 
 	@Override
 	public String toString() {
 		String str = "id=" + this.id + ";name=" + this.name + ";password="
 				+ this.password + ";role=" + this.role + ";createTime="
-				+ this.createTime + ";";
+				+ this.createTime + ";status=" + this.status + ";";
 		return str;
 	}
 
@@ -62,6 +63,14 @@ public class Admin {
 
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
+	}
+
+	public byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(byte status) {
+		this.status = status;
 	}
 
 }

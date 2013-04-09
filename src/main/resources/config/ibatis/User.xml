@@ -12,6 +12,7 @@
 		<result property="address" column="address" />
 		<result property="signature" column="signature" />
 		<result property="updateTime" column="update_time" />
+		<result property="status" column="status" />
 	</resultMap>
 	<select id="selectUserById" resultMap="user">
 	<![CDATA[
@@ -65,9 +66,9 @@
 	<![CDATA[
 		insert into 
 		t_user
-		(id,name,password,create_time,address,signature,update_time) 
+		(id,name,password,create_time,address,signature,update_time,status) 
 		values
-		(#id#,#name#,#password#,now(),#address#,#signature#,now());
+		(#id#,#name#,#password#,now(),#address#,#signature#,now(),status);
 	]]>
 	</insert>
 
@@ -86,7 +87,7 @@
 		update 
 		t_user 
 		set
-		name=#name#,password=#password#,address=#address#,signature=#signature#,update_time=now()
+		name=#name#,password=#password#,address=#address#,signature=#signature#,update_time=now(),status=#status#
 		where
 		id=#id#;
 	]]>

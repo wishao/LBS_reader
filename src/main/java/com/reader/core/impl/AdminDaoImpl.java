@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.reader.common.dao.BaseDao;
+import com.reader.common.util.Constant;
 import com.reader.common.util.IDUtil;
 import com.reader.common.util.MD5Util;
 import com.reader.core.dao.AdminDao;
@@ -50,8 +51,8 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 		param.put("name", admin.getName());
 		param.put("password", MD5Util.getMD5(admin.getPassword()));
 		param.put("role", admin.getRole());
+		param.put("status", Constant.STATUS_YES);
 		getSqlMapClientTemplate().insert("insertAdmin", param);
-
 	}
 
 	public void delete(String id) {
@@ -65,6 +66,7 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 		param.put("name", admin.getName());
 		param.put("password", MD5Util.getMD5(admin.getPassword()));
 		param.put("role", admin.getRole());
+		param.put("status", admin.getStatus());
 		getSqlMapClientTemplate().update("updateAdmin", param);
 	}
 

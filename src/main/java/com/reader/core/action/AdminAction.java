@@ -39,6 +39,7 @@ public class AdminAction extends ActionSupport {
 			json.put("name", admin.getName());
 			json.put("role", admin.getRole());
 			json.put("createTime", sf.format(admin.getCreateTime()));
+			json.put("status", admin.getStatus());
 			try {
 				ServletActionContext.getResponse().getWriter()
 						.println(json.toString());

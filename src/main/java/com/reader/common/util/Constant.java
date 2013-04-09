@@ -5,6 +5,9 @@ public class Constant {
 	public static final byte ADMIN_ROLE_USER = 2;// 管理用户
 	public static final byte ADMIN_ROLE_BOOK = 3;// 管理书籍
 
+	public static final byte STATUS_YES = 1;// 有效
+	public static final byte STATUS_NO = 0;// 无效
+
 	public static final String RESET_PASSWORD = MD5Util.getMD5("123456");// 初始化密码
 
 	public static final String RESET_READER_FONT = "10px";// 字体大小

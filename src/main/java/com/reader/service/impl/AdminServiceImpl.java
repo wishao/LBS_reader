@@ -18,7 +18,11 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 
 	public Admin loginAdmin(String name, String password) {
 		Admin admin = adminDao.login(name, password);
-		return admin;
+		if(admin.getStatus()==Constant.STATUS_YES){
+			return admin;
+		}else{
+			return null;
+		}
 	}
 
 	public Map<String, Object> selectAllAdmin(int start, int limit) {

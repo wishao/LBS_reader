@@ -17,6 +17,7 @@
 		<result property="focus" column="focus" />
 		<result property="catalog" column="catalog" />
 		<result property="score" column="score" />
+		<result property="status" column="status" />
 	</resultMap>
 	<select id="selectBookById" resultMap="book">
 	<![CDATA[
@@ -69,9 +70,9 @@
 	<![CDATA[
 		insert 
 		into t_book
-		(id,name,author,content,create_time,update_time,recommend,cover,reader,focus,catalog,score)
+		(id,name,author,content,create_time,update_time,recommend,cover,reader,focus,catalog,score,status)
 		values
-		(#id#,#name#,#author#,#content#,now(),now(),0,#cover#,0,0,#catalog#,0);
+		(#id#,#name#,#author#,#content#,now(),now(),0,#cover#,0,0,#catalog#,0,#status#);
 	]]>
 	</insert>
 
@@ -92,7 +93,7 @@
 		set
 		name=#name#,author=#author#,content=#content#,update_time=now(),
 		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
-		catalog=#catalog#,score=#score#,create_time=now() 
+		catalog=#catalog#,score=#score#,create_time=now(),status=#status# 
 		where 
 		id=#id#;
 	]]>
