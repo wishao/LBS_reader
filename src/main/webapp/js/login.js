@@ -74,8 +74,7 @@ LBSReader.login.LoginWindow = Ext.extend(Ext.Window, {
     resizable : false,
     layout: 'fit',
     constructor: function(){
-        var config = arguments[0] ||
-        {};
+        var config = arguments[0] ||{};
         
         this.form = new LBSReader.login.LoginForm({
             border: false

@@ -15,25 +15,22 @@ import com.reader.service.impl.AdminServiceImpl;
 
 public class AdminAction extends ActionSupport {
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static final String LOGIN_NAME = "loginName";
-	private static final String LOGIN_PASSWORD = "loginPassword";
 	private static final long serialVersionUID = 1L;
 	private AdminService as = new AdminServiceImpl();
 
+	// 登录
 	public String login() {
-		String name = ServletActionContext.getRequest()
-				.getParameter(LOGIN_NAME);
+		String name = ServletActionContext.getRequest().getParameter(
+				"loginName");
 		String password = ServletActionContext.getRequest().getParameter(
-				LOGIN_PASSWORD);
-		Admin admin = as.loginAdmin(name, password);
+				"loginPassword");
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(admin);
-
 		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		Admin admin = as.loginAdmin(name, password);
 		JSONObject json = new JSONObject();
 		if (admin != null) {
 			json.put("result", true);
@@ -63,20 +60,57 @@ public class AdminAction extends ActionSupport {
 
 	}
 
+	// 修改密码
+	public String changePassword() {
+		String name = ServletActionContext.getRequest().getParameter("name");
+		String oldPwd = ServletActionContext.getRequest()
+				.getParameter("oldPwd");
+		String pwd = ServletActionContext.getRequest().getParameter("pwd");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		Admin admin = as.loginAdmin(name, oldPwd);
+		JSONObject json = new JSONObject();
+		if (admin != null) {
+			admin.setPassword(pwd);
+			boolean result = as.updateAdmin(admin);
+			if(result){
+				System.out.println("aaa");
+				json.put("success", "true");
+				json.put("message", "操作成功！");
+			}else{
+				System.out.println("bbb");
+				json.put("message", "操作失败！");
+			}
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			json.put("message", "操作失败！");
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return null;
+
+	}
+
 	public AdminService getAs() {
 		return as;
 	}
 
 	public void setAs(AdminService as) {
 		this.as = as;
-	}
-
-	public static String getLoginName() {
-		return LOGIN_NAME;
-	}
-
-	public static String getLoginPassword() {
-		return LOGIN_PASSWORD;
 	}
 
 }

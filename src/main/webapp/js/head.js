@@ -65,7 +65,7 @@ LBSReader.head.ModPwdForm = Ext.extend(Ext.form.FormPanel, {
 		var req = {
 			url : LBSReader.req.CHANG_PWD,
 			params : {
-				account : LBSReader.common.getSession("loginInfo").name,
+				name : Ext.decode(LBSReader.common.getSession('loginInfo')).name,
 				oldPwd : this.oldpwd.getValue(),
 				pwd : this.pwd.getValue()
 			},

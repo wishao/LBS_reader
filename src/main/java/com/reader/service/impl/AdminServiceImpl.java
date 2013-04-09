@@ -66,8 +66,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 
 	public boolean updateAdmin(Admin admin) {
 		try {
-			if (adminDao.getById(admin.getId()) == null
-					|| adminDao.getByName(admin.getName()) != null) {
+			if (adminDao.getById(admin.getId()) == null) {
 				return false;
 			} else {
 				adminDao.update(admin);

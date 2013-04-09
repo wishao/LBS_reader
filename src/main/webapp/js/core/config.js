@@ -42,7 +42,7 @@ LBSReader.req = {
 	ADMIN_LOGIN : LBSReader.URL + 'admin!login',
 	ADMIN : LBSReader.URL + 'queryAdmin',
 	ADMIN_MGR : LBSReader.URL + 'AdminMgr',
-	CHANG_PWD : LBSReader.URL + 'changPwd',
+	CHANG_PWD : LBSReader.URL + 'admin!changePassword',
 	PREMIUM_QUERY : LBSReader.URL + 'PremiumQuery',
 	SERVICEPROVINFO : LBSReader.URL + 'serviceProvInfoQuery',
 	SERVICEPROVINFO_MGR : LBSReader.URL + 'serviceProvInfoMgr',
