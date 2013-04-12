@@ -22,6 +22,7 @@ LBSReader.req = {
 	ADMIN_ADD : LBSReader.URL + 'admin!add',
 	ADMIN_UPDATE : LBSReader.URL + 'admin!update',
 	ADMIN_ALL : LBSReader.URL + 'admin!all',
+	ADMIN_RESETPASSWORD : LBSReader.URL + 'admin!resetPassword',
 
 	// pansenxin 政企模块处理
 	BUSINESS : LBSReader.URL + 'business',

@@ -95,7 +95,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 				return false;
 			} else {
 				admin.setPassword(Constant.RESET_PASSWORD);
-				adminDao.update(admin);
+				adminDao.resetPassword(admin);
 				return true;
 			}
 		} catch (Exception e) {

@@ -111,8 +111,7 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				}
 			},
 			isValid : function() {
-				return this.nameField.isValid()
-						&& this.roleCombo.isValid()
+				return this.nameField.isValid() && this.roleCombo.isValid()
 						&& this.statusCombo.isValid();
 			},
 			commitAdd : function() {
@@ -230,6 +229,11 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						iconCls : 'btn-remove',
 						cls : 'btn-common'
 					}),
+			resetBtn : new Ext.Button({
+						text : '重置密码',
+						iconCls : 'btn-reset',
+						cls : 'btn-common'
+					}),
 			nameField : new Ext.form.TextField({
 						emptyText : '请填写名称',
 						maxLength : 100,
@@ -259,6 +263,8 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					config.tbar.push(this.uptBtn);
 				if (role == 1)
 					config.tbar.push(this.remvBtn);
+				if (role == 1)
+					config.tbar.push(this.resetBtn);
 				config.tbar.push('->');
 				config.tbar.push('管理员名: ');
 				config.tbar.push(this.nameField);
@@ -341,6 +347,20 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 										}
 									}, this);
 						}, this);
+				this.resetBtn.on('click', function() {
+							var rs = this.getSelectionModel().getSelected();
+							if (rs == null) {
+								Ext.MessageBox.alert('提示', '请最少选择一条记录！', null,
+										this);
+								return;
+							}
+							Ext.MessageBox.confirm("提示", "确认要把所选记录重置密码(123456)吗？",
+									function(id) {
+										if (id == "yes") {
+											this.resetItems();
+										}
+									}, this);
+						}, this);
 				this.searchBtn.on('click', function() {
 							this.searchItems();
 						}, this);
@@ -385,6 +405,29 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				if (null != r && null != r.data) {
 					var req = {
 						url : LBSReader.req.ADMIN_REMOVE,
+						params : {
+							id : r.data.id
+						},
+						scope : this,
+						callback : function(o) {
+							if (o.success) {
+								Ext.MessageBox.alert('提示', '操作成功！', function() {
+											this.loadItems();
+										}, this);
+							} else {
+								Ext.MessageBox.alert('提示', '操作失败！', function() {
+										}, this);
+							}
+						}
+					};
+					LBSReader.Ajax.send(req);
+				}
+			},
+			resetItems : function() {
+				var r = this.getSelectionModel().getSelected();
+				if (null != r && null != r.data) {
+					var req = {
+						url : LBSReader.req.ADMIN_RESETPASSWORD,
 						params : {
 							id : r.data.id
 						},
