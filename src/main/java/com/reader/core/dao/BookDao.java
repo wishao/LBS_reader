@@ -7,13 +7,9 @@ import com.reader.core.model.Book;
 public interface BookDao {
 	public Book getById(String id);
 
-	public List<Book> selectAll(int start, int limit);
+	public List<Book> selectAll(String name, int start, int limit);
 
-	public int countAll();
-
-	public Book selectByName(String name, int start, int limit);
-
-	public int countBookByName(String name);
+	public int countAll(String name);
 
 	public void add(Book book);
 

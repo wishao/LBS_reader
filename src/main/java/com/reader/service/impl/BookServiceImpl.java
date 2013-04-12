@@ -15,11 +15,11 @@ import com.reader.service.dao.BookService;
 public class BookServiceImpl extends BaseService implements BookService {
 	private static BookDao bookDao = (BookDao) context.getBean("bookDAO");
 
-	public Map<String, Object> selectAllBook(int start, int limit) {
+	public Map<String, Object> selectAllBook(String name, int start, int limit) {
 
 		try {
-			int count = bookDao.countAll();
-			List<Book> bookList = bookDao.selectAll(start, limit);
+			int count = bookDao.countAll(name);
+			List<Book> bookList = bookDao.selectAll(name, start, limit);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("count", count);
 			result.put("bookList", bookList);
