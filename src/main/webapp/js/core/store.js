@@ -4,6 +4,34 @@
 Ext.namespace('LBSReader', 'LBSReader.store');
 
 var jsonStore_timeout = 6000;// timeout
+
+LBSReader.store.LIMIT = 15;
+
+LBSReader.store.ADMIN = new Ext.data.JsonStore({
+			url : LBSReader.req.ADMIN_ALL,
+			baseParams : {
+				start : 0,
+				limit : LBSReader.store.LIMIT
+			},
+			listeners : {
+				'load' : {
+					fn : LBSReader.customFunctions.noRecordHandler
+				},
+				'exception' : {
+					fn : LBSReader.customFunctions.exceptinHandler
+				},
+				'loadexception' : {
+					fn : function() {
+						LBSReader.customFunctions.unmask_timeout();
+					}
+				}
+			},
+			storeId : 'admin',
+			root : 'rows',
+			fields : ['id', 'name', 'role', 'create_time', 'status']
+
+		});
+
 LBSReader.store.JOB_PLAN = new Ext.data.ArrayStore({
 			fields : ['id', 'name'],
 			data : [['0', '定时'], ['1', '立即执行']]
@@ -1001,31 +1029,6 @@ LBSReader.store.SUITE = new Ext.data.JsonStore({
 		});
 
 // guoguangfu 2011/7/5
-LBSReader.store.ADMIN = new Ext.data.JsonStore({
-			url : LBSReader.req.ADMIN,
-			baseParams : {
-				timestamp : new Date().valueOf(),
-				method : 'all'
-			},
-			listeners : {
-				'load' : {
-					fn : LBSReader.customFunctions.noRecordHandler
-				},
-				'exception' : {
-					fn : LBSReader.customFunctions.exceptinHandler
-				},
-				'loadexception' : {
-					fn : function() {
-						LBSReader.customFunctions.unmask_timeout();
-					}
-				}
-			},
-			storeId : 'admin',
-			root : 'rows',
-			fields : ['account', 'name', 'desc', 'nodeCode', 'tel', 'email',
-					'dept', 'type', 'roleId', 'roleName', 'roles']
-
-		});
 
 // zzx 2011/8/8
 LBSReader.store.SPTEL = new Ext.data.JsonStore({

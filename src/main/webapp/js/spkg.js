@@ -17,7 +17,7 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 						value : -1
 					}),
 			nameField : new Ext.form.TextField({
-						fieldLabel : '产品包名称',
+						fieldLabel : '管理员名称',
 						allowBlank : false,
 						emptyText : '请填写名称',
 						blankText : '请填写名称',
@@ -27,228 +27,37 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 						msgTarget : 'side',
 						width : 200
 					}),
-			seqNumField : new Ext.form.TextField({
-						fieldLabel : '产品包编号',
-						regex : /^[^\u4e00-\u9fa5]*?$/,
-						regexText : '请输入有效的值，不能有中文',
-						allowBlank : false,
-						emptyText : '请填写编号',
-						blankText : '请填写编号',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
-						maxLength : 100,
-						msgTarget : 'side',
-						width : 200,
-						listeners : {
-							"change" : function(obj, n, o) {
-								this.ownerCt.oldParam = o;
-							}
-						}
-					}),
-			productCombo : new Ext.form.ComboBox({
-				fieldLabel : '包含产品',
-				editable : false,
-				// mode : 'local',
-				triggerAction : 'all',
-				allowBlank : false,
-				emptyText : '请选择包含产品',
-				displayField : 'name',
-				valueField : 'id',
-				width : 200,
-				store : Ext.StoreMgr.get('productall')
-					// listeners : {
-					// "focus" : function(){
-					// this.getStore().load();
-					// }
-					// }
-
-				}),
-			smaxField : new Ext.form.NumberField({
-						fieldLabel : '业务资费(元)',
-						allowBlank : false,
-						allowNegative : false,
-						minValue : 0,
-						emptyText : '请填写业务资费',
-						blankText : '请填写业务资费',
-						maxLength : 100,
-						msgTarget : 'side',
-						width : 200
-					}),
-			billCombo : new Ext.form.ComboBox({
-						fieldLabel : '计费标识',
+			roleCombo : new Ext.form.ComboBox({
+						fieldLabel : '权限',
 						editable : false,
 						mode : 'local',
 						triggerAction : 'all',
 						allowBlank : false,
-						emptyText : '请选择计费标识',
+						emptyText : '请选择权限',
 						displayField : 'name',
-						valueField : 'code',
+						valueField : 'role',
 						width : 200,
 						store : new Ext.data.ArrayStore({
-									fields : ['code', 'name'],
-									data : [['1', '号百计费'], ['2', 'CRM计费']]
+									fields : ['role', 'name'],
+									data : [['1', '超级管理员'], ['2', '用户管理员'],
+											['3', '书籍管理员']]
 								})
 					}),
-			chargingCodeField : new Ext.form.TextField({
-						fieldLabel : '计费编码',
-						regex : /^[^\u4e00-\u9fa5]*?$/,
-						regexText : '请输入有效的值，不能有中文',
-						allowBlank : false,
-						emptyText : '请输入计费编码',
-						blankText : '请输入计费编码',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
-						maxLength : 100,
-						msgTarget : 'side',
-						width : 200
-					}),
-			chargingDescTex : new Ext.form.TextArea({
-						grow : true,
-						fieldLabel : '计费策略描述',
-						width : 200
-					}),
-			chargingCycleCmb : new Ext.form.ComboBox({
-						fieldLabel : '计费周期',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						displayField : 'view',
-						valueField : 'code',
-						width : 200,
-						store : LBSReader.store.CHARGING_CYCLE,
-						value : 4
-					}),
-			effectModeCmb : new Ext.form.ComboBox({
-						fieldLabel : '订购生效模式',
+			statusCombo : new Ext.form.ComboBox({
+						fieldLabel : '有效标识',
 						editable : false,
 						mode : 'local',
 						triggerAction : 'all',
 						allowBlank : false,
-						emptyText : '请选择生效模式',
+						emptyText : '请选择有效标识',
 						displayField : 'name',
-						valueField : 'mode',
+						valueField : 'status',
 						width : 200,
 						store : new Ext.data.ArrayStore({
-									fields : ['mode', 'name'],
-									data : [['0', '立即生效'], ['1', '下个计费周期生效']]
-								}),
-						value : 0
+									fields : ['status', 'name'],
+									data : [['0', '无效'], ['1', '有效']]
+								})
 					}),
-
-			withDrawModeCmb : new Ext.form.ComboBox({
-						fieldLabel : '退订生效模式',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						allowBlank : false,
-						emptyText : '请选择退订模式',
-						displayField : 'name',
-						valueField : 'mode',
-						width : 200,
-						store : new Ext.data.ArrayStore({
-									fields : ['mode', 'name'],
-									data : [['0', '立即生效'], ['1', '下个计费周期生效']]
-								}),
-						value : 0
-					}),
-			trialTypeCmb : new Ext.form.ComboBox({
-						fieldLabel : '试用期类型',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						allowBlank : false,
-						emptyText : '请选择试用期类型',
-						displayField : 'name',
-						valueField : 'mode',
-						width : 200,
-						store : new Ext.data.ArrayStore({
-									fields : ['mode', 'name'],
-									data : [['0', '无试用期'], ['1', '有试用期到月底'],
-											['2', '有试用时长']]
-								}),
-						value : 0,
-						listeners : {
-							"collapse" : function() {
-								var obj = this.nextSibling();
-								if (this.getValue() != 2) {
-									obj.setDisabled(true);
-									obj.setValue(0);
-									return;
-								}
-								obj.setDisabled(false);
-								obj.setValue("请填写时长（以天为单位）");
-							}
-						}
-					}),
-			trialTermField : new Ext.form.NumberField({
-						fieldLabel : '试用期时长',
-						allowBlank : false,
-						allowNegative : false,
-						minValue : 0,
-						disabled : true,
-						emptyText : '请填写时长（以天为单位）',
-						blankText : '请填写时长（以天为单位）',
-						maxLength : 100,
-						msgTarget : 'side',
-						value : 0,
-						width : 200
-					}),
-
-			useFlagCmb : new Ext.form.ComboBox({
-						fieldLabel : '启用标识',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						allowBlank : false,
-						displayField : 'name',
-						valueField : 'mode',
-						width : 200,
-						store : new Ext.data.ArrayStore({
-									fields : ['mode', 'name'],
-									data : [[0, '有效'], [1, '无效']]
-								}),
-						value : 0
-					}),
-			beginRuleCmb : new Ext.form.ComboBox({
-						fieldLabel : '首月计费规则',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						allowBlank : false,
-						displayField : 'name',
-						valueField : 'mode',
-						listWidth : 400,
-						width : 200,
-						store : LBSReader.store.BEGIN_RULE,
-						value : 2
-					}),
-			endPreCmb : new Ext.form.ComboBox({
-						fieldLabel : '注销当月预付费计费规则',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						allowBlank : false,
-						displayField : 'name',
-						valueField : 'mode',
-						listWidth : 420,
-						width : 200,
-						store : LBSReader.store.END_PER_RULE,
-						value : 3
-					}),
-			endAfterCmb : new Ext.form.ComboBox({
-						fieldLabel : '注销当月后付费计费规则',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						allowBlank : false,
-						displayField : 'name',
-						valueField : 'mode',
-						listWidth : 420,
-						width : 200,
-						store : LBSReader.store.END_AFTER_RULE,
-						value : 3
-					}),
-
 			commitBtn : new Ext.Button({
 						id : 'commitBtn',
 						text : '提交',
@@ -260,21 +69,10 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				config = config || {};
 				config.items = config.items || [];
 				config.items.push([{
-					columnWidth : .5,
 					layout : 'form',
 					bodyBorder : false,
-					items : [this.idHidden, this.nameField, this.seqNumField,
-							this.productCombo, this.smaxField, this.billCombo,
-							this.chargingCodeField, this.chargingCycleCmb,
-							this.chargingDescTex]
-				}, {
-					columnWidth : .5,
-					bodyBorder : false,
-					layout : 'form',
-					items : [this.effectModeCmb, this.withDrawModeCmb,
-							this.trialTypeCmb, this.trialTermField,
-							this.useFlagCmb, this.beginRuleCmb, this.endPreCmb,
-							this.endAfterCmb]
+					items : [this.idHidden, this.nameField, this.roleCombo,
+							this.statusCombo]
 				}]);
 
 				config.buttons = config.buttons || [];
@@ -305,92 +103,29 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				if (null != o.name) {
 					this.nameField.setValue(o.name);
 				}
-				if (null != o.code) {
-					this.seqNumField.setValue(o.code);
-					this.oldParam = o.code;
+				if (null != o.role) {
+					this.roleCombo.setValue(o.role);
 				}
-				if (null != o.simple) {
-					// this.productCombo.clearValue();
-					this.productCombo.setValue(o.simple.id);
-					// this.productCombo.valueNotFoundText=o.simple.name;
-				}
-				if (null != o.pairValue) {
-					this.smaxField.setValue(o.pairValue);
-				}
-				if (null != o.billFlag) {
-					this.billCombo.setValue(o.billFlag);
-				}
-				if (null != o.chargingDesc) {
-					this.chargingDescTex.setValue(o.chargingDesc);
-				}
-				if (null != o.chargingCycle) {
-					this.chargingCycleCmb.setValue(o.chargingCycle);
-				}
-				if (null != o.chargingCode) {
-					this.chargingCodeField.setValue(o.chargingCode);
-				}
-				if (null != o.effectMode) {
-					this.effectModeCmb.setValue(o.effectMode);
-				}
-				if (null != o.withDrawMode) {
-					this.withDrawModeCmb.setValue(o.withDrawMode);
-				}
-				if (null != o.trialType) {
-					this.trialTypeCmb.setValue(o.trialType);
-				}
-				if (null != o.trialTerm) {
-					this.trialTermField.setValue(o.trialTerm);
-				}
-				if (null != o.useFlag) {
-					this.useFlagCmb.setValue(o.useFlag);
-				}
-				if (null != o.beginCharg) {
-					this.beginRuleCmb.setValue(o.beginCharg);
-				}
-				if (null != o.endPreCharg) {
-					this.endPreCmb.setValue(o.endPreCharg);
-				}
-				if (null != o.endAfterCharg) {
-					this.endAfterCmb.setValue(o.endAfterCharg);
+				if (null != o.status) {
+					this.statusCombo.setValue(o.status);
 				}
 			},
 			isValid : function() {
-				return this.nameField.isValid() && this.seqNumField.isValid()
-						&& this.productCombo.isValid()
-						&& this.smaxField.isValid() && this.billCombo.isValid()
-						&& this.chargingCodeField.isValid()
-						&& this.effectModeCmb.isValid()
-						&& this.withDrawModeCmb.isValid()
-						&& this.trialTypeCmb.isValid()
-						&& this.trialTermField.isValid()
-						&& null != this.productCombo.getValue()
-						&& '' != this.productCombo.getValue();
+				return this.nameField.isValid()
+						&& this.roleCombo.isValid()
+						&& this.statusCombo.isValid();
 			},
 			commitAdd : function() {
 				if (!this.isValid()) {
 					return;
 				}
 				var req = {
-					url : LBSReader.req.HBPACKAGE_SIMPLE_ADD,
+					url : LBSReader.req.ADMIN_ADD,
 					params : {
-						timestamp : new Date().valueOf(),
+						id : this.idHidden.getValue(),
 						name : this.nameField.getValue(),
-						code : this.seqNumField.getValue(),
-						pid : this.productCombo.getValue(),
-						pairValue : this.smaxField.getValue(),
-						billFlag : this.billCombo.getValue(),
-						// 添加表字段后加的
-						chargingCode : this.chargingCodeField.getValue(),
-						chargingDesc : this.chargingDescTex.getValue(),
-						chargingCycle : this.chargingCycleCmb.getValue(),
-						effectMode : this.effectModeCmb.getValue(),
-						withDrawMode : this.withDrawModeCmb.getValue(),
-						trialType : this.trialTypeCmb.getValue(),
-						trialTerm : this.trialTermField.getValue(),
-						beginCharg : this.beginRuleCmb.getValue(),
-						endPreCharg : this.endPreCmb.getValue(),
-						endAfterCharg : this.endAfterCmb.getValue(),
-						packageType : 0
+						role : this.roleCombo.getValue(),
+						status : this.statusCombo.getValue()
 					},
 					scope : this,
 					callback : function(o) {
@@ -413,29 +148,12 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 					return;
 				}
 				var req = {
-					url : LBSReader.req.HBPACKAGE_SIMPLE_UPDATE,
+					url : LBSReader.req.ADMIN_UPDATE,
 					params : {
-						timestamp : new Date().valueOf(),
 						id : this.idHidden.getValue(),
 						name : this.nameField.getValue(),
-						code : this.seqNumField.getValue(),
-						pid : this.productCombo.getValue(),
-						pairValue : this.smaxField.getValue(),
-						billFlag : this.billCombo.getValue(),
-						// 添加表字段后加的
-						chargingCode : this.chargingCodeField.getValue(),
-						chargingDesc : this.chargingDescTex.getValue(),
-						chargingCycle : this.chargingCycleCmb.getValue(),
-						effectMode : this.effectModeCmb.getValue(),
-						withDrawMode : this.withDrawModeCmb.getValue(),
-						trialType : this.trialTypeCmb.getValue(),
-						trialTerm : this.trialTermField.getValue(),
-						useFlag : this.useFlagCmb.getValue(),
-						beginCharg : this.beginRuleCmb.getValue(),
-						endPreCharg : this.endPreCmb.getValue(),
-						endAfterCharg : this.endAfterCmb.getValue(),
-						packageType : 0,
-						oldCode : this.oldParam
+						role : this.roleCombo.getValue(),
+						status : this.statusCombo.getValue()
 					},
 					scope : this,
 					callback : function(o) {
@@ -455,11 +173,11 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 		});
 
 LBSReader.spkg.ItemDlg = Ext.extend(Ext.Window, {
-			title : '单一产品包配置',
+			title : '管理员配置',
 			layout : 'fit',
 			modal : true,
-			width : 640,
-			height : 350,
+			width : 350,
+			height : 200,
 			constrainHeader : true,
 			closeAction : 'hide',
 
@@ -472,10 +190,6 @@ LBSReader.spkg.ItemDlg = Ext.extend(Ext.Window, {
 				config.items.push(this.configForm);
 				LBSReader.spkg.ItemDlg.superclass.constructor.apply(this,
 						arguments);
-				this.on('show', function() {
-							this.configForm.productCombo.getStore().load();
-						}, this);
-
 			},
 			toAdd : function() {
 				this.configForm.isEDIT = false;
@@ -489,13 +203,13 @@ LBSReader.spkg.ItemDlg = Ext.extend(Ext.Window, {
 		});
 
 LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
-			title : '产品包维护',
+			title : '管理员维护',
 			autoScroll : true,
-			store : Ext.StoreMgr.get('spackage'),
+			store : Ext.StoreMgr.get('admin'),
 			cls : 'box-dataGrid',
 			viewConfig : {
 				getRowClass : function(record, rowIndex, rowParams, store) {
-					if (LBSReader.data.USE_FLAG.NOEFFECT == record.data.useFlag) {
+					if (LBSReader.data.ADMIN_STATUS.NOEFFECT == record.data.status) {
 						return 'unknown';
 					}
 				}
@@ -506,18 +220,13 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						iconCls : 'btn-add',
 						cls : 'btn-common'
 					}),
-			syncBtn : new Ext.Button({
-						text : '同步到VSOP平台',
-						iconCls : 'btn-add',
-						cls : 'btn-common-l'
-					}),
 			uptBtn : new Ext.Button({
 						text : '修改',
 						iconCls : 'btn-edit',
 						cls : 'btn-common'
 					}),
 			remvBtn : new Ext.Button({
-						text : '置为无效',
+						text : '删除',
 						iconCls : 'btn-remove',
 						cls : 'btn-common'
 					}),
@@ -543,130 +252,48 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						});
 				config = config || {};
 				config.tbar = config.tbar || [];
-				var a = LBSReader.common.getPermission('1-1');
-				if (LBSReader.common.isHasPermission(a, 2))
+				var role = LBSReader.common.getPermission('loginInfo');
+				if (role == 1)
 					config.tbar.push(this.addBtn);
-				// if(LBSReader.common.isHasPermission(a,14))
-				// config.tbar.push(this.syncBtn);
-				if (LBSReader.common.isHasPermission(a, 3))
+				if (role == 1)
 					config.tbar.push(this.uptBtn);
-				if (LBSReader.common.isHasPermission(a, 4))
+				if (role == 1)
 					config.tbar.push(this.remvBtn);
 				config.tbar.push('->');
-				config.tbar.push('产品包名称: ');
+				config.tbar.push('管理员名: ');
 				config.tbar.push(this.nameField);
-				if (LBSReader.common.isHasPermission(a, 1))
+				if (role == 1)
 					config.tbar.push(this.searchBtn);
 				config.bbar = this.pagingbar;
 				this.sm = new Ext.grid.CheckboxSelectionModel({
 							singleSelect : true
 						});
 				this.cm = new Ext.grid.ColumnModel([this.sm, {
-							header : '产品包名称',
+							header : '管理员名称',
 							align : 'left',
 							menuDisabled : true,
 							dataIndex : 'name',
 							width : 200
 						}, {
-							header : '产品包编号',
+							header : '权限',
 							align : 'left',
 							menuDisabled : true,
-							dataIndex : 'code',
-							width : 100
-						}, {
-							header : '业务资费',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'pairValue',
-							width : 50
-						}, {
-							header : '计费标识',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'billFlag',
-							renderer : LBSReader.renderer.CHARGINGMODE,
-							width : 80
-						}, {
-							header : '计费编码',
-							align : 'left',
-							menuDisabled : true,
-							dataIndex : 'chargingCode',
-							width : 100
-						}, {
-							header : '计费策略描述',
-							align : 'left',
-							menuDisabled : true,
-							dataIndex : 'chargingDesc',
-							width : 100
-						}, {
-							header : '计费周期',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'chargingCycle',
-							width : 70,
-							renderer : LBSReader.renderer.CHARGINGCYCLE
-						}, {
-							header : '订购生效模式',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'effectMode',
+							dataIndex : 'role',
 							width : 100,
-							renderer : LBSReader.renderer.EFFECTMODE
+							renderer : LBSReader.renderer.ADMIN_ROLE
 						}, {
-							header : '退订生效模式',
+							header : '创建时间',
 							align : 'center',
 							menuDisabled : true,
-							dataIndex : 'withDrawMode',
-							width : 100,
-							renderer : LBSReader.renderer.EFFECTMODE
-						}, {
-							header : '试用期类型',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'trialType',
-							width : 100,
-							renderer : LBSReader.renderer.TRIAL_TYPE
-						}, {
-							header : '试用期时长',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'trialTerm',
-							width : 70
-						}, {
-							header : '包含产品',
-							align : 'left',
-							menuDisabled : true,
-							dataIndex : 'simple',
-							width : 200,
-							renderer : LBSReader.renderer.PACKAGE_SIMPLE_PRODUCT
+							dataIndex : 'create_time',
+							width : 150
 						}, {
 							header : '启用状态',
 							align : 'center',
 							menuDisabled : true,
-							dataIndex : 'useFlag',
+							dataIndex : 'status',
 							width : 60,
-							renderer : LBSReader.renderer.STATUS_FLAG
-						}, {
-							header : '首月计费规则',
-							align : 'left',
-							menuDisabled : true,
-							dataIndex : 'beginCharg',
-							width : 100,
-							renderer : LBSReader.renderer.BEGIN_RULE
-						}, {
-							header : '注销当月预付费计费规则',
-							align : 'left',
-							menuDisabled : true,
-							dataIndex : 'endPreCharg',
-							width : 100,
-							renderer : LBSReader.renderer.END_PRE_CHARG
-						}, {
-							header : '注销当月后付费计费规则',
-							align : 'left',
-							menuDisabled : true,
-							dataIndex : 'endAfterCharg',
-							width : 100,
-							renderer : LBSReader.renderer.END_AFTER_CHARG
+							renderer : LBSReader.renderer.ADMIN_STATUS
 						}]);
 				LBSReader.spkg.DataGrid.superclass.constructor.apply(this,
 						arguments);
@@ -684,13 +311,11 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							}
 						}, this);
 				this.addBtn.on('click', function() {
-							this.dlg.configForm.smaxField.enable();
-							this.dlg.configForm.productCombo.setValue(null);
+							// this.dlg.configForm.roleCombo.setValue(null);
 							this.dlg.show();
 							this.dlg.toAdd();
 						}, this);
 				this.uptBtn.on('click', function() {
-							this.dlg.configForm.smaxField.disable();
 							var r = this.getSelectionModel().getSelected();
 							if (null != r && null != r.data) {
 								this.dlg.show();
@@ -709,36 +334,12 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 										this);
 								return;
 							}
-							Ext.MessageBox.confirm("提示", "确认要把所选记录置为无效吗？",
+							Ext.MessageBox.confirm("提示", "确认要把所选记录删除(不可逆)吗？",
 									function(id) {
 										if (id == "yes") {
 											this.removeItems();
 										}
 									}, this);
-						}, this);
-				this.syncBtn.on('click', function() {
-							var rs = this.getSelectionModel().getSelected();
-							if (rs == null) {
-								Ext.MessageBox.alert('提示', '请最少选择一条记录！', null,
-										this);
-								return;
-							}
-							if (rs.data.vsopStatus == 0) {
-								Ext.MessageBox.confirm("提示",
-										"该产品包已经同步到VSOP平台，确认再次同步吗？",
-										function(id) {
-											if (id == "yes") {
-												this.syncItems();
-											}
-										}, this);
-							} else {
-								Ext.MessageBox.confirm("提示",
-										"确认要把所选记同步到VSOP平台吗？", function(id) {
-											if (id == "yes") {
-												this.syncItems();
-											}
-										}, this);
-							}
 						}, this);
 				this.searchBtn.on('click', function() {
 							this.searchItems();
@@ -749,13 +350,8 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					this.searchItems();
 					return;
 				}
-				this.getStore().baseParams = {
-					method : 'page',
-					packageType : '0'
-				};
 				this.getStore().load({
 							params : {
-								timestamp : new Date().valueOf(),
 								start : 0,
 								limit : this.pagingbar.pageSize
 							},
@@ -771,13 +367,10 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					return;
 				}
 				this.getStore().baseParams = {
-					method : 'search',
-					name : this.nameField.getValue().trim(),
-					packageType : '0'
+					name : this.nameField.getValue().trim()
 				};
 				this.getStore().load({
 							params : {
-								timestamp : new Date().valueOf(),
 								start : 0,
 								limit : this.pagingbar.pageSize
 							},
@@ -791,9 +384,8 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				var r = this.getSelectionModel().getSelected();
 				if (null != r && null != r.data) {
 					var req = {
-						url : LBSReader.req.HBPACKAGE_SIMPLE_REMOVE,
+						url : LBSReader.req.ADMIN_REMOVE,
 						params : {
-							timestamp : new Date().valueOf(),
 							id : r.data.id
 						},
 						scope : this,
@@ -804,40 +396,6 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 										}, this);
 							} else {
 								Ext.MessageBox.alert('提示', '操作失败！', function() {
-										}, this);
-							}
-						}
-					};
-					LBSReader.Ajax.send(req);
-				}
-			},
-			syncItems : function() {
-				var r = this.getSelectionModel().getSelected();
-				if (null != r && null != r.data) {
-					var req = {
-						url : LBSReader.req.HBPACKAGE_SIMPLE_QUERY,
-						params : {
-							timestamp : new Date().valueOf(),
-							id : r.data.id,
-							code : r.data.code,
-							name : r.data.name,
-							chargingDesc : r.data.chargingDesc,
-							beginCharg : r.data.beginCharg,
-							effectMode : r.data.effectMode,
-							withDrawMode : r.data.withDrawMode,
-							trialType : r.data.trialType,
-							simple : r.data.simple.code,
-							vsopStatus : r.data.vsopStatus,
-							useFlag : r.data.useFlag,
-							method : 'syncPakcage'
-						},
-						scope : this,
-						callback : function(o) {
-							if (true == o.success || 'true' == o.success) {
-								Ext.MessageBox.alert('提示', '同步成功！', function() {
-										}, this);
-							} else {
-								Ext.MessageBox.alert('提示', '同步失败！', function() {
 										}, this);
 							}
 						}

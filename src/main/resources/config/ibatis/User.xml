@@ -68,7 +68,7 @@
 		t_user
 		(id,name,password,create_time,address,signature,update_time,status) 
 		values
-		(#id#,#name#,#password#,now(),#address#,#signature#,now(),status);
+		(#id#,#name#,#password#,now(),#address#,#signature#,now(),#status#);
 	]]>
 	</insert>
 
@@ -90,6 +90,15 @@
 		name=#name#,password=#password#,address=#address#,signature=#signature#,update_time=now(),status=#status#
 		where
 		id=#id#;
+	]]>
+	</update>
+	
+	<update id="resetUserPassword">
+	<![CDATA[
+		update 
+		t_user 
+		set 
+		password=#password# where id=#id#;
 	]]>
 	</update>
 </sqlMap>

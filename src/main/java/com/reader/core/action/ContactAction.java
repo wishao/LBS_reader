@@ -5,9 +5,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.reader.core.model.Admin;
@@ -43,7 +43,7 @@ public class ContactAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		if (admin != null) {
 			json.put("success", true);
-			json.put("msg", admin + "µÇÂ¼³É¹¦");
+			json.put("msg", admin + "ï¿½ï¿½Â¼ï¿½É¹ï¿½");
 			try {
 				ServletActionContext.getResponse().getWriter()
 						.println(json.toString());
@@ -54,7 +54,7 @@ public class ContactAction extends ActionSupport {
 			return null;
 		} else {
 			json.put("failure", true);
-			json.put("msg", "µÇÂ¼Ê§°Ü");
+			json.put("msg", "ï¿½ï¿½Â¼Ê§ï¿½ï¿½");
 			try {
 				ServletActionContext.getResponse().getWriter()
 						.println(json.toString());

@@ -5,9 +5,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.reader.core.model.Admin;

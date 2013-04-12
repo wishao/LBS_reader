@@ -25,16 +25,19 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 				"selectAdminByName", name);
 	}
 
-	public List<Admin> selectAll(int start, int limit) {
+	public List<Admin> selectAll(String name, int start, int limit) {
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("name", name);
 		param.put("start", start);
 		param.put("limit", limit);
 		return getSqlMapClientTemplate().queryForList("selectAllAdmin", param);
 	}
 
-	public int countAll() {
+	public int countAll(String name) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("name", name);
 		return (Integer) getSqlMapClientTemplate().queryForObject(
-				"countAllAdmin");
+				"countAllAdmin", param);
 	}
 
 	public Admin login(String name, String password) {
@@ -49,9 +52,9 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", IDUtil.getID());
 		param.put("name", admin.getName());
-		param.put("password", MD5Util.getMD5(admin.getPassword()));
+		param.put("password", MD5Util.getMD5(Constant.RESET_PASSWORD));
 		param.put("role", admin.getRole());
-		param.put("status", Constant.STATUS_YES);
+		param.put("status", admin.getStatus());
 		getSqlMapClientTemplate().insert("insertAdmin", param);
 	}
 
@@ -64,10 +67,16 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", admin.getId());
 		param.put("name", admin.getName());
-		param.put("password", MD5Util.getMD5(admin.getPassword()));
 		param.put("role", admin.getRole());
 		param.put("status", admin.getStatus());
 		getSqlMapClientTemplate().update("updateAdmin", param);
+	}
+
+	public void resetPassword(Admin admin) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", admin.getId());
+		param.put("password", MD5Util.getMD5(admin.getPassword()));
+		getSqlMapClientTemplate().update("resetAdminPassword", param);
 	}
 
 }

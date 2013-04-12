@@ -3,6 +3,33 @@
  */
 Ext.namespace('LBSReader', 'LBSReader.renderer');
 
+LBSReader.renderer.ADMIN_STATUS = function(value) {
+	if (LBSReader.data.ADMIN_STATUS.EFFECT == value) {
+		return '<font color="green">有效</font>';
+	} else if (LBSReader.data.ADMIN_STATUS.NOEFFECT == value) {
+		return '<font color="red">无效</font>';
+	} else {
+		return '<font color="gray">暂无</font>';
+	}
+};
+
+LBSReader.renderer.ADMIN_ROLE = function(value) {
+	if (value == '1') {
+		return '超级管理员';
+	} else if (value == '2') {
+		return '用户管理员';
+	} else if(value == '3'){
+		return '书籍管理员';
+	}else{
+		return '未知';
+	}
+}
+
+
+
+
+
+
 LBSReader.renderer.TASK_LEVEL = function(value) {
 	if (value == 0) {
 		return '<span style="color:red;">紧急</span>';

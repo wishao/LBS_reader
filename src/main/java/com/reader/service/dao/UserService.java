@@ -16,5 +16,6 @@ public interface UserService {
 	public boolean updateUser(User user);
 
 	public boolean resetUserPassword(String id);
+	
 
 }

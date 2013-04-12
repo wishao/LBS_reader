@@ -20,5 +20,7 @@ public interface UserDao {
 	public void delete(String id);
 
 	public void update(User user);
+	
+	public void resetPassword(User user);
 
 }

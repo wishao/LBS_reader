@@ -5,6 +5,16 @@ Ext.namespace('LBSReader', 'LBSReader.data');
 
 LBSReader.data.RATE = 100.0;
 
+
+// 状态标识
+LBSReader.data.ADMIN_STATUS = {
+	EFFECT : 1, // 有效
+	NOEFFECT : 0, // 无效
+	ALL : -1
+	// 全部
+};
+
+
 LBSReader.data.TASK_STATUS = {
 	FINISH : '4',
 	FAIL : '5'
@@ -136,8 +146,8 @@ LBSReader.data.CHARGING_CHANNEL = {
 
 // 状态标识
 LBSReader.data.STATUS_FLAG = {
-	EFFECT : 0, // 有效
-	NOEFFECT : 1, // 无效
+	EFFECT : 1, // 有效
+	NOEFFECT : 0, // 无效
 	ALL : -1
 	// 全部
 };

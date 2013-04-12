@@ -18,17 +18,22 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 
 	public Admin loginAdmin(String name, String password) {
 		Admin admin = adminDao.login(name, password);
-		if(admin.getStatus()==Constant.STATUS_YES){
+		if (admin.getStatus() == Constant.STATUS_YES) {
 			return admin;
-		}else{
+		} else {
 			return null;
 		}
 	}
 
-	public Map<String, Object> selectAllAdmin(int start, int limit) {
+	public Admin selectAdminById(String id) {
+		Admin admin = adminDao.getById(id);
+		return admin;
+	}
+
+	public Map<String, Object> selectAllAdmin(String name, int start, int limit) {
 		try {
-			int count = adminDao.countAll();
-			List<Admin> adminList = adminDao.selectAll(start, limit);
+			int count = adminDao.countAll(name);
+			List<Admin> adminList = adminDao.selectAll(name, start, limit);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("count", count);
 			result.put("adminList", adminList);
@@ -43,6 +48,7 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 	public boolean addAdmin(Admin admin) {
 		try {
 			if (adminDao.getByName(admin.getName()) == null) {
+				admin.setPassword(Constant.RESET_PASSWORD);
 				adminDao.add(admin);
 				return true;
 			} else {

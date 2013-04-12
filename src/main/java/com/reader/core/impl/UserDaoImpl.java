@@ -11,6 +11,7 @@ import com.reader.common.util.Constant;
 import com.reader.common.util.IDUtil;
 import com.reader.common.util.MD5Util;
 import com.reader.core.dao.UserDao;
+import com.reader.core.model.Admin;
 import com.reader.core.model.User;
 
 @Repository("userDAO")
@@ -66,11 +67,16 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", user.getId());
 		param.put("name", user.getName());
-		param.put("password", MD5Util.getMD5(user.getPassword()));
 		param.put("address", user.getAddress());
 		param.put("signature", user.getSignature());
 		param.put("status", user.getStatus());
 		getSqlMapClientTemplate().update("updateUser", param);
 	}
-
+	
+	public void resetPassword(User user) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", user.getId());
+		param.put("password", MD5Util.getMD5(user.getPassword()));
+		getSqlMapClientTemplate().update("resetUserPassword", param);
+	}
 }

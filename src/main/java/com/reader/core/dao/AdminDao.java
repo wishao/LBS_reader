@@ -9,9 +9,9 @@ public interface AdminDao {
 
 	public Admin getByName(String name);
 
-	public List<Admin> selectAll(int start, int limit);
+	public List<Admin> selectAll(String name, int start, int limit);
 
-	public int countAll();
+	public int countAll(String name);
 
 	public Admin login(String name, String password);
 
@@ -20,5 +20,7 @@ public interface AdminDao {
 	public void delete(String id);
 
 	public void update(Admin admin);
+
+	public void resetPassword(Admin admin);
 
 }

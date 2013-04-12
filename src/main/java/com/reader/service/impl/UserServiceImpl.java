@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.reader.common.dao.BaseService;
 import com.reader.common.util.Constant;
 import com.reader.core.dao.UserDao;
+import com.reader.core.model.Admin;
 import com.reader.core.model.User;
 import com.reader.service.dao.UserService;
 
@@ -102,14 +103,5 @@ public class UserServiceImpl extends BaseService implements UserService {
 		this.userDao = userDao;
 	}
 
-	public static void main(String[] args) {
-		String name = "a";
-		String password = "a";
-		String role = "a";
-		User user = new User();
-		user.setName(name);
-		user.setPassword(password);
-		userDao.add(user);
-		// System.out.println(user.getId() == null ? null : user.getId());
-	}
+	
 }

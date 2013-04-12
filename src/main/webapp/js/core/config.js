@@ -13,8 +13,15 @@ LBSReader.version = {
 LBSReader.URL = document.URL.slice(0, 7) != 'http://'
 		? 'http://localhost:8080/LBS-Reader/'
 		: document.URL.split('admin')[0] + 'LBS-Reader/';
+//LBSReader.URL = 'http://localhost:8080/LBS-Reader/';
 
 LBSReader.req = {
+	ADMIN_LOGIN : LBSReader.URL + 'admin!login',
+	ADMIN_REMOVE : LBSReader.URL + 'admin!delete',
+	CHANG_PWD : LBSReader.URL + 'admin!changePassword',
+	ADMIN_ADD : LBSReader.URL + 'admin!add',
+	ADMIN_UPDATE : LBSReader.URL + 'admin!update',
+	ADMIN_ALL : LBSReader.URL + 'admin!all',
 
 	// pansenxin 政企模块处理
 	BUSINESS : LBSReader.URL + 'business',
@@ -38,11 +45,10 @@ LBSReader.req = {
 	ECRM_ORDER_ACTION : LBSReader.URL + 'ecrmOrderAction',
 
 	// guogf登录请求
-	ROLE_QUERY_ALL : LBSReader.URL + 'role',
-	ADMIN_LOGIN : LBSReader.URL + 'admin!login',
+	
 	ADMIN : LBSReader.URL + 'queryAdmin',
 	ADMIN_MGR : LBSReader.URL + 'AdminMgr',
-	CHANG_PWD : LBSReader.URL + 'admin!changePassword',
+	
 	PREMIUM_QUERY : LBSReader.URL + 'PremiumQuery',
 	SERVICEPROVINFO : LBSReader.URL + 'serviceProvInfoQuery',
 	SERVICEPROVINFO_MGR : LBSReader.URL + 'serviceProvInfoMgr',

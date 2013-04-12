@@ -3,10 +3,12 @@ package com.reader.core.action;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
-
-import net.sf.json.JSONObject;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.reader.core.model.Admin;
@@ -19,6 +21,7 @@ public class AdminAction extends ActionSupport {
 	private AdminService as = new AdminServiceImpl();
 
 	// 登录
+	@SuppressWarnings("unchecked")
 	public String login() {
 		String name = ServletActionContext.getRequest().getParameter(
 				"loginName");
@@ -26,10 +29,11 @@ public class AdminAction extends ActionSupport {
 				"loginPassword");
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+
 		Admin admin = as.loginAdmin(name, password);
 		JSONObject json = new JSONObject();
 		if (admin != null) {
@@ -62,6 +66,7 @@ public class AdminAction extends ActionSupport {
 	}
 
 	// 修改密码
+	@SuppressWarnings("unchecked")
 	public String changePassword() {
 		String name = ServletActionContext.getRequest().getParameter("name");
 		String oldPwd = ServletActionContext.getRequest()
@@ -69,10 +74,11 @@ public class AdminAction extends ActionSupport {
 		String pwd = ServletActionContext.getRequest().getParameter("pwd");
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+
 		Admin admin = as.loginAdmin(name, oldPwd);
 		JSONObject json = new JSONObject();
 		if (admin != null) {
@@ -100,6 +106,207 @@ public class AdminAction extends ActionSupport {
 			}
 
 		}
+		return null;
+
+	}
+
+	// 删除
+	@SuppressWarnings("unchecked")
+	public String delete() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		JSONObject json = new JSONObject();
+		try {
+			as.deleteAdmin(id);
+			json.put("success", "true");
+			json.put("message", "操作成功！");
+		} catch (Exception e) {
+			json.put("message", "操作失败！");
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	// 更新
+	@SuppressWarnings("unchecked")
+	public String update() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		String name = ServletActionContext.getRequest().getParameter("name");
+		String role = ServletActionContext.getRequest().getParameter("role");
+		String status = ServletActionContext.getRequest()
+				.getParameter("status");
+		Admin admin = as.selectAdminById(id);
+		JSONObject json = new JSONObject();
+		if (admin != null) {
+			admin.setId(id);
+			admin.setName(name);
+			admin.setRole(new Byte(role));
+			admin.setStatus(new Byte(status));
+			try {
+				ServletActionContext.getRequest().setCharacterEncoding("gbk");
+				ServletActionContext.getResponse()
+						.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				as.updateAdmin(admin);
+				json.put("success", "true");
+				json.put("message", "操作成功！");
+			} catch (Exception e) {
+				json.put("message", "操作失败！");
+				e.printStackTrace();
+			} finally {
+				try {
+					ServletActionContext.getResponse().getWriter()
+							.println(json.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			json.put("message", "操作失败！");
+		}
+
+		return null;
+
+	}
+
+	// 新增
+	@SuppressWarnings("unchecked")
+	public String add() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		String name = ServletActionContext.getRequest().getParameter("name");
+		String role = ServletActionContext.getRequest().getParameter("role");
+		String status = ServletActionContext.getRequest()
+				.getParameter("status");
+		Admin admin = new Admin();
+		admin.setId(id);
+		admin.setName(name);
+		admin.setRole(new Byte(role));
+		admin.setStatus(new Byte(status));
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		try {
+			as.addAdmin(admin);
+			json.put("success", "true");
+			json.put("message", "操作成功！");
+		} catch (Exception e) {
+			json.put("message", "操作失败！");
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	// 查询所有
+	@SuppressWarnings("unchecked")
+	public String all() {
+
+		int start = Integer.parseInt(ServletActionContext.getRequest()
+				.getParameter("start"));
+		int limit = Integer.parseInt(ServletActionContext.getRequest()
+				.getParameter("limit"));
+		String name = ServletActionContext.getRequest().getParameter("name");
+		name = name == null ? "" : name;
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		JSONArray rows = new JSONArray();
+		try {
+			Map<String, Object> result = as.selectAllAdmin(name, start, limit);
+			List<Admin> adminList = (List<Admin>) result.get("adminList");
+			for (Admin admin : adminList) {
+				JSONObject jsonTemp = new JSONObject();
+				jsonTemp.put("id", admin.getId());
+				jsonTemp.put("name", admin.getName());
+				jsonTemp.put("role", admin.getRole());
+				jsonTemp.put("create_time", sf.format(admin.getCreateTime()));
+				jsonTemp.put("status", admin.getStatus());
+				rows.add(jsonTemp);
+			}
+			json.put("rows", rows);
+			json.put("total", result.get("count"));
+		} catch (Exception e) {
+			json.put("rows", new JSONArray());
+			json.put("total", 0);
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	// 更新
+	@SuppressWarnings("unchecked")
+	public String resetPassword() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		Admin admin = as.selectAdminById(id);
+		JSONObject json = new JSONObject();
+		if (admin != null) {
+			try {
+				ServletActionContext.getRequest().setCharacterEncoding("gbk");
+				ServletActionContext.getResponse()
+						.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			try {
+				as.resetAdminPassword(id);
+				json.put("success", "true");
+				json.put("message", "操作成功！");
+			} catch (Exception e) {
+				json.put("message", "操作失败！");
+				e.printStackTrace();
+			} finally {
+				try {
+					ServletActionContext.getResponse().getWriter()
+							.println(json.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			json.put("message", "操作失败！");
+		}
+
 		return null;
 
 	}
