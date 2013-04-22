@@ -18,7 +18,9 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 
 	public Admin loginAdmin(String name, String password) {
 		Admin admin = adminDao.login(name, password);
-		if (admin.getStatus() == Constant.STATUS_YES) {
+		if (admin == null) {
+			return null;
+		} else if (admin.getStatus() == Constant.STATUS_YES) {
 			return admin;
 		} else {
 			return null;
