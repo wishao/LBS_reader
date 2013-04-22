@@ -1,19 +1,19 @@
 package com.reader.common.util;
 
 public class Constant {
-	public static final byte ADMIN_ROLE_SUPER = 1;// ³¬¼¶¹ÜÀíÔ±
-	public static final byte ADMIN_ROLE_USER = 2;// ÓÃ»§¹ÜÀíÔ±
-	public static final byte ADMIN_ROLE_BOOK = 3;// Êé¼®¹ÜÀíÔ±
+	public static final byte ADMIN_ROLE_SUPER = 1;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±
+	public static final byte ADMIN_ROLE_USER = 2;// ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ô±
+	public static final byte ADMIN_ROLE_BOOK = 3;// ï¿½é¼®ï¿½ï¿½ï¿½ï¿½Ô±
 
-	public static final byte STATUS_YES = 1;// ÓÐÐ§
-	public static final byte STATUS_NO = 0;// ÎÞÐ§
+	public static final byte STATUS_YES = 1;// ï¿½ï¿½Ð§
+	public static final byte STATUS_NO = 0;// ï¿½ï¿½Ð§
 
-	public static final String RESET_PASSWORD = MD5Util.getMD5("123456");// ³õÊ¼»¯ÃÜÂë
+	public static final String RESET_PASSWORD = "123456";// ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	public static final String RESET_READER_FONT = "10px";// ×ÖÌå´óÐ¡
-	public static final String RESET_READER_FONT_COLOR = "000000";// ×ÖÌåÑÕÉ«
-	public static final String RESET_READER_BACKGROUND_COLOR = "ffffff";// ±³¾°ÑÕÉ«
+	public static final String RESET_READER_FONT = "10px";// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+	public static final String RESET_READER_FONT_COLOR = "000000";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
+	public static final String RESET_READER_BACKGROUND_COLOR = "ffffff";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 
-	public static final byte RECORD_SHARE_YES = 1;// ·ÖÏí
-	public static final byte RECORD_SHARE_NO = 2;// Ë½ÓÐ
+	public static final byte RECORD_SHARE_YES = 1;// ï¿½ï¿½ï¿½ï¿½
+	public static final byte RECORD_SHARE_NO = 2;// Ë½ï¿½ï¿½
 }
