@@ -18,11 +18,22 @@ LBSReader.URL = document.URL.slice(0, 7) != 'http://'
 LBSReader.req = {
 	ADMIN_LOGIN : LBSReader.URL + 'admin!login',
 	ADMIN_REMOVE : LBSReader.URL + 'admin!delete',
-	CHANG_PWD : LBSReader.URL + 'admin!changePassword',
 	ADMIN_ADD : LBSReader.URL + 'admin!add',
 	ADMIN_UPDATE : LBSReader.URL + 'admin!update',
 	ADMIN_ALL : LBSReader.URL + 'admin!all',
 	ADMIN_RESETPASSWORD : LBSReader.URL + 'admin!resetPassword',
+	CHANG_PWD : LBSReader.URL + 'admin!changePassword',
+	
+	USER_ALL : LBSReader.URL + 'user!all',
+	USER_ADD : LBSReader.URL + 'user!add',
+	USER_UPDATE : LBSReader.URL + 'user!update',
+	USER_REMOVE : LBSReader.URL + 'user!delete',
+	USER_RESETPASSWORD : LBSReader.URL + 'user!resetPassword',
+	
+	BOOK_ALL : LBSReader.URL + 'book!all',
+	BOOK_ADD : LBSReader.URL + 'book!add',
+	BOOK_UPDATE : LBSReader.URL + 'book!update',
+	BOOK_REMOVE : LBSReader.URL + 'book!delete',
 
 	// pansenxin 政企模块处理
 	BUSINESS : LBSReader.URL + 'business',

@@ -1,9 +1,9 @@
 /**
  * @author johnny0086
  */
-Ext.namespace('LBSReader', 'LBSReader.spkg');
+Ext.namespace('LBSReader', 'LBSReader.adminManager');
 
-LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.adminManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 			labelWidth : 80,
 			labelAlign : 'right',
 			border : false,
@@ -77,7 +77,7 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 
 				config.buttons = config.buttons || [];
 				config.buttons.push(this.commitBtn);
-				LBSReader.spkg.ItemForm.superclass.constructor.apply(this,
+				LBSReader.adminManager.ItemForm.superclass.constructor.apply(this,
 						arguments);
 
 				this.commitBtn.on('click', function() {
@@ -121,7 +121,6 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				var req = {
 					url : LBSReader.req.ADMIN_ADD,
 					params : {
-						id : this.idHidden.getValue(),
 						name : this.nameField.getValue(),
 						role : this.roleCombo.getValue(),
 						status : this.statusCombo.getValue()
@@ -171,7 +170,7 @@ LBSReader.spkg.ItemForm = Ext.extend(Ext.form.FormPanel, {
 			}
 		});
 
-LBSReader.spkg.ItemDlg = Ext.extend(Ext.Window, {
+LBSReader.adminManager.ItemDlg = Ext.extend(Ext.Window, {
 			title : '管理员配置',
 			layout : 'fit',
 			modal : true,
@@ -185,9 +184,9 @@ LBSReader.spkg.ItemDlg = Ext.extend(Ext.Window, {
 			constructor : function(config) {
 				config = config || {};
 				config.items = config.items || [];
-				this.configForm = new LBSReader.spkg.ItemForm({});
+				this.configForm = new LBSReader.adminManager.ItemForm({});
 				config.items.push(this.configForm);
-				LBSReader.spkg.ItemDlg.superclass.constructor.apply(this,
+				LBSReader.adminManager.ItemDlg.superclass.constructor.apply(this,
 						arguments);
 			},
 			toAdd : function() {
@@ -201,7 +200,7 @@ LBSReader.spkg.ItemDlg = Ext.extend(Ext.Window, {
 			}
 		});
 
-LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
+LBSReader.adminManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			title : '管理员维护',
 			autoScroll : true,
 			store : Ext.StoreMgr.get('admin'),
@@ -246,7 +245,7 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						cls : 'btn-search btn-common'
 					}),
 			constructor : function(config) {
-				this.dlg = new LBSReader.spkg.ItemDlg({});
+				this.dlg = new LBSReader.adminManager.ItemDlg({});
 				this.pagingbar = new Ext.PagingToolbar({
 							pageSize : 15,
 							store : this.getStore(),
@@ -301,7 +300,7 @@ LBSReader.spkg.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							width : 60,
 							renderer : LBSReader.renderer.ADMIN_STATUS
 						}]);
-				LBSReader.spkg.DataGrid.superclass.constructor.apply(this,
+				LBSReader.adminManager.DataGrid.superclass.constructor.apply(this,
 						arguments);
 
 				this.on('show', function() {

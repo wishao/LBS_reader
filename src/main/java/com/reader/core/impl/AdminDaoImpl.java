@@ -52,7 +52,7 @@ public class AdminDaoImpl extends BaseDao implements AdminDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", IDUtil.getID());
 		param.put("name", admin.getName());
-		param.put("password", MD5Util.getMD5(Constant.RESET_PASSWORD));
+		param.put("password", Constant.RESET_PASSWORD);
 		param.put("role", admin.getRole());
 		param.put("status", admin.getStatus());
 		getSqlMapClientTemplate().insert("insertAdmin", param);

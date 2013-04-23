@@ -32,6 +32,59 @@ LBSReader.store.ADMIN = new Ext.data.JsonStore({
 
 		});
 
+LBSReader.store.USER = new Ext.data.JsonStore({
+			url : LBSReader.req.USER_ALL,
+			baseParams : {
+				start : 0,
+				limit : LBSReader.store.LIMIT
+			},
+			listeners : {
+				'load' : {
+					fn : LBSReader.customFunctions.noRecordHandler
+				},
+				'exception' : {
+					fn : LBSReader.customFunctions.exceptinHandler
+				},
+				'loadexception' : {
+					fn : function() {
+						LBSReader.customFunctions.unmask_timeout();
+					}
+				}
+			},
+			storeId : 'user',
+			root : 'rows',
+			fields : ['id', 'name', 'create_time', 'address', 'signature',
+					'update_time', 'status']
+
+		});
+
+LBSReader.store.BOOK = new Ext.data.JsonStore({
+			url : LBSReader.req.BOOK_ALL,
+			baseParams : {
+				start : 0,
+				limit : LBSReader.store.LIMIT
+			},
+			listeners : {
+				'load' : {
+					fn : LBSReader.customFunctions.noRecordHandler
+				},
+				'exception' : {
+					fn : LBSReader.customFunctions.exceptinHandler
+				},
+				'loadexception' : {
+					fn : function() {
+						LBSReader.customFunctions.unmask_timeout();
+					}
+				}
+			},
+			storeId : 'book',
+			root : 'rows',
+			fields : ['id', 'name', 'author', 'content', 'create_time',
+					'update_time', 'recommend', 'cover', 'reader', 'focus',
+					'catalog', 'score', 'status']
+
+		});
+
 LBSReader.store.JOB_PLAN = new Ext.data.ArrayStore({
 			fields : ['id', 'name'],
 			data : [['0', '定时'], ['1', '立即执行']]

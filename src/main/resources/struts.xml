@@ -16,5 +16,9 @@
 		</action>
 		<action name="admin" class="com.reader.common.action.AdminAction">
 		</action>
+		<action name="user" class="com.reader.common.action.UserAction">
+		</action>
+		<action name="book" class="com.reader.common.action.BookAction">
+		</action>
 	</package>
 </struts>

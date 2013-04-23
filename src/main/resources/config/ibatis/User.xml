@@ -40,6 +40,8 @@
 		* 
 		from 
 		t_user
+		where 
+		name like '%$name$%' 
 		order by create_time desc
 		limit #start#,#limit#;
 	]]>
@@ -49,7 +51,9 @@
 		select 
 		count(*) 
 		from
-		t_user;
+		t_user
+		where 
+		name like '%$name$%';
 	]]>
 	</select>
 	<select id="loginUser" resultMap="user">

@@ -21,7 +21,7 @@ public class TestServiceImpl extends BaseService implements TestService {
 	}
 	
 	public static void main(String[] args){
-		Admin admin = adminDao.getById("3ed26c7b-fb02-4237-ab9f-a942592819bf");
+		Admin admin = adminDao.getById("6cfdaff5-692c-4dcb-8dd4-757076626132");
 		//admin.setId("3ed26c7b-fb02-4237-ab9f-a942592819bf");
 		/*admin.setName("admin");
 		admin.setPassword("a");

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.reader.common.dao.BaseService;
 import com.reader.common.util.Constant;
 import com.reader.core.dao.UserDao;
-import com.reader.core.model.Admin;
 import com.reader.core.model.User;
 import com.reader.service.dao.UserService;
 
@@ -19,13 +18,24 @@ public class UserServiceImpl extends BaseService implements UserService {
 
 	public User loginUser(String name, String password) {
 		User user = userDao.login(name, password);
+		if (user == null) {
+			return null;
+		} else if (user.getStatus() == Constant.STATUS_YES) {
+			return user;
+		} else {
+			return null;
+		}
+	}
+
+	public User selectUserById(String id) {
+		User user = userDao.getById(id);
 		return user;
 	}
 
-	public Map<String, Object> selectNewUser(int start, int limit) {
+	public Map<String, Object> selectAllUser(String name, int start, int limit) {
 		try {
-			int count = userDao.countAll();
-			List<User> userList = userDao.selectAll(start, limit);
+			int count = userDao.countAll(name);
+			List<User> userList = userDao.selectAll(name, start, limit);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("count", count);
 			result.put("userList", userList);
@@ -39,6 +49,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 	public boolean addUser(User user) {
 		try {
 			if (userDao.getByName(user.getName()) == null) {
+				user.setPassword(Constant.RESET_PASSWORD);
 				userDao.add(user);
 				return true;
 			} else {
@@ -66,8 +77,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 
 	public boolean updateUser(User user) {
 		try {
-			if (userDao.getById(user.getId()) == null
-					|| userDao.getByName(user.getName()) != null) {
+			if (userDao.getById(user.getId()) == null) {
 				return false;
 			} else {
 				userDao.update(user);
@@ -103,5 +113,4 @@ public class UserServiceImpl extends BaseService implements UserService {
 		this.userDao = userDao;
 	}
 
-	
 }

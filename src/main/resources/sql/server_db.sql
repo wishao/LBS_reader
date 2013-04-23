@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS t_book;
 CREATE TABLE t_book(
 id VARCHAR(36) NOT NULL COMMENT 'Id',
 name TEXT(100) NOT NULL COMMENT '书名',
-author VARCHAR(20) COMMENT ' 作者',
+author VARCHAR(20) COMMENT '作者',
 content VARCHAR(100) NOT NULL COMMENT '内容文本链接',
 create_time DATETIME NOT NULL COMMENT '创建时间',
 update_time DATETIME NOT NULL COMMENT '更新时间',

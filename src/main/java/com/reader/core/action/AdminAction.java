@@ -190,13 +190,11 @@ public class AdminAction extends ActionSupport {
 	// 新增
 	@SuppressWarnings("unchecked")
 	public String add() {
-		String id = ServletActionContext.getRequest().getParameter("id");
 		String name = ServletActionContext.getRequest().getParameter("name");
 		String role = ServletActionContext.getRequest().getParameter("role");
 		String status = ServletActionContext.getRequest()
 				.getParameter("status");
 		Admin admin = new Admin();
-		admin.setId(id);
 		admin.setName(name);
 		admin.setRole(new Byte(role));
 		admin.setStatus(new Byte(status));

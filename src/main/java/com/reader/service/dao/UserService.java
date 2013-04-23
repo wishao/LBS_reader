@@ -7,7 +7,9 @@ import com.reader.core.model.User;
 public interface UserService {
 	public User loginUser(String name, String password);
 
-	public Map<String, Object> selectNewUser(int start, int limit);
+	public User selectUserById(String id);
+
+	public Map<String, Object> selectAllUser(String name, int start, int limit);
 
 	public boolean addUser(User user);
 
@@ -16,6 +18,5 @@ public interface UserService {
 	public boolean updateUser(User user);
 
 	public boolean resetUserPassword(String id);
-	
 
 }

@@ -13,6 +13,26 @@ LBSReader.renderer.ADMIN_STATUS = function(value) {
 	}
 };
 
+LBSReader.renderer.USER_STATUS = function(value) {
+	if (LBSReader.data.USER_STATUS.EFFECT == value) {
+		return '<font color="green">有效</font>';
+	} else if (LBSReader.data.USER_STATUS.NOEFFECT == value) {
+		return '<font color="red">无效</font>';
+	} else {
+		return '<font color="gray">暂无</font>';
+	}
+};
+
+LBSReader.renderer.BOOK_STATUS = function(value) {
+	if (LBSReader.data.BOOK_STATUS.EFFECT == value) {
+		return '<font color="green">有效</font>';
+	} else if (LBSReader.data.BOOK_STATUS.NOEFFECT == value) {
+		return '<font color="red">无效</font>';
+	} else {
+		return '<font color="gray">暂无</font>';
+	}
+};
+
 LBSReader.renderer.ADMIN_ROLE = function(value) {
 	if (value == '1') {
 		return '超级管理员';
