@@ -1,19 +1,19 @@
 package com.reader.common.util;
 
 public class Constant {
-	public static final byte ADMIN_ROLE_SUPER = 1;// ��������Ա
-	public static final byte ADMIN_ROLE_USER = 2;// �û�����Ա
-	public static final byte ADMIN_ROLE_BOOK = 3;// �鼮����Ա
+	public static final byte ADMIN_ROLE_SUPER = 1;// 超级管理员
+	public static final byte ADMIN_ROLE_USER = 2;// 用户管理员
+	public static final byte ADMIN_ROLE_BOOK = 3;// 书籍管理员
 
-	public static final byte STATUS_YES = 1;// ��Ч
-	public static final byte STATUS_NO = 0;// ��Ч
+	public static final byte STATUS_YES = 1;// 有效
+	public static final byte STATUS_NO = 0;// 无效
 
-	public static final String RESET_PASSWORD = "123456";// ��ʼ������
+	public static final String RESET_PASSWORD = "123456";// 初始化密码
 
-	public static final String RESET_READER_FONT = "10px";// �����С
-	public static final String RESET_READER_FONT_COLOR = "000000";// ������ɫ
-	public static final String RESET_READER_BACKGROUND_COLOR = "ffffff";// ������ɫ
+	public static final String RESET_READER_FONT = "10px";// 字体大小
+	public static final String RESET_READER_FONT_COLOR = "000000";// 字体颜色
+	public static final String RESET_READER_BACKGROUND_COLOR = "ffffff";// 背景颜色
 
-	public static final byte RECORD_SHARE_YES = 1;// ����
-	public static final byte RECORD_SHARE_NO = 2;// ˽��
+	public static final byte RECORD_SHARE_YES = 1;// 分享
+	public static final byte RECORD_SHARE_NO = 2;// 私有
 }
