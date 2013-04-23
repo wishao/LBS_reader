@@ -7,18 +7,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
-import org.json.simple.JSONArray; 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.reader.core.model.Book;
-import com.reader.service.dao.BookService;
-import com.reader.service.impl.BookServiceImpl;
+import com.reader.core.model.Reader;
+import com.reader.core.model.User;
+import com.reader.service.dao.ReaderService;
+import com.reader.service.dao.UserService;
+import com.reader.service.impl.ReaderServiceImpl;
+import com.reader.service.impl.UserServiceImpl;
 
-public class BookAction extends ActionSupport {
+public class ReaderAction extends ActionSupport {
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final long serialVersionUID = 1L;
-	private BookService bs = new BookServiceImpl();
+	private ReaderService rs = new ReaderServiceImpl();
+	private UserService us = new UserServiceImpl();
 
 	// 删除
 	@SuppressWarnings("unchecked")
@@ -33,10 +37,10 @@ public class BookAction extends ActionSupport {
 
 		JSONObject json = new JSONObject();
 		try {
-			if(bs.deleteBook(id)){
+			if (rs.deleteReader(id)) {
 				json.put("success", "true");
 				json.put("message", "操作成功！");
-			}else{
+			} else {
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
@@ -58,29 +62,22 @@ public class BookAction extends ActionSupport {
 	@SuppressWarnings("unchecked")
 	public String update() {
 		String id = ServletActionContext.getRequest().getParameter("id");
-		String name = ServletActionContext.getRequest().getParameter("name");
-		String author = ServletActionContext.getRequest()
-				.getParameter("author");
-		String content = ServletActionContext.getRequest().getParameter(
-				"content");
-		String recommend = ServletActionContext.getRequest().getParameter(
-				"recommend");
-		String cover = ServletActionContext.getRequest().getParameter("cover");
-		String catalog = ServletActionContext.getRequest().getParameter(
-				"catalog");
-		String status = ServletActionContext.getRequest()
-				.getParameter("status");
-		Book book = bs.selectBookById(id);
+		String userId = ServletActionContext.getRequest().getParameter(
+				"user_id");
+		String font = ServletActionContext.getRequest().getParameter("font");
+		String backgroundColor = ServletActionContext.getRequest()
+				.getParameter("background_color");
+		String fontColor = ServletActionContext.getRequest().getParameter(
+				"font_color");
+		Reader reader = rs.selectReaderById(id);
+		User user = us.selectUserById(userId);
 		JSONObject json = new JSONObject();
-		if (book != null) {
-			book.setId(id);
-			book.setName(name);
-			book.setAuthor(author);
-			book.setContent(content);
-			book.setRecommend(recommend);
-			book.setCover(cover);
-			book.setCatalog(catalog);
-			book.setStatus(new Byte(status));
+		if (reader != null && user != null) {
+			reader.setId(id);
+			reader.setUser(user);
+			reader.setFont(font);
+			reader.setBackgroundColor(backgroundColor);
+			reader.setFontColor(fontColor);
 			try {
 				ServletActionContext.getRequest().setCharacterEncoding("gbk");
 				ServletActionContext.getResponse()
@@ -90,10 +87,10 @@ public class BookAction extends ActionSupport {
 			}
 
 			try {
-				if(bs.updateBook(book)){
+				if (rs.updateReader(reader)) {
 					json.put("success", "true");
 					json.put("message", "操作成功！");
-				}else{
+				} else {
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
@@ -118,26 +115,8 @@ public class BookAction extends ActionSupport {
 	// 新增
 	@SuppressWarnings("unchecked")
 	public String add() {
-		String name = ServletActionContext.getRequest().getParameter("name");
-		String author = ServletActionContext.getRequest()
-				.getParameter("author");
-		String content = ServletActionContext.getRequest().getParameter(
-				"content");
-		String recommend = ServletActionContext.getRequest().getParameter(
-				"recommend");
-		String cover = ServletActionContext.getRequest().getParameter("cover");
-		String catalog = ServletActionContext.getRequest().getParameter(
-				"catalog");
-		String status = ServletActionContext.getRequest()
-				.getParameter("status");
-		Book book = new Book();
-		book.setName(name);
-		book.setAuthor(author);
-		book.setContent(content);
-		book.setRecommend(recommend);
-		book.setCover(cover);
-		book.setCatalog(catalog);
-		book.setStatus(new Byte(status));
+		String userId = ServletActionContext.getRequest().getParameter(
+				"user_id");
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
@@ -146,10 +125,15 @@ public class BookAction extends ActionSupport {
 		}
 		JSONObject json = new JSONObject();
 		try {
-			if(bs.addBook(book)){
-				json.put("success", "true");
-				json.put("message", "操作成功！");
-			}else{
+			User user = us.selectUserById(userId);
+			if (user != null) {
+				if (rs.addReader(userId)) {
+					json.put("success", "true");
+					json.put("message", "操作成功！");
+				} else {
+					json.put("message", "操作失败！");
+				}
+			} else {
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
@@ -175,8 +159,6 @@ public class BookAction extends ActionSupport {
 				.getParameter("start"));
 		int limit = Integer.parseInt(ServletActionContext.getRequest()
 				.getParameter("limit"));
-		String name = ServletActionContext.getRequest().getParameter("name");
-		name = name == null ? "" : name;
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
@@ -186,23 +168,17 @@ public class BookAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		JSONArray rows = new JSONArray();
 		try {
-			Map<String, Object> result = bs.selectAllBook(name, start, limit);
-			List<Book> bookList = (List<Book>) result.get("bookList");
-			for (Book book : bookList) {
+			Map<String, Object> result = rs.selectAllReader(start, limit);
+			List<Reader> readerList = (List<Reader>) result.get("readerList");
+			for (Reader reader : readerList) {
 				JSONObject jsonTemp = new JSONObject();
-				jsonTemp.put("id", book.getId());
-				jsonTemp.put("name", book.getName());
-				jsonTemp.put("author", book.getAuthor());
-				jsonTemp.put("content", book.getContent());
-				jsonTemp.put("create_time", sf.format(book.getCreateTime()));
-				jsonTemp.put("update_time", sf.format(book.getUpdateTime()));
-				jsonTemp.put("recommend", book.getRecommend());
-				jsonTemp.put("cover", book.getCover());
-				jsonTemp.put("reader", book.getReader());
-				jsonTemp.put("focus", book.getFocus());
-				jsonTemp.put("catalog", book.getCatalog());
-				jsonTemp.put("score", book.getScore());
-				jsonTemp.put("status", book.getStatus());
+				jsonTemp.put("id", reader.getId());
+				jsonTemp.put("user_id", reader.getUser().getId());
+				jsonTemp.put("user_name", reader.getUser().getName());
+				jsonTemp.put("font", reader.getFont());
+				jsonTemp.put("background_color", reader.getBackgroundColor());
+				jsonTemp.put("font_color", reader.getFontColor());
+				jsonTemp.put("create_time", sf.format(reader.getCreateTime()));
 				rows.add(jsonTemp);
 			}
 			json.put("rows", rows);
@@ -223,12 +199,20 @@ public class BookAction extends ActionSupport {
 
 	}
 
-	public BookService getBs() {
-		return bs;
+	public ReaderService getRs() {
+		return rs;
 	}
 
-	public void setBs(BookService bs) {
-		this.bs = bs;
+	public void setRs(ReaderService rs) {
+		this.rs = rs;
+	}
+
+	public UserService getUs() {
+		return us;
+	}
+
+	public void setUs(UserService us) {
+		this.us = us;
 	}
 
 }

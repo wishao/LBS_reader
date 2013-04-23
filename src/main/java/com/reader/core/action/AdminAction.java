@@ -83,8 +83,7 @@ public class AdminAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		if (admin != null) {
 			admin.setPassword(pwd);
-			boolean result = as.updateAdmin(admin);
-			if (result) {
+			if (as.updateAdmin(admin)) {
 				json.put("success", "true");
 				json.put("message", "操作成功！");
 			} else {
@@ -123,9 +122,12 @@ public class AdminAction extends ActionSupport {
 
 		JSONObject json = new JSONObject();
 		try {
-			as.deleteAdmin(id);
-			json.put("success", "true");
-			json.put("message", "操作成功！");
+			if(as.deleteAdmin(id)){
+				json.put("success", "true");
+				json.put("message", "操作成功！");
+			}else{
+				json.put("message", "操作失败！");
+			}
 		} catch (Exception e) {
 			json.put("message", "操作失败！");
 			e.printStackTrace();
@@ -293,9 +295,12 @@ public class AdminAction extends ActionSupport {
 				e.printStackTrace();
 			}
 			try {
-				as.resetAdminPassword(id);
-				json.put("success", "true");
-				json.put("message", "操作成功！");
+				if(as.resetAdminPassword(id)){
+					json.put("success", "true");
+					json.put("message", "操作成功！");
+				}else{
+					json.put("message", "操作失败！");
+				}
 			} catch (Exception e) {
 				json.put("message", "操作失败！");
 				e.printStackTrace();

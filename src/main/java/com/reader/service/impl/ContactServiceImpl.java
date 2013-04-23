@@ -73,7 +73,7 @@ public class ContactServiceImpl extends BaseService implements ContactService {
 					|| userDao.getById(contact.getReceiveUser().getId()) == null) {
 				return false;
 			} else {
-				contactDao.update(contact);
+				contactDao.add(contact);
 				return true;
 			}
 		} catch (Exception e) {

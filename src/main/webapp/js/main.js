@@ -39,6 +39,8 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 					arr.push(this.userManager);
 					this.contactManager = new LBSReader.contactManager.DataGrid({});
 					arr.push(this.contactManager);
+					this.readerManager = new LBSReader.readerManager.DataGrid({});
+					arr.push(this.readerManager);
 					var odw = {
 						expanded : true,
 						items : arr

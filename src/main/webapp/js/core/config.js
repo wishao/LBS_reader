@@ -10,10 +10,9 @@ LBSReader.version = {
 	proName : 'LBSReader'
 }
 
-LBSReader.URL = document.URL.slice(0, 7) != 'http://'
-		? 'http://localhost:8080/LBS-Reader/'
+LBSReader.URL = document.URL.slice(0, 7) != 'http://' ? 'http://localhost:8080/LBS-Reader/'
 		: document.URL.split('admin')[0] + 'LBS-Reader/';
-//LBSReader.URL = 'http://localhost:8080/LBS-Reader/';
+// LBSReader.URL = 'http://localhost:8080/LBS-Reader/';
 
 LBSReader.req = {
 	ADMIN_LOGIN : LBSReader.URL + 'admin!login',
@@ -23,22 +22,27 @@ LBSReader.req = {
 	ADMIN_ALL : LBSReader.URL + 'admin!all',
 	ADMIN_RESETPASSWORD : LBSReader.URL + 'admin!resetPassword',
 	CHANG_PWD : LBSReader.URL + 'admin!changePassword',
-	
+
 	USER_ALL : LBSReader.URL + 'user!all',
 	USER_ADD : LBSReader.URL + 'user!add',
 	USER_UPDATE : LBSReader.URL + 'user!update',
 	USER_REMOVE : LBSReader.URL + 'user!delete',
 	USER_RESETPASSWORD : LBSReader.URL + 'user!resetPassword',
-	
+
 	BOOK_ALL : LBSReader.URL + 'book!all',
 	BOOK_ADD : LBSReader.URL + 'book!add',
 	BOOK_UPDATE : LBSReader.URL + 'book!update',
 	BOOK_REMOVE : LBSReader.URL + 'book!delete',
-	
+
 	CONTACT_ALL : LBSReader.URL + 'contact!all',
 	CONTACT_ADD : LBSReader.URL + 'contact!add',
 	CONTACT_UPDATE : LBSReader.URL + 'contact!update',
 	CONTACT_REMOVE : LBSReader.URL + 'contact!delete',
+
+	READER_ALL : LBSReader.URL + 'reader!all',
+	READER_ADD : LBSReader.URL + 'reader!add',
+	READER_UPDATE : LBSReader.URL + 'reader!update',
+	READER_REMOVE : LBSReader.URL + 'reader!delete',
 
 	// pansenxin 政企模块处理
 	BUSINESS : LBSReader.URL + 'business',
@@ -62,10 +66,10 @@ LBSReader.req = {
 	ECRM_ORDER_ACTION : LBSReader.URL + 'ecrmOrderAction',
 
 	// guogf登录请求
-	
+
 	ADMIN : LBSReader.URL + 'queryAdmin',
 	ADMIN_MGR : LBSReader.URL + 'AdminMgr',
-	
+
 	PREMIUM_QUERY : LBSReader.URL + 'PremiumQuery',
 	SERVICEPROVINFO : LBSReader.URL + 'serviceProvInfoQuery',
 	SERVICEPROVINFO_MGR : LBSReader.URL + 'serviceProvInfoMgr',
@@ -203,14 +207,13 @@ LBSReader.Ajax = {
 							if (o.exId) {
 								if (o.exId == '-111') {
 									Ext.MessageBox.confirm('提示', o.exDesc
-													|| '操作错误！', function(va) {
-												if (va == 'yes') {
-													LBSReader.common
-															.clearSession("loginInfo");
-													window.location
-															.reload(true);
-												}
-											}, this);
+											|| '操作错误！', function(va) {
+										if (va == 'yes') {
+											LBSReader.common
+													.clearSession("loginInfo");
+											window.location.reload(true);
+										}
+									}, this);
 									return;
 								} else {
 									Ext.MessageBox.alert('提示', o.exDesc, null,
@@ -224,28 +227,28 @@ LBSReader.Ajax = {
 								req.callback.call(req.scope, o);
 							} else {
 								Ext.Msg.show({
-											title : '系统异常',
-											msg : o.message || '服务器无响应',
-											buttons : Ext.Msg.OK,
-											icon : Ext.MessageBox.ERROR
-										});
+									title : '系统异常',
+									msg : o.message || '服务器无响应',
+									buttons : Ext.Msg.OK,
+									icon : Ext.MessageBox.ERROR
+								});
 							}
 						} catch (e) {
 							Ext.Msg.show({
-										title : '数据格式化错误',
-										msg : e.message,
-										buttons : Ext.Msg.OK,
-										icon : Ext.MessageBox.ERROR
-									});
+								title : '数据格式化错误',
+								msg : e.message,
+								buttons : Ext.Msg.OK,
+								icon : Ext.MessageBox.ERROR
+							});
 						}
 					} else {
 						var errormsg = r.responseText || '请求失败！这可能是您没有鉴权该资源！';
 						Ext.Msg.show({
-									title : '请求失败',
-									msg : errormsg,
-									buttons : Ext.Msg.OK,
-									icon : Ext.MessageBox.ERROR
-								});
+							title : '请求失败',
+							msg : errormsg,
+							buttons : Ext.Msg.OK,
+							icon : Ext.MessageBox.ERROR
+						});
 					}
 				}
 			});
@@ -257,16 +260,16 @@ LBSReader.Ajax = {
  * @author Farago, 17 Aug, 2011
  */
 Ext.override(Ext.form.Action.Submit, {
-			processResponse : function(response) {
-				this.response = response;
-				var data = response.responseText;
-				// response.responseText = data.replace(/<div(.)*<\/div>/gmi,
-				// '');
-				this.response = Ext.util.JSON.decode(response.responseText);
-				if (!response.responseText) {
-					return true;
-				}
-				this.result = this.handleResponse(response);
-				return this.result;
-			}
-		});
+	processResponse : function(response) {
+		this.response = response;
+		var data = response.responseText;
+		// response.responseText = data.replace(/<div(.)*<\/div>/gmi,
+		// '');
+		this.response = Ext.util.JSON.decode(response.responseText);
+		if (!response.responseText) {
+			return true;
+		}
+		this.result = this.handleResponse(response);
+		return this.result;
+	}
+});

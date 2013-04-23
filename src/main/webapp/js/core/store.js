@@ -111,6 +111,32 @@ LBSReader.store.CONTACT = new Ext.data.JsonStore({
 
 });
 
+LBSReader.store.READER = new Ext.data.JsonStore({
+	url : LBSReader.req.READER_ALL,
+	baseParams : {
+		start : 0,
+		limit : LBSReader.store.LIMIT
+	},
+	listeners : {
+		'load' : {
+			fn : LBSReader.customFunctions.noRecordHandler
+		},
+		'exception' : {
+			fn : LBSReader.customFunctions.exceptinHandler
+		},
+		'loadexception' : {
+			fn : function() {
+				LBSReader.customFunctions.unmask_timeout();
+			}
+		}
+	},
+	storeId : 'reader',
+	root : 'rows',
+	fields : [ 'id', 'user_id', 'user_name', 'font',
+			'background_color', 'font_color', 'create_time' ]
+
+});
+
 LBSReader.store.JOB_PLAN = new Ext.data.ArrayStore({
 	fields : [ 'id', 'name' ],
 	data : [ [ '0', '定时' ], [ '1', '立即执行' ] ]

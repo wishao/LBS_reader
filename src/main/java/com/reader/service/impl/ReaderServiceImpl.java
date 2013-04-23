@@ -34,6 +34,16 @@ public class ReaderServiceImpl extends BaseService implements ReaderService {
 		return null;
 	}
 
+	public Reader selectReaderById(String id) {
+		try {
+			Reader reader = readerDao.getById(id);
+			return reader;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public Reader selectReaderByUser(String userId) {
 		try {
 			if (userDao.getById(userId) == null) {
@@ -81,12 +91,8 @@ public class ReaderServiceImpl extends BaseService implements ReaderService {
 			if (readerDao.getById(id) == null) {
 				return false;
 			} else {
-				if (userDao.getById(readerDao.getById(id).getUser().getId()) != null) {
-					return false;
-				} else {
-					readerDao.delete(id);
-					return true;
-				}
+				readerDao.delete(id);
+				return true;
 
 			}
 		} catch (Exception e) {

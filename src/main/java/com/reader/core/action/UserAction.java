@@ -33,9 +33,12 @@ public class UserAction extends ActionSupport {
 
 		JSONObject json = new JSONObject();
 		try {
-			us.deleteUser(id);
-			json.put("success", "true");
-			json.put("message", "操作成功！");
+			if (us.deleteUser(id)) {
+				json.put("success", "true");
+				json.put("message", "操作成功！");
+			} else {
+				json.put("message", "操作失败！");
+			}
 		} catch (Exception e) {
 			json.put("message", "操作失败！");
 			e.printStackTrace();
@@ -207,9 +210,12 @@ public class UserAction extends ActionSupport {
 				e.printStackTrace();
 			}
 			try {
-				us.resetUserPassword(id);
-				json.put("success", "true");
-				json.put("message", "操作成功！");
+				if (us.resetUserPassword(id)) {
+					json.put("success", "true");
+					json.put("message", "操作成功！");
+				} else {
+					json.put("message", "操作失败！");
+				}
 			} catch (Exception e) {
 				json.put("message", "操作失败！");
 				e.printStackTrace();
