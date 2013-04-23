@@ -14,7 +14,8 @@ public class DownLoadTest {
 	 * @throws MalformedURLException
 	 */
 	public static void main(String[] args) throws MalformedURLException {
-		String url = "http://www.qidian.com";
+		String url = "http://read.qidian.com/BookReader/2524770.aspx";
+		//String url = "http://read.qidian.com/BookReader/2524770,44100214.aspx";
 		String content = "";
 		HttpURLConnection conn = null;
 		try {

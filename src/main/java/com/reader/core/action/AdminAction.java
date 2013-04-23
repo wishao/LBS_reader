@@ -165,9 +165,12 @@ public class AdminAction extends ActionSupport {
 			}
 
 			try {
-				as.updateAdmin(admin);
-				json.put("success", "true");
-				json.put("message", "操作成功！");
+				if(as.updateAdmin(admin)){
+					json.put("success", "true");
+					json.put("message", "操作成功！");
+				}else{
+					json.put("message", "该管理员名已存在，操作失败！");
+				}
 			} catch (Exception e) {
 				json.put("message", "操作失败！");
 				e.printStackTrace();
@@ -206,9 +209,12 @@ public class AdminAction extends ActionSupport {
 		}
 		JSONObject json = new JSONObject();
 		try {
-			as.addAdmin(admin);
-			json.put("success", "true");
-			json.put("message", "操作成功！");
+			if(as.addAdmin(admin)){
+				json.put("success", "true");
+				json.put("message", "操作成功！");
+			}else{
+				json.put("message", "该管理员名已存在，操作失败！");
+			}
 		} catch (Exception e) {
 			json.put("message", "操作失败！");
 			e.printStackTrace();

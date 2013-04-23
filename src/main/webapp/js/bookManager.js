@@ -302,7 +302,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			constructor : function(config) {
 				this.dlg = new LBSReader.bookManager.ItemDlg({});
 				this.pagingbar = new Ext.PagingToolbar({
-							pageSize : 15,
+							pageSize : 20,
 							store : this.getStore(),
 							displayInfo : true,
 							displayMsg : '当前第{0}项到第{1}项，共{2}项',

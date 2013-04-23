@@ -76,9 +76,12 @@ public class UserAction extends ActionSupport {
 			}
 
 			try {
-				us.updateUser(user);
-				json.put("success", "true");
-				json.put("message", "操作成功！");
+				if (us.updateUser(user)) {
+					json.put("success", "true");
+					json.put("message", "操作成功！");
+				} else {
+					json.put("message", "该用户名已存在，操作失败！");
+				}
 			} catch (Exception e) {
 				json.put("message", "操作失败！");
 				e.printStackTrace();
@@ -118,9 +121,12 @@ public class UserAction extends ActionSupport {
 		}
 		JSONObject json = new JSONObject();
 		try {
-			us.addUser(user);
-			json.put("success", "true");
-			json.put("message", "操作成功！");
+			if (us.addUser(user)) {
+				json.put("success", "true");
+				json.put("message", "操作成功！");
+			} else {
+				json.put("message", "该用户名已存在，操作失败！");
+			}
 		} catch (Exception e) {
 			json.put("message", "操作失败！");
 			e.printStackTrace();

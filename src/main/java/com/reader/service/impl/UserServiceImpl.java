@@ -80,8 +80,12 @@ public class UserServiceImpl extends BaseService implements UserService {
 			if (userDao.getById(user.getId()) == null) {
 				return false;
 			} else {
-				userDao.update(user);
-				return true;
+				if (userDao.getByName(user.getName()) == null) {
+					userDao.update(user);
+					return true;
+				} else {
+					return false;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
