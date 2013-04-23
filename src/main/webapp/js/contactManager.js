@@ -1,9 +1,9 @@
 /**
  * @author johnny0086
  */
-Ext.namespace('LBSReader', 'LBSReader.bookManager');
+Ext.namespace('LBSReader', 'LBSReader.contactManager');
 
-LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
+LBSReader.contactManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 			labelWidth : 80,
 			labelAlign : 'right',
 			border : false,
@@ -16,22 +16,22 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 						name : 'id',
 						value : -1
 					}),
-			nameField : new Ext.form.TextField({
-						fieldLabel : '书籍名称',
+			sendUserIdField : new Ext.form.TextField({
+						fieldLabel : '发起用户',
 						allowBlank : false,
-						emptyText : '请填写书籍名称',
-						blankText : '请填写书籍名称',
+						emptyText : '请填写发起用户ID',
+						blankText : '请填写发起用户ID',
 						validator : LBSReader.customFunctions.validateBankTrim,
 						invalidText : '不能全为空格',
 						maxLength : 100,
 						msgTarget : 'side',
 						width : 200
 					}),
-			authorField : new Ext.form.TextField({
-						fieldLabel : '作者名称',
+			receiveUserIdField : new Ext.form.TextField({
+						fieldLabel : '接收用户',
 						allowBlank : false,
-						emptyText : '请填写作者名称',
-						blankText : '请填写作者名称',
+						emptyText : '请填写接收用户ID',
+						blankText : '请填写接收用户ID',
 						validator : LBSReader.customFunctions.validateBankTrim,
 						invalidText : '不能全为空格',
 						maxLength : 100,
@@ -39,57 +39,14 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 						width : 200
 					}),
 			contentField : new Ext.form.TextField({
-						fieldLabel : '书籍链接',
+						fieldLabel : '内容',
 						allowBlank : false,
-						emptyText : '请填写链接',
-						blankText : '请填写链接',
+						emptyText : '请填写内容',
+						blankText : '请填写内容',
 						validator : LBSReader.customFunctions.validateBankTrim,
 						invalidText : '不能全为空格',
 						msgTarget : 'side',
 						width : 200
-					}),
-			recommendField : new Ext.form.TextField({
-						fieldLabel : '简介',
-						allowBlank : false,
-						emptyText : '请填写简介',
-						blankText : '请填写简介',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
-						msgTarget : 'side',
-						width : 200
-					}),
-			coverField : new Ext.form.TextField({
-						fieldLabel : '封面链接',
-						allowBlank : false,
-						emptyText : '请填写封面链接',
-						blankText : '请填写封面链接',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
-						msgTarget : 'side',
-						width : 200
-					}),
-			catalogField : new Ext.form.TextField({
-						fieldLabel : '目录',
-						allowBlank : true,
-						emptyText : '请填写目录',
-						blankText : '请填写目录',
-						msgTarget : 'side',
-						width : 200
-					}),
-			statusCombo : new Ext.form.ComboBox({
-						fieldLabel : '有效标识',
-						editable : false,
-						mode : 'local',
-						triggerAction : 'all',
-						allowBlank : false,
-						emptyText : '请选择有效标识',
-						displayField : 'name',
-						valueField : 'status',
-						width : 200,
-						store : new Ext.data.ArrayStore({
-									fields : ['status', 'name'],
-									data : [['0', '无效'], ['1', '有效']]
-								})
 					}),
 			commitBtn : new Ext.Button({
 						id : 'commitBtn',
@@ -104,15 +61,13 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				config.items.push([{
 					layout : 'form',
 					bodyBorder : false,
-					items : [this.idHidden, this.nameField, this.authorField,
-							this.contentField, this.recommendField,
-							this.coverField, this.catalogField,
-							this.statusCombo]
+					items : [this.idHidden, this.sendUserIdField, this.receiveUserIdField,
+							this.contentField]
 				}]);
 
 				config.buttons = config.buttons || [];
 				config.buttons.push(this.commitBtn);
-				LBSReader.bookManager.ItemForm.superclass.constructor.apply(
+				LBSReader.contactManager.ItemForm.superclass.constructor.apply(
 						this, arguments);
 
 				this.commitBtn.on('click', function() {
@@ -135,51 +90,31 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				if (null != o.id) {
 					this.idHidden.setValue(o.id);
 				}
-				if (null != o.name) {
-					this.nameField.setValue(o.name);
+				if (null != o.send_user_id) {
+					this.sendUserIdField.setValue(o.send_user_id);
 				}
-				if (null != o.author) {
-					this.authorField.setValue(o.author);
+				if (null != o.receive_user_id) {
+					this.receiveUserIdField.setValue(o.receive_user_id);
 				}
 				if (null != o.content) {
 					this.contentField.setValue(o.content);
 				}
-				if (null != o.recommend) {
-					this.recommendField.setValue(o.recommend);
-				}
-				if (null != o.cover) {
-					this.coverField.setValue(o.cover);
-				}
-				if (null != o.catalog) {
-					this.catalogField.setValue(o.catalog);
-				}
-				if (null != o.status) {
-					this.statusCombo.setValue(o.status);
-				}
 			},
 			isValid : function() {
-				return this.nameField.isValid() && this.authorField.isValid()
-						&& this.contentField.isValid()
-						&& this.recommendField.isValid()
-						&& this.coverField.isValid()
-						&& this.catalogField.isValid()
-						&& this.statusCombo.isValid();
+				return this.contentField.isValid() && this.sendUserIdField.isValid()
+						&& this.receiveUserIdField.isValid();
 			},
 			commitAdd : function() {
 				if (!this.isValid()) {
 					return;
 				}
 				var req = {
-					url : LBSReader.req.BOOK_ADD,
+					url : LBSReader.req.CONTACT_ADD,
 					params : {
 						id : this.idHidden.getValue(),
-						name : this.nameField.getValue(),
-						author : this.authorField.getValue(),
-						content : this.contentField.getValue(),
-						recommend : this.recommendField.getValue(),
-						cover : this.coverField.getValue(),
-						catalog : this.catalogField.getValue(),
-						status : this.statusCombo.getValue()
+						send_user_id : this.sendUserIdField.getValue(),
+						receive_user_id : this.receiveUserIdField.getValue(),
+						content : this.contentField.getValue()
 					},
 					scope : this,
 					callback : function(o) {
@@ -202,16 +137,12 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 					return;
 				}
 				var req = {
-					url : LBSReader.req.BOOK_UPDATE,
+					url : LBSReader.req.CONTACT_UPDATE,
 					params : {
 						id : this.idHidden.getValue(),
-						name : this.nameField.getValue(),
-						author : this.authorField.getValue(),
-						content : this.contentField.getValue(),
-						recommend : this.recommendField.getValue(),
-						cover : this.coverField.getValue(),
-						catalog : this.catalogField.getValue(),
-						status : this.statusCombo.getValue()
+						send_user_id : this.sendUserIdField.getValue(),
+						receive_user_id : this.receiveUserIdField.getValue(),
+						content : this.contentField.getValue()
 					},
 					scope : this,
 					callback : function(o) {
@@ -230,8 +161,8 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 			}
 		});
 
-LBSReader.bookManager.ItemDlg = Ext.extend(Ext.Window, {
-			title : '书籍配置',
+LBSReader.contactManager.ItemDlg = Ext.extend(Ext.Window, {
+			title : '对话配置',
 			layout : 'fit',
 			modal : true,
 			width : 350,
@@ -244,9 +175,9 @@ LBSReader.bookManager.ItemDlg = Ext.extend(Ext.Window, {
 			constructor : function(config) {
 				config = config || {};
 				config.items = config.items || [];
-				this.configForm = new LBSReader.bookManager.ItemForm({});
+				this.configForm = new LBSReader.contactManager.ItemForm({});
 				config.items.push(this.configForm);
-				LBSReader.bookManager.ItemDlg.superclass.constructor.apply(
+				LBSReader.contactManager.ItemDlg.superclass.constructor.apply(
 						this, arguments);
 			},
 			toAdd : function() {
@@ -260,16 +191,16 @@ LBSReader.bookManager.ItemDlg = Ext.extend(Ext.Window, {
 			}
 		});
 
-LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
-			title : '书籍维护',
+LBSReader.contactManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
+			title : '对话维护',
 			autoScroll : true,
-			store : Ext.StoreMgr.get('book'),
+			store : Ext.StoreMgr.get('contact'),
 			cls : 'box-dataGrid',
 			viewConfig : {
 				getRowClass : function(record, rowIndex, rowParams, store) {
-					if (LBSReader.data.BOOK_STATUS.NOEFFECT == record.data.status) {
+					/*if (LBSReader.data.BOOK_STATUS.NOEFFECT == record.data.status) {
 						return 'unknown';
-					}
+					}*/
 				}
 			},
 
@@ -289,7 +220,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						cls : 'btn-common'
 					}),
 			nameField : new Ext.form.TextField({
-						emptyText : '请填写名称',
+						emptyText : '请填写内容',
 						maxLength : 100,
 						msgTarget : 'side',
 						width : 150,
@@ -300,7 +231,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						cls : 'btn-search btn-common'
 					}),
 			constructor : function(config) {
-				this.dlg = new LBSReader.bookManager.ItemDlg({});
+				this.dlg = new LBSReader.contactManager.ItemDlg({});
 				this.pagingbar = new Ext.PagingToolbar({
 							pageSize : 20,
 							store : this.getStore(),
@@ -318,7 +249,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				if (role == 1 || role == 3)
 					config.tbar.push(this.remvBtn);
 				config.tbar.push('->');
-				config.tbar.push('书籍名: ');
+				config.tbar.push('对话内容: ');
 				config.tbar.push(this.nameField);
 				if (role == 1 || role == 3)
 					config.tbar.push(this.searchBtn);
@@ -327,80 +258,31 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							singleSelect : true
 						});
 				this.cm = new Ext.grid.ColumnModel([this.sm, {
-							header : '书名',
+							header : '发起用户',
 							align : 'left',
 							menuDisabled : true,
-							dataIndex : 'name',
-							width : 200
-						}, {
-							header : '作者',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'author',
+							dataIndex : 'send_user_name',
 							width : 100
 						}, {
-							header : '内容文本链接',
+							header : '接收用户',
+							align : 'center',
+							menuDisabled : true,
+							dataIndex : 'receive_user_name',
+							width : 100
+						}, {
+							header : '内容',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'content',
-							width : 150
-						}, {
-							header : '简介',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'recommend',
-							width : 150
-						}, {
-							header : '封面链接',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'cover',
-							width : 150
-						}, {
-							header : '目录',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'catalog',
-							width : 150
-						}, {
-							header : '阅读人数',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'reader',
-							width : 80
-						}, {
-							header : '关注人数',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'focus',
-							width : 80
-						}, {
-							header : '平均得分',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'score',
-							width : 80
+							width : 300
 						}, {
 							header : '创建时间',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'create_time',
 							width : 150
-						}, {
-							header : '更新时间',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'update_time',
-							width : 150
-						}, {
-							header : '状态',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'status',
-							width : 60,
-							renderer : LBSReader.renderer.BOOK_STATUS
 						}]);
-				LBSReader.bookManager.DataGrid.superclass.constructor.apply(
+				LBSReader.contactManager.DataGrid.superclass.constructor.apply(
 						this, arguments);
 
 				this.on('show', function() {
@@ -466,7 +348,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					this.loadItems();
 				}
 				this.getStore().baseParams = {
-					name : this.nameField.getValue().trim()
+					content : this.nameField.getValue().trim()
 				};
 				this.getStore().load({
 							params : {
@@ -483,7 +365,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				var r = this.getSelectionModel().getSelected();
 				if (null != r && null != r.data) {
 					var req = {
-						url : LBSReader.req.BOOK_REMOVE,
+						url : LBSReader.req.CONTACT_REMOVE,
 						params : {
 							id : r.data.id
 						},
@@ -506,7 +388,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				var r = this.getSelectionModel().getSelected();
 				if (null != r && null != r.data) {
 					var req = {
-						url : LBSReader.req.BOOK_RESETPASSWORD,
+						url : LBSReader.req.CONTACT_RESETPASSWORD,
 						params : {
 							id : r.data.id
 						},

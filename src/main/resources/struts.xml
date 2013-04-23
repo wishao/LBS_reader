@@ -20,5 +20,7 @@
 		</action>
 		<action name="book" class="com.reader.common.action.BookAction">
 		</action>
+		<action name="contact" class="com.reader.common.action.ContactAction">
+		</action>
 	</package>
 </struts>

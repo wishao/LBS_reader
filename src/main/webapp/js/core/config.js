@@ -34,6 +34,11 @@ LBSReader.req = {
 	BOOK_ADD : LBSReader.URL + 'book!add',
 	BOOK_UPDATE : LBSReader.URL + 'book!update',
 	BOOK_REMOVE : LBSReader.URL + 'book!delete',
+	
+	CONTACT_ALL : LBSReader.URL + 'contact!all',
+	CONTACT_ADD : LBSReader.URL + 'contact!add',
+	CONTACT_UPDATE : LBSReader.URL + 'contact!update',
+	CONTACT_REMOVE : LBSReader.URL + 'contact!delete',
 
 	// pansenxin 政企模块处理
 	BUSINESS : LBSReader.URL + 'business',

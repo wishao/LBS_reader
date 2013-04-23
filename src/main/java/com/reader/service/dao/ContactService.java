@@ -6,10 +6,13 @@ import com.reader.core.model.Contact;
 
 public interface ContactService {
 
-	public Map<String, Object> selectAllContact(int start, int limit);
+	public Map<String, Object> selectAllContact(String content, int start,
+			int limit);
 
 	public Map<String, Object> selectContactByUser(String userId, int start,
 			int limit);
+
+	public Contact selectContactById(String id);
 
 	public boolean addContact(Contact contact);
 

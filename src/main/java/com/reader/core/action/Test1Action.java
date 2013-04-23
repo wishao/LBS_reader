@@ -33,7 +33,7 @@ public class Test1Action extends ActionSupport {
 		String password = ServletActionContext.getRequest().getParameter(
 				LOGIN_PASSWORD);
 		// contact = as.selectAllContact(0, 1);
-		Map<String, Object> c = as.selectAllContact(0, 1);
+		Map<String, Object> c = as.selectAllContact("",0, 1);
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 		} catch (UnsupportedEncodingException e) { // TODO Auto-generated catch

@@ -24,7 +24,7 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 					this.auditing = new LBSReader.auditing.DataGrid({});
 					arr.push(this.auditing);*/
 					var pro = {
-						expanded : false,
+						expanded : true,
 						items : arr
 					}
 					config.items.push(pro);
@@ -37,6 +37,8 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 							});
 					this.userManager = new LBSReader.userManager.DataGrid({});
 					arr.push(this.userManager);
+					this.contactManager = new LBSReader.contactManager.DataGrid({});
+					arr.push(this.contactManager);
 					var odw = {
 						expanded : true,
 						items : arr

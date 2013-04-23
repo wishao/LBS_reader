@@ -18,17 +18,20 @@ public class ContactDaoImpl extends BaseDao implements ContactDao {
 				"selectContactById", id);
 	}
 
-	public List<Contact> selectAll(int start, int limit) {
+	public List<Contact> selectAll(String content, int start, int limit) {
 		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("content", content);
 		param.put("start", start);
 		param.put("limit", limit);
 		return getSqlMapClientTemplate()
 				.queryForList("selectAllContact", param);
 	}
 
-	public int countAll() {
+	public int countAll(String content) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("content", content);
 		return (Integer) getSqlMapClientTemplate().queryForObject(
-				"countAllContact");
+				"countAllContact", param);
 	}
 
 	public List<Contact> selectByUserId(String userId, int start, int limit) {

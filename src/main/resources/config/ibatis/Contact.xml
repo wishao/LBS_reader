@@ -36,6 +36,8 @@
 		select 
 		* 
 		from t_contact 
+		where 
+		content like '%$content$%' 
 		order by create_time desc
 		limit
 		#start#,#limit#;
@@ -46,7 +48,9 @@
 		select 
 		count(*) 
 		from
-		t_contact;
+		t_contact 
+		where 
+		content like '%$content$%';
 		]]>
 	</select>
 	<select id="selectContactByUser" resultMap="contact">

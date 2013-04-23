@@ -18,10 +18,12 @@ public class ContactServiceImpl extends BaseService implements ContactService {
 			.getBean("contactDAO");
 	private static UserDao userDao = (UserDao) context.getBean("userDAO");
 
-	public Map<String, Object> selectAllContact(int start, int limit) {
+	public Map<String, Object> selectAllContact(String content, int start,
+			int limit) {
 		try {
-			int count = contactDao.countAll();
-			List<Contact> contactList = contactDao.selectAll(start, limit);
+			int count = contactDao.countAll(content);
+			List<Contact> contactList = contactDao.selectAll(content, start,
+					limit);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("count", count);
 			result.put("contactList", contactList);
@@ -52,6 +54,16 @@ public class ContactServiceImpl extends BaseService implements ContactService {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+
+	public Contact selectContactById(String id) {
+		try {
+			Contact contact = contactDao.getById(id);
+			return contact;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
