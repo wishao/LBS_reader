@@ -64,14 +64,14 @@ LBSReader.userManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				config.items.push([{
 					layout : 'form',
 					bodyBorder : false,
-					items : [this.idHidden, this.nameField, this.signatureField,
-							this.statusCombo]
+					items : [this.idHidden, this.nameField,
+							this.signatureField, this.statusCombo]
 				}]);
 
 				config.buttons = config.buttons || [];
 				config.buttons.push(this.commitBtn);
-				LBSReader.userManager.ItemForm.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.userManager.ItemForm.superclass.constructor.apply(
+						this, arguments);
 
 				this.commitBtn.on('click', function() {
 							if (this.isEDIT) {
@@ -104,7 +104,8 @@ LBSReader.userManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				}
 			},
 			isValid : function() {
-				return this.nameField.isValid() && this.signatureField.isValid()
+				return this.nameField.isValid()
+						&& this.signatureField.isValid()
 						&& this.statusCombo.isValid();
 			},
 			commitAdd : function() {
@@ -168,7 +169,7 @@ LBSReader.userManager.ItemDlg = Ext.extend(Ext.Window, {
 			layout : 'fit',
 			modal : true,
 			width : 350,
-			height : 200,
+			height : 160,
 			constrainHeader : true,
 			closeAction : 'hide',
 
@@ -179,8 +180,8 @@ LBSReader.userManager.ItemDlg = Ext.extend(Ext.Window, {
 				config.items = config.items || [];
 				this.configForm = new LBSReader.userManager.ItemForm({});
 				config.items.push(this.configForm);
-				LBSReader.userManager.ItemDlg.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.userManager.ItemDlg.superclass.constructor.apply(
+						this, arguments);
 			},
 			toAdd : function() {
 				this.configForm.isEDIT = false;
@@ -249,18 +250,18 @@ LBSReader.userManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				config = config || {};
 				config.tbar = config.tbar || [];
 				var role = LBSReader.common.getPermission('loginInfo');
-				if (role == 1||role == 2)
+				if (role == 1 || role == 2)
 					config.tbar.push(this.addBtn);
-				if (role == 1||role == 2)
+				if (role == 1 || role == 2)
 					config.tbar.push(this.uptBtn);
-				if (role == 1||role == 2)
+				if (role == 1 || role == 2)
 					config.tbar.push(this.remvBtn);
-				if (role == 1||role == 2)
+				if (role == 1 || role == 2)
 					config.tbar.push(this.resetBtn);
 				config.tbar.push('->');
 				config.tbar.push('用户名: ');
 				config.tbar.push(this.nameField);
-				if (role == 1||role == 2)
+				if (role == 1 || role == 2)
 					config.tbar.push(this.searchBtn);
 				config.bbar = this.pagingbar;
 				this.sm = new Ext.grid.CheckboxSelectionModel({
@@ -273,10 +274,10 @@ LBSReader.userManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'name',
 							width : 200
 						}, {
-							header : '创建时间',
+							header : '签名',
 							align : 'center',
 							menuDisabled : true,
-							dataIndex : 'create_time',
+							dataIndex : 'signature',
 							width : 150
 						}, {
 							header : '地址',
@@ -285,10 +286,10 @@ LBSReader.userManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'address',
 							width : 150
 						}, {
-							header : '签名',
+							header : '创建时间',
 							align : 'center',
 							menuDisabled : true,
-							dataIndex : 'signature',
+							dataIndex : 'create_time',
 							width : 150
 						}, {
 							header : '更新时间',
@@ -304,8 +305,8 @@ LBSReader.userManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							width : 60,
 							renderer : LBSReader.renderer.USER_STATUS
 						}]);
-				LBSReader.userManager.DataGrid.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.userManager.DataGrid.superclass.constructor.apply(
+						this, arguments);
 
 				this.on('show', function() {
 							this.loadItems();
@@ -356,8 +357,8 @@ LBSReader.userManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 										this);
 								return;
 							}
-							Ext.MessageBox.confirm("提示", "确认要把所选记录重置密码(123456)吗？",
-									function(id) {
+							Ext.MessageBox.confirm("提示",
+									"确认要把所选记录重置密码(123456)吗？", function(id) {
 										if (id == "yes") {
 											this.resetItems();
 										}
@@ -368,10 +369,6 @@ LBSReader.userManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						}, this);
 			},
 			loadItems : function() {
-				if (this.nameField.getValue()) {
-					this.searchItems();
-					return;
-				}
 				this.getStore().load({
 							params : {
 								start : 0,
@@ -386,7 +383,6 @@ LBSReader.userManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			searchItems : function() {
 				if (this.nameField.getValue() == '') {
 					this.loadItems();
-					return;
 				}
 				this.getStore().baseParams = {
 					name : this.nameField.getValue().trim()

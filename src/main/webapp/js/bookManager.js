@@ -235,7 +235,7 @@ LBSReader.bookManager.ItemDlg = Ext.extend(Ext.Window, {
 			layout : 'fit',
 			modal : true,
 			width : 350,
-			height : 200,
+			height : 270,
 			constrainHeader : true,
 			closeAction : 'hide',
 
@@ -318,7 +318,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 				if (role == 1 || role == 3)
 					config.tbar.push(this.remvBtn);
 				config.tbar.push('->');
-				config.tbar.push('用户名: ');
+				config.tbar.push('书籍名: ');
 				config.tbar.push(this.nameField);
 				if (role == 1 || role == 3)
 					config.tbar.push(this.searchBtn);
@@ -337,24 +337,12 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'author',
-							width : 150
+							width : 100
 						}, {
 							header : '内容文本链接',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'content',
-							width : 150
-						}, {
-							header : '创建时间',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'create_time',
-							width : 150
-						}, {
-							header : '更新时间',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'update_time',
 							width : 150
 						}, {
 							header : '简介',
@@ -369,28 +357,40 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'cover',
 							width : 150
 						}, {
-							header : '阅读人数',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'reader',
-							width : 150
-						}, {
-							header : '关注人数',
-							align : 'center',
-							menuDisabled : true,
-							dataIndex : 'focus',
-							width : 150
-						}, {
 							header : '目录',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'catalog',
 							width : 150
 						}, {
+							header : '阅读人数',
+							align : 'center',
+							menuDisabled : true,
+							dataIndex : 'reader',
+							width : 80
+						}, {
+							header : '关注人数',
+							align : 'center',
+							menuDisabled : true,
+							dataIndex : 'focus',
+							width : 80
+						}, {
 							header : '平均得分',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'score',
+							width : 80
+						}, {
+							header : '创建时间',
+							align : 'center',
+							menuDisabled : true,
+							dataIndex : 'create_time',
+							width : 150
+						}, {
+							header : '更新时间',
+							align : 'center',
+							menuDisabled : true,
+							dataIndex : 'update_time',
 							width : 150
 						}, {
 							header : '状态',
@@ -450,10 +450,6 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						}, this);
 			},
 			loadItems : function() {
-				if (this.nameField.getValue()) {
-					this.searchItems();
-					return;
-				}
 				this.getStore().load({
 							params : {
 								start : 0,
@@ -466,9 +462,9 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						});
 			},
 			searchItems : function() {
+				console.log(this.nameField.getValue()=='');
 				if (this.nameField.getValue() == '') {
 					this.loadItems();
-					return;
 				}
 				this.getStore().baseParams = {
 					name : this.nameField.getValue().trim()

@@ -55,7 +55,7 @@
 		into t_book
 		(id,name,author,content,create_time,update_time,recommend,cover,reader,focus,catalog,score,status)
 		values
-		(#id#,#name#,#author#,#content#,now(),now(),0,#cover#,0,0,#catalog#,0,#status#);
+		(#id#,#name#,#author#,#content#,now(),now(),#recommend#,#cover#,0,0,#catalog#,0,#status#);
 	]]>
 	</insert>
 

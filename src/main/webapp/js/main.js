@@ -19,10 +19,10 @@ LBSReader.CenterPanel = Ext.extend(Ext.ux.GroupTabPanel, {
 							});
 					this.adminManager = new LBSReader.adminManager.DataGrid({});
 					arr.push(this.adminManager);
-					this.prdt = new LBSReader.product.DataGrid({});
+					/*this.prdt = new LBSReader.product.DataGrid({});
 					arr.push(this.prdt);
 					this.auditing = new LBSReader.auditing.DataGrid({});
-					arr.push(this.auditing);
+					arr.push(this.auditing);*/
 					var pro = {
 						expanded : false,
 						items : arr

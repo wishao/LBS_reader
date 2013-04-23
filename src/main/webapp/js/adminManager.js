@@ -175,7 +175,7 @@ LBSReader.adminManager.ItemDlg = Ext.extend(Ext.Window, {
 			layout : 'fit',
 			modal : true,
 			width : 350,
-			height : 200,
+			height : 160,
 			constrainHeader : true,
 			closeAction : 'hide',
 
@@ -365,10 +365,6 @@ LBSReader.adminManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						}, this);
 			},
 			loadItems : function() {
-				if (this.nameField.getValue()) {
-					this.searchItems();
-					return;
-				}
 				this.getStore().load({
 							params : {
 								start : 0,
@@ -383,7 +379,6 @@ LBSReader.adminManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			searchItems : function() {
 				if (this.nameField.getValue() == '') {
 					this.loadItems();
-					return;
 				}
 				this.getStore().baseParams = {
 					name : this.nameField.getValue().trim()
