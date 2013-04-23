@@ -76,7 +76,7 @@
 		set
 		name=#name#,author=#author#,content=#content#,update_time=now(),
 		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
-		catalog=#catalog#,score=#score#,create_time=now(),status=#status# 
+		catalog=#catalog#,score=#score#,update_time=now(),status=#status# 
 		where 
 		id=#id#;
 	]]>
