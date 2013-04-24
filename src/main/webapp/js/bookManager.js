@@ -345,23 +345,44 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'content',
 							width : 150
 						}, {
+							xtype : 'actioncolumn',
 							header : '简介',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'recommend',
-							width : 150
+							width : 50,
+							items : [{
+								icon : 'images/btn_search.png',
+								tooltip : '查看简介'/*,
+								handler : this.showWorkFlow
+										.createDelegate(this)*/
+							}]
 						}, {
-							header : '封面链接',
+							xtype : 'actioncolumn',
+							header : '封面',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'cover',
-							width : 150
+							width : 50,
+							items : [{
+								icon : 'images/product.png',
+								tooltip : '查看封面'/*,
+								handler : this.showWorkFlow
+										.createDelegate(this)*/
+							}]
 						}, {
+							xtype : 'actioncolumn',
 							header : '目录',
 							align : 'center',
 							menuDisabled : true,
 							dataIndex : 'catalog',
-							width : 150
+							width : 50,
+							items : [{
+								icon : 'images/icon_workflow.png',
+								tooltip : '查看目录'/*,
+								handler : this.showWorkFlow
+										.createDelegate(this)*/
+							}]
 						}, {
 							header : '阅读人数',
 							align : 'center',

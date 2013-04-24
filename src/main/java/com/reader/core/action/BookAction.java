@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
-import org.json.simple.JSONArray; 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -33,10 +33,10 @@ public class BookAction extends ActionSupport {
 
 		JSONObject json = new JSONObject();
 		try {
-			if(bs.deleteBook(id)){
+			if (bs.deleteBook(id)) {
 				json.put("success", "true");
 				json.put("message", "操作成功！");
-			}else{
+			} else {
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
@@ -57,6 +57,12 @@ public class BookAction extends ActionSupport {
 	// 更新
 	@SuppressWarnings("unchecked")
 	public String update() {
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		String id = ServletActionContext.getRequest().getParameter("id");
 		String name = ServletActionContext.getRequest().getParameter("name");
 		String author = ServletActionContext.getRequest()
@@ -70,6 +76,7 @@ public class BookAction extends ActionSupport {
 				"catalog");
 		String status = ServletActionContext.getRequest()
 				.getParameter("status");
+		
 		Book book = bs.selectBookById(id);
 		JSONObject json = new JSONObject();
 		if (book != null) {
@@ -81,19 +88,12 @@ public class BookAction extends ActionSupport {
 			book.setCover(cover);
 			book.setCatalog(catalog);
 			book.setStatus(new Byte(status));
-			try {
-				ServletActionContext.getRequest().setCharacterEncoding("gbk");
-				ServletActionContext.getResponse()
-						.setCharacterEncoding("utf-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
 
 			try {
-				if(bs.updateBook(book)){
+				if (bs.updateBook(book)) {
 					json.put("success", "true");
 					json.put("message", "操作成功！");
-				}else{
+				} else {
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
@@ -146,10 +146,10 @@ public class BookAction extends ActionSupport {
 		}
 		JSONObject json = new JSONObject();
 		try {
-			if(bs.addBook(book)){
+			if (bs.addBook(book)) {
 				json.put("success", "true");
 				json.put("message", "操作成功！");
-			}else{
+			} else {
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
