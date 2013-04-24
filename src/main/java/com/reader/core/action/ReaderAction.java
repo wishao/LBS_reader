@@ -117,6 +117,11 @@ public class ReaderAction extends ActionSupport {
 	public String add() {
 		String userId = ServletActionContext.getRequest().getParameter(
 				"user_id");
+		String font = ServletActionContext.getRequest().getParameter("font");
+		String backgroundColor = ServletActionContext.getRequest()
+				.getParameter("background_color");
+		String fontColor = ServletActionContext.getRequest().getParameter(
+				"font_color");
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
@@ -126,8 +131,13 @@ public class ReaderAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		try {
 			User user = us.selectUserById(userId);
+			Reader reader = new Reader();
 			if (user != null) {
-				if (rs.addReader(userId)) {
+				reader.setBackgroundColor(backgroundColor);
+				reader.setFont(font);
+				reader.setFontColor(fontColor);
+				reader.setUser(user);
+				if (rs.addReader(reader)) {
 					json.put("success", "true");
 					json.put("message", "操作成功！");
 				} else {

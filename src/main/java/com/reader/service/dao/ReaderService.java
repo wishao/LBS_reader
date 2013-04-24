@@ -12,7 +12,9 @@ public interface ReaderService {
 	
 	public Reader selectReaderById(String id);
 
-	public boolean addReader(String userId);
+	public boolean addReader(Reader reader);
+	
+	public boolean initReader(String userId);
 
 	public boolean deleteReader(String id);
 

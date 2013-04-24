@@ -66,7 +66,22 @@ public class ReaderServiceImpl extends BaseService implements ReaderService {
 		return null;
 	}
 
-	public boolean addReader(String userId) {
+	public boolean addReader(Reader reader) {
+		try {
+			reader.setId(IDUtil.getID());
+			reader.setFont(reader.getFont());
+			reader.setFontColor(reader.getFontColor());
+			reader.setBackgroundColor(reader.getBackgroundColor());
+			reader.setUser(reader.getUser());
+			readerDao.add(reader);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean initReader(String userId) {
 		try {
 			if (userDao.getById(userId) == null) {
 				return false;

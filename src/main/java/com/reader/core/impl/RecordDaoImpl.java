@@ -54,7 +54,6 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
 		param.put("score", record.getScore());
 		param.put("share", record.getShare());
 		getSqlMapClientTemplate().insert("insertRecord", param);
-
 	}
 
 	public void delete(String id) {

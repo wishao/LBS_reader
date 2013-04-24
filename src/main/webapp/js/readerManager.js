@@ -5,190 +5,200 @@
 Ext.namespace('LBSReader', 'LBSReader.readerManager');
 
 LBSReader.readerManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
-			labelWidth : 80,
-			labelAlign : 'right',
-			border : false,
-			autoScroll : true,
-			bodyStyle : 'padding:5px 10px 5px 10px;',
-			oldParam : 0,
-			layout : 'column',
+	labelWidth : 80,
+	labelAlign : 'right',
+	border : false,
+	autoScroll : true,
+	bodyStyle : 'padding:5px 10px 5px 10px;',
+	oldParam : 0,
+	layout : 'column',
 
-			idHidden : new Ext.form.Hidden({
-						name : 'id',
-						value : -1
-					}),
-			userIdField : new Ext.form.TextField({
-						fieldLabel : '用户ID',
-						allowBlank : false,
-						emptyText : '请填写用户ID',
-						blankText : '请填写用户ID',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
-						maxLength : 100,
-						msgTarget : 'side',
-						width : 200
-					}),
-			fontField : new Ext.form.TextField({
-						fieldLabel : '字体大小',
-						allowBlank : false,
-						emptyText : '请填写字体大小',
-						blankText : '请填写字体大小',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
-						maxLength : 100,
-						msgTarget : 'side',
-						width : 200
-					}),
-			backgroundColorField : new Ext.form.TextField({
-						fieldLabel : '背景颜色',
-						msgTarget : 'side',
-						id : 'backgroundColor',
-						name : 'color',
-						labelWidth : 1,
-						style : 'background:#000000',
-						width : 200,
-						readOnly : true,
-						listeners : {
-							'focus' : function() {
-								showColor('backgroundColor');
-							}
-						}
-					}),
-			fontColorField : new Ext.form.TextField({
-						fieldLabel : '字体颜色',
-						msgTarget : 'side',
-						id : 'fontColor',
-						name : 'color',
-						labelWidth : 1,
-						style : 'background:#000000',
-						width : 200,
-						readOnly : true,
-						listeners : {
-							'focus' : function() {
-								showColor('fontColor');
-							}
-						}
-					}),
-			commitBtn : new Ext.Button({
-						id : 'commitBtn',
-						text : '提交',
-						iconCls : 'btn-commit'
-					}),
-
-			constructor : function(config) {
-				this.isEDIT = false;
-				config = config || {};
-				config.items = config.items || [];
-				config.items.push([{
-					layout : 'form',
-					bodyBorder : false,
-					items : [this.idHidden, this.userIdField, this.fontField,
-							this.backgroundColorField, this.fontColorField]
-				}]);
-
-				config.buttons = config.buttons || [];
-				config.buttons.push(this.commitBtn);
-				LBSReader.readerManager.ItemForm.superclass.constructor.apply(
-						this, arguments);
-
-				this.commitBtn.on('click', function() {
-							if (this.isEDIT) {
-								this.commitEdit();
-							} else {
-								this.commitAdd();
-							}
-						}, this);
-
-			},
-			resetForm : function() {
-				this.items.each(function(item, index, length) {
-							item.items.each(function(o) {
-										o.reset();
-									}, this);
-						}, this);
-			},
-			setValue : function(o) {
-				if (null != o.id) {
-					this.idHidden.setValue(o.id);
-				}
-				if (null != o.user_id) {
-					this.userIdField.setValue(o.user_id);
-				}
-				if (null != o.font) {
-					this.fontField.setValue(o.font);
-				}
-				/*if (null != o.background_color) {
-					this.backgroundColorField.setValue(o.background_color);
-				}
-				if (null != o.font_color) {
-					this.fontColorField.setValue(o.font_color);
-				}*/
-			},
-			isValid : function() {
-				return this.backgroundColorField.isValid()
-						&& this.userIdField.isValid()
-						&& this.fontField.isValid()
-						&& this.fontColorField.isValid();
-			},
-			commitAdd : function() {
-				if (!this.isValid()) {
-					return;
-				}
-				var req = {
-					url : LBSReader.req.READER_ADD,
-					params : {
-						id : this.idHidden.getValue(),
-						user_id : this.userIdField.getValue(),
-						font : this.fontField.getValue(),
-						background_color : this.backgroundColorField.getValue(),
-						font_color : this.fontColorField.getValue()
-
-					},
-					scope : this,
-					callback : function(o) {
-						if (o.success) {
-							Ext.MessageBox.alert('提示', '添加成功！', function() {
-									}, this);
-						} else {
-							Ext.MessageBox.alert('提示', o.message || '添加失败！',
-									function() {
-									}, this);
-							return;
-						}
-						this.ownerCt.hide();
+	idHidden : new Ext.form.Hidden({
+				name : 'id',
+				value : -1
+			}),
+	userIdField : new Ext.form.TextField({
+				fieldLabel : '用户ID',
+				allowBlank : false,
+				emptyText : '请填写用户ID',
+				blankText : '请填写用户ID',
+				validator : LBSReader.customFunctions.validateBankTrim,
+				invalidText : '不能全为空格',
+				maxLength : 100,
+				msgTarget : 'side',
+				width : 200
+			}),
+	fontField : new Ext.form.TextField({
+				fieldLabel : '字体大小',
+				allowBlank : false,
+				emptyText : '请填写字体大小',
+				blankText : '请填写字体大小',
+				validator : LBSReader.customFunctions.validateBankTrim,
+				invalidText : '不能全为空格',
+				maxLength : 100,
+				msgTarget : 'side',
+				width : 200
+			}),
+	backgroundColorField : new Ext.form.TextField({
+				fieldLabel : '背景颜色',
+				msgTarget : 'side',
+				id : 'backgroundColor',
+				name : 'color',
+				labelWidth : 1,
+				style : 'background:#000000',
+				width : 200,
+				readOnly : true,
+				listeners : {
+					'focus' : function() {
+						showColor('backgroundColor');
 					}
-				};
-				LBSReader.Ajax.send(req);
-			},
-			commitEdit : function() {
-				if (!this.isValid()) {
-					return;
 				}
-				var req = {
-					url : LBSReader.req.READER_UPDATE,
-					params : {
-						id : this.idHidden.getValue(),
-						user_id : this.userIdField.getValue(),
-						font : this.fontField.getValue(),
-						background_color : this.backgroundColorField.getValue(),
-						font_color : this.fontColorField.getValue()
-					},
-					scope : this,
-					callback : function(o) {
-						if (o.success) {
-							Ext.MessageBox.alert('提示', '修改成功！', function() {
-									}, this);
-						} else {
-							Ext.MessageBox.alert('提示', o.message || '修改失败！',
-									function() {
-									}, this);
-						}
-						this.ownerCt.hide();
+			}),
+	fontColorField : new Ext.form.TextField({
+				fieldLabel : '字体颜色',
+				msgTarget : 'side',
+				id : 'fontColor',
+				name : 'color',
+				labelWidth : 1,
+				style : 'background:#000000',
+				width : 200,
+				readOnly : true,
+				listeners : {
+					'focus' : function() {
+						showColor('fontColor');
 					}
-				};
-				LBSReader.Ajax.send(req);
+				}
+			}),
+	commitBtn : new Ext.Button({
+				id : 'commitBtn',
+				text : '提交',
+				iconCls : 'btn-commit'
+			}),
+
+	constructor : function(config) {
+		this.isEDIT = false;
+		config = config || {};
+		config.items = config.items || [];
+		config.items.push([{
+			layout : 'form',
+			bodyBorder : false,
+			items : [this.idHidden, this.userIdField, this.fontField,
+					this.backgroundColorField, this.fontColorField]
+		}]);
+
+		config.buttons = config.buttons || [];
+		config.buttons.push(this.commitBtn);
+		LBSReader.readerManager.ItemForm.superclass.constructor.apply(this,
+				arguments);
+
+		this.commitBtn.on('click', function() {
+					if (this.isEDIT) {
+						this.commitEdit();
+					} else {
+						this.commitAdd();
+					}
+				}, this);
+
+	},
+	resetForm : function() {
+		this.items.each(function(item, index, length) {
+					item.items.each(function(o) {
+								o.reset();
+							}, this);
+				}, this);
+	},
+	setValue : function(o) {
+		if (o == null) {
+			this.fontField.setValue('10px');
+			Ext.getDom('backgroundColor').style.background = '#000000';
+			this.backgroundColorField.setValue('#000000');
+			Ext.getDom('fontColor').style.background = '#FFFFFF';
+			this.fontColorField.setValue('#FFFFFF');
+		} else {
+			if (null != o.id) {
+				this.idHidden.setValue(o.id);
 			}
-		});
+			if (null != o.user_id) {
+				this.userIdField.setValue(o.user_id);
+			}
+			if (null != o.font) {
+				this.fontField.setValue(o.font);
+			}
+			if (null != o.background_color) {
+				Ext.getDom('backgroundColor').style.background = o.background_color;
+				this.backgroundColorField.setValue(o.background_color);
+			}
+			if (null != o.font_color) {
+				Ext.getDom('fontColor').style.background = o.font_color;
+				this.fontColorField.setValue(o.font_color);
+			}
+		}
+
+	},
+	isValid : function() {
+		return this.backgroundColorField.isValid()
+				&& this.userIdField.isValid() && this.fontField.isValid()
+				&& this.fontColorField.isValid();
+	},
+	commitAdd : function() {
+		if (!this.isValid()) {
+			return;
+		}
+		var req = {
+			url : LBSReader.req.READER_ADD,
+			params : {
+				id : this.idHidden.getValue(),
+				user_id : this.userIdField.getValue(),
+				font : this.fontField.getValue(),
+				background_color : this.backgroundColorField.getValue(),
+				font_color : this.fontColorField.getValue()
+
+			},
+			scope : this,
+			callback : function(o) {
+				if (o.success) {
+					Ext.MessageBox.alert('提示', '添加成功！', function() {
+							}, this);
+				} else {
+					Ext.MessageBox.alert('提示', o.message || '添加失败！',
+							function() {
+							}, this);
+					return;
+				}
+				this.ownerCt.hide();
+			}
+		};
+		LBSReader.Ajax.send(req);
+	},
+	commitEdit : function() {
+		if (!this.isValid()) {
+			return;
+		}
+		var req = {
+			url : LBSReader.req.READER_UPDATE,
+			params : {
+				id : this.idHidden.getValue(),
+				user_id : this.userIdField.getValue(),
+				font : this.fontField.getValue(),
+				background_color : this.backgroundColorField.getValue(),
+				font_color : this.fontColorField.getValue()
+			},
+			scope : this,
+			callback : function(o) {
+				if (o.success) {
+					Ext.MessageBox.alert('提示', '修改成功！', function() {
+							}, this);
+				} else {
+					Ext.MessageBox.alert('提示', o.message || '修改失败！',
+							function() {
+							}, this);
+				}
+				this.ownerCt.hide();
+			}
+		};
+		LBSReader.Ajax.send(req);
+	}
+});
 
 LBSReader.readerManager.ItemDlg = Ext.extend(Ext.Window, {
 			title : '阅读器配置',
@@ -316,6 +326,7 @@ LBSReader.readerManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						}, this);
 				this.addBtn.on('click', function() {
 							this.dlg.show();
+							this.dlg.setValue();
 							this.dlg.toAdd();
 						}, this);
 				this.uptBtn.on('click', function() {

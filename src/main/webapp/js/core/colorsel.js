@@ -11,8 +11,8 @@ var colorWin = new Ext.Window({
 });
 cp.on('select', function(palette, selColor) {
 	var color = '#' + selColor;
-	// alert(colorShowId+','+color);
 	Ext.getDom(colorShowId).style.background = color;
+	Ext.getDom(colorShowId).value = color;
 	colorWin.hide();
 });
 function showColor(id) {
