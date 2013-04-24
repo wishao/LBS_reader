@@ -1,6 +1,7 @@
 /**
  * @author johnny0086
  */
+
 Ext.namespace('LBSReader', 'LBSReader.readerManager');
 
 LBSReader.readerManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
@@ -40,23 +41,33 @@ LBSReader.readerManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 					}),
 			backgroundColorField : new Ext.form.TextField({
 						fieldLabel : '背景颜色',
-						allowBlank : false,
-						emptyText : '请填写背景颜色',
-						blankText : '请填写背景颜色',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
 						msgTarget : 'side',
-						width : 200
+						id : 'backgroundColor',
+						name : 'color',
+						labelWidth : 1,
+						style : 'background:#000000',
+						width : 200,
+						readOnly : true,
+						listeners : {
+							'focus' : function() {
+								showColor('backgroundColor');
+							}
+						}
 					}),
 			fontColorField : new Ext.form.TextField({
 						fieldLabel : '字体颜色',
-						allowBlank : false,
-						emptyText : '请填写字体颜色',
-						blankText : '请填写字体颜色',
-						validator : LBSReader.customFunctions.validateBankTrim,
-						invalidText : '不能全为空格',
 						msgTarget : 'side',
-						width : 200
+						id : 'fontColor',
+						name : 'color',
+						labelWidth : 1,
+						style : 'background:#000000',
+						width : 200,
+						readOnly : true,
+						listeners : {
+							'focus' : function() {
+								showColor('fontColor');
+							}
+						}
 					}),
 			commitBtn : new Ext.Button({
 						id : 'commitBtn',
@@ -106,12 +117,12 @@ LBSReader.readerManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				if (null != o.font) {
 					this.fontField.setValue(o.font);
 				}
-				if (null != o.background_color) {
+				/*if (null != o.background_color) {
 					this.backgroundColorField.setValue(o.background_color);
 				}
 				if (null != o.font_color) {
 					this.fontColorField.setValue(o.font_color);
-				}
+				}*/
 			},
 			isValid : function() {
 				return this.backgroundColorField.isValid()
@@ -234,13 +245,6 @@ LBSReader.readerManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						iconCls : 'btn-remove',
 						cls : 'btn-common'
 					}),
-			/*nameField : new Ext.form.TextField({
-						emptyText : '请填写内容',
-						maxLength : 100,
-						msgTarget : 'side',
-						width : 150,
-						value : ''
-					}),*/
 			searchBtn : new Ext.Button({
 						text : '搜索',
 						cls : 'btn-search btn-common'
@@ -263,9 +267,6 @@ LBSReader.readerManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					config.tbar.push(this.uptBtn);
 				if (role == 1 || role == 3)
 					config.tbar.push(this.remvBtn);
-				/*config.tbar.push('->');
-				config.tbar.push('对话内容: ');
-				config.tbar.push(this.nameField);*/
 				if (role == 1 || role == 3)
 					config.tbar.push(this.searchBtn);
 				config.bbar = this.pagingbar;
@@ -313,11 +314,6 @@ LBSReader.readerManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							this.pagingbar.doRefresh();
 							this.dlg.configForm.resetForm();
 						}, this);
-				/*this.nameField.on('specialkey', function(field, e) {
-							if (e.getKey() == e.ENTER) {
-								this.searchBtn.fireEvent('click');
-							}
-						}, this);*/
 				this.addBtn.on('click', function() {
 							this.dlg.show();
 							this.dlg.toAdd();
@@ -364,24 +360,6 @@ LBSReader.readerManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							scope : this
 						});
 			},
-			/*searchItems : function() {
-				if (this.nameField.getValue() == '') {
-					this.loadItems();
-				}
-				this.getStore().baseParams = {
-					content : this.nameField.getValue().trim()
-				};
-				this.getStore().load({
-							params : {
-								start : 0,
-								limit : this.pagingbar.pageSize
-							},
-							callback : function(r, o, s) {
-
-							},
-							scope : this
-						});
-			},*/
 			removeItems : function() {
 				var r = this.getSelectionModel().getSelected();
 				if (null != r && null != r.data) {
