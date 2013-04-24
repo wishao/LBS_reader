@@ -66,6 +66,7 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 				return false;
 			} else {
 				recordDao.add(record);
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +80,7 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 				return false;
 			} else {
 				recordDao.delete(id);
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,6 +96,7 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 				return false;
 			} else {
 				recordDao.update(record);
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

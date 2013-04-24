@@ -33,6 +33,16 @@ LBSReader.renderer.BOOK_STATUS = function(value) {
 	}
 };
 
+LBSReader.renderer.RECORD_SHARE = function(value) {
+	if (LBSReader.data.RECORD_SHARE.YES == value) {
+		return '<font color="green">分享</font>';
+	} else if (LBSReader.data.RECORD_SHARE.NO == value) {
+		return '<font color="red">私有</font>';
+	} else {
+		return '<font color="gray">暂无</font>';
+	}
+};
+
 LBSReader.renderer.ADMIN_ROLE = function(value) {
 	if (value == '1') {
 		return '超级管理员';

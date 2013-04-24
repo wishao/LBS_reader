@@ -30,6 +30,14 @@ LBSReader.data.BOOK_STATUS = {
 	// 全部
 };
 
+// 状态标识
+LBSReader.data.RECORD_SHARE = {
+	YES : 1, // 分享
+	NO : 2, // 私有
+	ALL : -1
+	// 暂无
+};
+
 LBSReader.data.TASK_STATUS = {
 	FINISH : '4',
 	FAIL : '5'

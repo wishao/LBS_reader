@@ -43,6 +43,11 @@ LBSReader.req = {
 	READER_ADD : LBSReader.URL + 'reader!add',
 	READER_UPDATE : LBSReader.URL + 'reader!update',
 	READER_REMOVE : LBSReader.URL + 'reader!delete',
+	
+	RECORD_ALL : LBSReader.URL + 'record!all',
+	RECORD_ADD : LBSReader.URL + 'record!add',
+	RECORD_UPDATE : LBSReader.URL + 'record!update',
+	RECORD_REMOVE : LBSReader.URL + 'record!delete',
 
 	// pansenxin 政企模块处理
 	BUSINESS : LBSReader.URL + 'business',

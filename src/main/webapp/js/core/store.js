@@ -132,8 +132,34 @@ LBSReader.store.READER = new Ext.data.JsonStore({
 	},
 	storeId : 'reader',
 	root : 'rows',
-	fields : [ 'id', 'user_id', 'user_name', 'font',
-			'background_color', 'font_color', 'create_time' ]
+	fields : [ 'id', 'user_id', 'user_name', 'font', 'background_color',
+			'font_color', 'create_time' ]
+
+});
+
+LBSReader.store.RECORD = new Ext.data.JsonStore({
+	url : LBSReader.req.RECORD_ALL,
+	baseParams : {
+		start : 0,
+		limit : LBSReader.store.LIMIT
+	},
+	listeners : {
+		'load' : {
+			fn : LBSReader.customFunctions.noRecordHandler
+		},
+		'exception' : {
+			fn : LBSReader.customFunctions.exceptinHandler
+		},
+		'loadexception' : {
+			fn : function() {
+				LBSReader.customFunctions.unmask_timeout();
+			}
+		}
+	},
+	storeId : 'record',
+	root : 'rows',
+	fields : [ 'id', 'user_id', 'user_name', 'book_id', 'book_name', 'record',
+			'evaluation', 'score', 'create_time', 'share' ]
 
 });
 
