@@ -406,21 +406,13 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'cover',
 							width : 50,
 							items : [{
-										icon : 'images/product.png',
-										/*
-										 * tooltip : this.showCover
-										 * .createDelegate(this),
-										 */
-										/*handler : this.showCover
-												.createDelegate(this),*/
-										renderer : function(val) {
-											return "<div ext:qtip='<img src=>'></div>";
-										}
-
+										icon : 'images/product.png'
 									}],
-									renderer : function(val) {
-											return "<div ext:qtip='<img src=>'></div>";
-										}
+							renderer : function(value, metadata, record,
+									rowIndex, columnIndex, store) {
+								metadata.attr = 'ext:qtip="<img src=' + value
+										+ '>"';
+							}
 						}, {
 							xtype : 'actioncolumn',
 							header : '目录',
