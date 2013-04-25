@@ -25,7 +25,17 @@ LBSReader.adminManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 						invalidText : '不能全为空格',
 						maxLength : 100,
 						msgTarget : 'side',
-						width : 200
+						width : 200,
+						initEvents : function() {
+							var keyPress = function(e) {
+								var blockchars = ' ';
+								var c = e.getCharCode();
+								if (blockchars.indexOf(String.fromCharCode(c)) != -1) {
+									e.stopEvent();
+								}
+							};
+							this.el.on("keypress", keyPress, this);
+						}
 					}),
 			roleCombo : new Ext.form.ComboBox({
 						fieldLabel : '权限',
@@ -77,8 +87,8 @@ LBSReader.adminManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 
 				config.buttons = config.buttons || [];
 				config.buttons.push(this.commitBtn);
-				LBSReader.adminManager.ItemForm.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.adminManager.ItemForm.superclass.constructor.apply(
+						this, arguments);
 
 				this.commitBtn.on('click', function() {
 							if (this.isEDIT) {
@@ -186,8 +196,8 @@ LBSReader.adminManager.ItemDlg = Ext.extend(Ext.Window, {
 				config.items = config.items || [];
 				this.configForm = new LBSReader.adminManager.ItemForm({});
 				config.items.push(this.configForm);
-				LBSReader.adminManager.ItemDlg.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.adminManager.ItemDlg.superclass.constructor.apply(
+						this, arguments);
 			},
 			toAdd : function() {
 				this.configForm.isEDIT = false;
@@ -300,8 +310,8 @@ LBSReader.adminManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							width : 60,
 							renderer : LBSReader.renderer.ADMIN_STATUS
 						}]);
-				LBSReader.adminManager.DataGrid.superclass.constructor.apply(this,
-						arguments);
+				LBSReader.adminManager.DataGrid.superclass.constructor.apply(
+						this, arguments);
 
 				this.on('show', function() {
 							this.loadItems();
@@ -353,8 +363,8 @@ LBSReader.adminManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 										this);
 								return;
 							}
-							Ext.MessageBox.confirm("提示", "确认要把所选记录重置密码(123456)吗？",
-									function(id) {
+							Ext.MessageBox.confirm("提示",
+									"确认要把所选记录重置密码(123456)吗？", function(id) {
 										if (id == "yes") {
 											this.resetItems();
 										}

@@ -25,7 +25,17 @@ LBSReader.userManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 						invalidText : '不能全为空格',
 						maxLength : 100,
 						msgTarget : 'side',
-						width : 200
+						width : 200,
+						initEvents : function() {
+							var keyPress = function(e) {
+								var blockchars = ' ';
+								var c = e.getCharCode();
+								if (blockchars.indexOf(String.fromCharCode(c)) != -1) {
+									e.stopEvent();
+								}
+							};
+							this.el.on("keypress", keyPress, this);
+						}
 					}),
 			signatureField : new Ext.form.TextField({
 						fieldLabel : '签名',
