@@ -270,6 +270,34 @@ LBSReader.bookManager.ItemDlg = Ext.extend(Ext.Window, {
 			}
 		});
 
+LBSReader.bookManager.coverDlg = Ext.extend(Ext.Window, {
+			title : '查看封面',
+			layout : 'fit',
+			modal : true,
+			width : 425,
+			height : 280,
+			constrainHeader : true,
+			closeAction : 'hide',
+
+			constructor : function(config) {
+				config = config || {};
+				config.items = config.items || [];
+				// this.tree = new LBSReader.orderworkflow.WorkflowTree({});
+				// config.items.push(this.tree);
+				LBSReader.bookManager.coverDlg.superclass.constructor.apply(
+						this, arguments);
+
+				/*
+				 * this.on('show', function() { this.tree.reload(); }, this);
+				 * this.on('hide', function() { this.tree.UN_LOAD = true; },
+				 * this);
+				 */
+			},
+			setOrderId : function(id) {
+				this.tree.CUR_ORDER_ID = id;
+			}
+		});
+
 LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			title : '书籍维护',
 			autoScroll : true,
@@ -311,6 +339,7 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					}),
 			constructor : function(config) {
 				this.dlg = new LBSReader.bookManager.ItemDlg({});
+				this.coverDlg = new LBSReader.bookManager.coverDlg({});
 				this.pagingbar = new Ext.PagingToolbar({
 							pageSize : 20,
 							store : this.getStore(),
@@ -378,12 +407,20 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							width : 50,
 							items : [{
 										icon : 'images/product.png',
-										tooltip : '查看封面'/*
-														 * , handler :
-														 * this.showWorkFlow
-														 * .createDelegate(this)
-														 */
-									}]
+										/*
+										 * tooltip : this.showCover
+										 * .createDelegate(this),
+										 */
+										/*handler : this.showCover
+												.createDelegate(this),*/
+										renderer : function(val) {
+											return "<div ext:qtip='<img src=>'></div>";
+										}
+
+									}],
+									renderer : function(val) {
+											return "<div ext:qtip='<img src=>'></div>";
+										}
 						}, {
 							xtype : 'actioncolumn',
 							header : '目录',
@@ -560,6 +597,13 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 						}
 					};
 					LBSReader.Ajax.send(req);
+				}
+			},
+			showCover : function(grid, rowIndex, colIndex) {
+				var r = this.getStore().getAt(rowIndex);
+				if (null != r) {
+					// this.dlg.setOrderId(r.data.id);
+					this.coverDlg.show();
 				}
 			}
 		});
