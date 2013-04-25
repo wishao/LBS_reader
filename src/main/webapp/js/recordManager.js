@@ -91,12 +91,15 @@ LBSReader.recordManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 									data : [['1', '分享'], ['2', '私有']]
 								})
 					}),
-			commitBtn : new Ext.Button({
-						id : 'commitBtn',
+			recordCommitBtn : new Ext.Button({
+						id : 'recordCommitBtn',
 						text : '提交',
 						iconCls : 'btn-commit'
 					}),
-
+			cancelBtn : new Ext.Button({
+						text : '取消',
+						minWidth : 70
+					}),
 			constructor : function(config) {
 				this.isEDIT = false;
 				config = config || {};
@@ -110,16 +113,20 @@ LBSReader.recordManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				}]);
 
 				config.buttons = config.buttons || [];
-				config.buttons.push(this.commitBtn);
+				config.buttons.push(this.recordCommitBtn);
+				config.buttons.push(this.cancelBtn);
 				LBSReader.recordManager.ItemForm.superclass.constructor.apply(
 						this, arguments);
 
-				this.commitBtn.on('click', function() {
+				this.recordCommitBtn.on('click', function() {
 							if (this.isEDIT) {
 								this.commitEdit();
 							} else {
 								this.commitAdd();
 							}
+						}, this);
+				this.cancelBtn.on('click', function() {
+							this.cancelOp();
 						}, this);
 
 			},
@@ -220,6 +227,9 @@ LBSReader.recordManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 					}
 				};
 				LBSReader.Ajax.send(req);
+			},
+			cancelOp : function() {
+				this.ownerCt.hide();
 			}
 		});
 

@@ -48,12 +48,15 @@ LBSReader.contactManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 						msgTarget : 'side',
 						width : 200
 					}),
-			commitBtn : new Ext.Button({
-						id : 'commitBtn',
+			contactCommitBtn : new Ext.Button({
+						id : 'contactCommitBtn',
 						text : '提交',
 						iconCls : 'btn-commit'
 					}),
-
+			cancelBtn : new Ext.Button({
+						text : '取消',
+						minWidth : 70
+					}),
 			constructor : function(config) {
 				this.isEDIT = false;
 				config = config || {};
@@ -61,23 +64,26 @@ LBSReader.contactManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				config.items.push([{
 					layout : 'form',
 					bodyBorder : false,
-					items : [this.idHidden, this.sendUserIdField, this.receiveUserIdField,
-							this.contentField]
+					items : [this.idHidden, this.sendUserIdField,
+							this.receiveUserIdField, this.contentField]
 				}]);
 
 				config.buttons = config.buttons || [];
-				config.buttons.push(this.commitBtn);
+				config.buttons.push(this.contactCommitBtn);
+				config.buttons.push(this.cancelBtn);
 				LBSReader.contactManager.ItemForm.superclass.constructor.apply(
 						this, arguments);
 
-				this.commitBtn.on('click', function() {
+				this.contactCommitBtn.on('click', function() {
 							if (this.isEDIT) {
 								this.commitEdit();
 							} else {
 								this.commitAdd();
 							}
 						}, this);
-
+				this.cancelBtn.on('click', function() {
+							this.cancelOp();
+						}, this);
 			},
 			resetForm : function() {
 				this.items.each(function(item, index, length) {
@@ -101,7 +107,8 @@ LBSReader.contactManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				}
 			},
 			isValid : function() {
-				return this.contentField.isValid() && this.sendUserIdField.isValid()
+				return this.contentField.isValid()
+						&& this.sendUserIdField.isValid()
 						&& this.receiveUserIdField.isValid();
 			},
 			commitAdd : function() {
@@ -158,6 +165,9 @@ LBSReader.contactManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 					}
 				};
 				LBSReader.Ajax.send(req);
+			},
+			cancelOp : function() {
+				this.ownerCt.hide();
 			}
 		});
 
@@ -198,9 +208,10 @@ LBSReader.contactManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 			cls : 'box-dataGrid',
 			viewConfig : {
 				getRowClass : function(record, rowIndex, rowParams, store) {
-					/*if (LBSReader.data.BOOK_STATUS.NOEFFECT == record.data.status) {
-						return 'unknown';
-					}*/
+					/*
+					 * if (LBSReader.data.BOOK_STATUS.NOEFFECT ==
+					 * record.data.status) { return 'unknown'; }
+					 */
 				}
 			},
 

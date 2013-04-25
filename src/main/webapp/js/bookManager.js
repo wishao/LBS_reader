@@ -91,12 +91,15 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 									data : [['0', '无效'], ['1', '有效']]
 								})
 					}),
-			commitBtn : new Ext.Button({
-						id : 'commitBtn',
+			bookCommitBtn : new Ext.Button({
+						id : 'bookCommitBtn',
 						text : '提交',
 						iconCls : 'btn-commit'
 					}),
-
+			cancelBtn : new Ext.Button({
+						text : '取消',
+						minWidth : 70
+					}),
 			constructor : function(config) {
 				this.isEDIT = false;
 				config = config || {};
@@ -111,16 +114,20 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 				}]);
 
 				config.buttons = config.buttons || [];
-				config.buttons.push(this.commitBtn);
+				config.buttons.push(this.bookCommitBtn);
+				config.buttons.push(this.cancelBtn);
 				LBSReader.bookManager.ItemForm.superclass.constructor.apply(
 						this, arguments);
 
-				this.commitBtn.on('click', function() {
+				this.bookCommitBtn.on('click', function() {
 							if (this.isEDIT) {
 								this.commitEdit();
 							} else {
 								this.commitAdd();
 							}
+						}, this);
+				this.cancelBtn.on('click', function() {
+							this.cancelOp();
 						}, this);
 
 			},
@@ -227,6 +234,9 @@ LBSReader.bookManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 					}
 				};
 				LBSReader.Ajax.send(req);
+			},
+			cancelOp : function() {
+				this.ownerCt.hide();
 			}
 		});
 
@@ -352,11 +362,13 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'recommend',
 							width : 50,
 							items : [{
-								icon : 'images/btn_search.png',
-								tooltip : '查看简介'/*,
-								handler : this.showWorkFlow
-										.createDelegate(this)*/
-							}]
+										icon : 'images/btn_search.png',
+										tooltip : '查看简介'/*
+														 * , handler :
+														 * this.showWorkFlow
+														 * .createDelegate(this)
+														 */
+									}]
 						}, {
 							xtype : 'actioncolumn',
 							header : '封面',
@@ -365,11 +377,13 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'cover',
 							width : 50,
 							items : [{
-								icon : 'images/product.png',
-								tooltip : '查看封面'/*,
-								handler : this.showWorkFlow
-										.createDelegate(this)*/
-							}]
+										icon : 'images/product.png',
+										tooltip : '查看封面'/*
+														 * , handler :
+														 * this.showWorkFlow
+														 * .createDelegate(this)
+														 */
+									}]
 						}, {
 							xtype : 'actioncolumn',
 							header : '目录',
@@ -378,11 +392,13 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 							dataIndex : 'catalog',
 							width : 50,
 							items : [{
-								icon : 'images/icon_workflow.png',
-								tooltip : '查看目录'/*,
-								handler : this.showWorkFlow
-										.createDelegate(this)*/
-							}]
+										icon : 'images/icon_workflow.png',
+										tooltip : '查看目录'/*
+														 * , handler :
+														 * this.showWorkFlow
+														 * .createDelegate(this)
+														 */
+									}]
 						}, {
 							header : '阅读人数',
 							align : 'center',

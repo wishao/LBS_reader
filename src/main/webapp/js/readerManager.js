@@ -69,12 +69,15 @@ LBSReader.readerManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 					}
 				}
 			}),
-	commitBtn : new Ext.Button({
-				id : 'commitBtn',
+	readerCommitBtn : new Ext.Button({
+				id : 'readerCommitBtn',
 				text : '提交',
 				iconCls : 'btn-commit'
 			}),
-
+	cancelBtn : new Ext.Button({
+				text : '取消',
+				minWidth : 70
+			}),
 	constructor : function(config) {
 		this.isEDIT = false;
 		config = config || {};
@@ -87,16 +90,20 @@ LBSReader.readerManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 		}]);
 
 		config.buttons = config.buttons || [];
-		config.buttons.push(this.commitBtn);
+		config.buttons.push(this.readerCommitBtn);
+		config.buttons.push(this.cancelBtn);
 		LBSReader.readerManager.ItemForm.superclass.constructor.apply(this,
 				arguments);
 
-		this.commitBtn.on('click', function() {
+		this.readerCommitBtn.on('click', function() {
 					if (this.isEDIT) {
 						this.commitEdit();
 					} else {
 						this.commitAdd();
 					}
+				}, this);
+		this.cancelBtn.on('click', function() {
+					this.cancelOp();
 				}, this);
 
 	},
@@ -197,6 +204,9 @@ LBSReader.readerManager.ItemForm = Ext.extend(Ext.form.FormPanel, {
 			}
 		};
 		LBSReader.Ajax.send(req);
+	},
+	cancelOp : function() {
+		this.ownerCt.hide();
 	}
 });
 
