@@ -49,7 +49,6 @@ public class UserServiceImpl extends BaseService implements UserService {
 	public boolean addUser(User user) {
 		try {
 			if (userDao.getByName(user.getName()) == null) {
-				user.setPassword(Constant.RESET_PASSWORD);
 				userDao.add(user);
 				return true;
 			} else {

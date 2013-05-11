@@ -34,12 +34,14 @@ public class BookAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		try {
 			if (bs.deleteBook(id)) {
-				json.put("success", "true");
+				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -76,7 +78,7 @@ public class BookAction extends ActionSupport {
 				"catalog");
 		String status = ServletActionContext.getRequest()
 				.getParameter("status");
-		
+
 		Book book = bs.selectBookById(id);
 		JSONObject json = new JSONObject();
 		if (book != null) {
@@ -91,12 +93,14 @@ public class BookAction extends ActionSupport {
 
 			try {
 				if (bs.updateBook(book)) {
-					json.put("success", "true");
+					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -108,6 +112,7 @@ public class BookAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 
@@ -147,12 +152,14 @@ public class BookAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		try {
 			if (bs.addBook(book)) {
-				json.put("success", "true");
+				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {

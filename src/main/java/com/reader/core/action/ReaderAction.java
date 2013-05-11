@@ -38,12 +38,14 @@ public class ReaderAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		try {
 			if (rs.deleteReader(id)) {
-				json.put("success", "true");
+				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -88,12 +90,14 @@ public class ReaderAction extends ActionSupport {
 
 			try {
 				if (rs.updateReader(reader)) {
-					json.put("success", "true");
+					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -105,6 +109,7 @@ public class ReaderAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 
@@ -138,15 +143,18 @@ public class ReaderAction extends ActionSupport {
 				reader.setFontColor(fontColor);
 				reader.setUser(user);
 				if (rs.addReader(reader)) {
-					json.put("success", "true");
+					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {

@@ -37,13 +37,15 @@ public class ContactAction extends ActionSupport {
 
 		JSONObject json = new JSONObject();
 		try {
-			if(cs.deleteContact(id)){
-				json.put("success", "true");
+			if (cs.deleteContact(id)) {
+				json.put("success", true);
 				json.put("message", "操作成功！");
-			}else{
+			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -86,13 +88,15 @@ public class ContactAction extends ActionSupport {
 			}
 
 			try {
-				if(cs.updateContact(contact)){
-					json.put("success", "true");
+				if (cs.updateContact(contact)) {
+					json.put("success", true);
 					json.put("message", "操作成功！");
-				}else{
+				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -104,6 +108,7 @@ public class ContactAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 
@@ -137,13 +142,15 @@ public class ContactAction extends ActionSupport {
 			}
 
 			try {
-				if(cs.addContact(contact)){
-					json.put("success", "true");
+				if (cs.addContact(contact)) {
+					json.put("success", true);
 					json.put("message", "操作成功！");
-				}else{
+				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -156,6 +163,7 @@ public class ContactAction extends ActionSupport {
 			}
 
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 		return null;

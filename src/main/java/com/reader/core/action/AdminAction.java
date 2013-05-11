@@ -84,9 +84,10 @@ public class AdminAction extends ActionSupport {
 		if (admin != null) {
 			admin.setPassword(pwd);
 			if (as.updateAdmin(admin)) {
-				json.put("success", "true");
+				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 			try {
@@ -96,6 +97,7 @@ public class AdminAction extends ActionSupport {
 				e.printStackTrace();
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			try {
 				ServletActionContext.getResponse().getWriter()
@@ -122,13 +124,15 @@ public class AdminAction extends ActionSupport {
 
 		JSONObject json = new JSONObject();
 		try {
-			if(as.deleteAdmin(id)){
-				json.put("success", "true");
+			if (as.deleteAdmin(id)) {
+				json.put("success", true);
 				json.put("message", "操作成功！");
-			}else{
+			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -167,13 +171,15 @@ public class AdminAction extends ActionSupport {
 			}
 
 			try {
-				if(as.updateAdmin(admin)){
-					json.put("success", "true");
+				if (as.updateAdmin(admin)) {
+					json.put("success", true);
 					json.put("message", "操作成功！");
-				}else{
+				} else {
+					json.put("success", false);
 					json.put("message", "该管理员名已存在，操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -185,6 +191,7 @@ public class AdminAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 
@@ -211,13 +218,15 @@ public class AdminAction extends ActionSupport {
 		}
 		JSONObject json = new JSONObject();
 		try {
-			if(as.addAdmin(admin)){
-				json.put("success", "true");
+			if (as.addAdmin(admin)) {
+				json.put("success", true);
 				json.put("message", "操作成功！");
-			}else{
+			} else {
+				json.put("success", false);
 				json.put("message", "该管理员名已存在，操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -295,13 +304,15 @@ public class AdminAction extends ActionSupport {
 				e.printStackTrace();
 			}
 			try {
-				if(as.resetAdminPassword(id)){
-					json.put("success", "true");
+				if (as.resetAdminPassword(id)) {
+					json.put("success", true);
 					json.put("message", "操作成功！");
-				}else{
+				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -313,6 +324,7 @@ public class AdminAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 

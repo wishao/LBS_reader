@@ -11,6 +11,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.reader.common.util.Constant;
+import com.reader.core.model.User;
 import com.reader.core.model.User;
 import com.reader.service.dao.UserService;
 import com.reader.service.impl.UserServiceImpl;
@@ -19,6 +21,49 @@ public class UserAction extends ActionSupport {
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final long serialVersionUID = 1L;
 	private UserService us = new UserServiceImpl();
+
+	// 登录
+	public String login() {
+		String name = ServletActionContext.getRequest().getParameter(
+				"loginName");
+		String password = ServletActionContext.getRequest().getParameter(
+				"loginPassword");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		User user = us.loginUser(name, password);
+		JSONObject json = new JSONObject();
+		if (user != null) {
+			json.put("result", true);
+			json.put("msg", user.getName() + "登陆成功");
+			json.put("id", user.getId());
+			json.put("name", user.getName());
+			json.put("createTime", sf.format(user.getCreateTime()));
+			json.put("status", user.getStatus());
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			json.put("result", false);
+			json.put("msg", "登陆失败");
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return null;
+
+	}
 
 	// 删除
 	@SuppressWarnings("unchecked")
@@ -34,12 +79,14 @@ public class UserAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		try {
 			if (us.deleteUser(id)) {
-				json.put("success", "true");
+				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -80,12 +127,14 @@ public class UserAction extends ActionSupport {
 
 			try {
 				if (us.updateUser(user)) {
-					json.put("success", "true");
+					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
+					json.put("success", false);
 					json.put("message", "该用户名已存在，操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -97,6 +146,7 @@ public class UserAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 
@@ -114,6 +164,7 @@ public class UserAction extends ActionSupport {
 				.getParameter("status");
 		User user = new User();
 		user.setName(name);
+		user.setPassword(Constant.RESET_PASSWORD);
 		user.setSignature(signature);
 		user.setStatus(new Byte(status));
 		try {
@@ -125,12 +176,55 @@ public class UserAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		try {
 			if (us.addUser(user)) {
-				json.put("success", "true");
+				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {
+				json.put("success", false);
 				json.put("message", "该用户名已存在，操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
+			json.put("message", "操作失败！");
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	// 新增
+	@SuppressWarnings("unchecked")
+	public String addFromClient() {
+		String name = ServletActionContext.getRequest().getParameter("name");
+		String password = ServletActionContext.getRequest().getParameter(
+				"password");
+		User user = new User();
+		user.setName(name);
+		user.setPassword(password);
+		user.setStatus(Constant.STATUS_YES);
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		try {
+			if (us.addUser(user)) {
+				json.put("success", true);
+				json.put("message", "操作成功！");
+			} else {
+				json.put("success", false);
+				json.put("message", "该用户名已存在，操作失败！");
+			}
+		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -211,12 +305,14 @@ public class UserAction extends ActionSupport {
 			}
 			try {
 				if (us.resetUserPassword(id)) {
-					json.put("success", "true");
+					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -228,6 +324,7 @@ public class UserAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 

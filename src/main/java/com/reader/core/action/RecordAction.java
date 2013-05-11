@@ -42,12 +42,14 @@ public class RecordAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		try {
 			if (rs.deleteRecord(id)) {
-				json.put("success", "true");
+				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 			}
 		} catch (Exception e) {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 			e.printStackTrace();
 		} finally {
@@ -99,12 +101,14 @@ public class RecordAction extends ActionSupport {
 
 			try {
 				if (rs.updateRecord(record)) {
-					json.put("success", "true");
+					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -116,6 +120,7 @@ public class RecordAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 
@@ -157,12 +162,14 @@ public class RecordAction extends ActionSupport {
 			}
 			try {
 				if (rs.addRecord(record)) {
-					json.put("success", "true");
+					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
+					json.put("success", false);
 					json.put("message", "操作失败！");
 				}
 			} catch (Exception e) {
+				json.put("success", false);
 				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
@@ -174,6 +181,7 @@ public class RecordAction extends ActionSupport {
 				}
 			}
 		} else {
+			json.put("success", false);
 			json.put("message", "操作失败！");
 		}
 		return null;
