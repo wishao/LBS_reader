@@ -69,7 +69,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", user.getId());
 		param.put("name", user.getName());
-		param.put("password", user.getPassword());
+		param.put("password", MD5Util.getMD5(user.getPassword()));
 		param.put("address", user.getAddress());
 		param.put("signature", user.getSignature());
 		param.put("status", user.getStatus());

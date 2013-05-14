@@ -92,6 +92,22 @@ public class UserServiceImpl extends BaseService implements UserService {
 		return false;
 	}
 
+	public boolean updateUserByClient(User user) {
+		try {
+
+			if (userDao.getById(user.getId()) == null) {
+				return false;
+			} else {
+				userDao.update(user);
+				return true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public boolean resetUserPassword(String id) {
 		try {
 			User user = userDao.getById(id);

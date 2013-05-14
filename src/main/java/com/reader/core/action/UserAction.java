@@ -13,7 +13,6 @@ import org.json.simple.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
 import com.reader.common.util.Constant;
 import com.reader.core.model.User;
-import com.reader.core.model.User;
 import com.reader.service.dao.UserService;
 import com.reader.service.impl.UserServiceImpl;
 
@@ -42,7 +41,10 @@ public class UserAction extends ActionSupport {
 			json.put("msg", user.getName() + "登陆成功");
 			json.put("id", user.getId());
 			json.put("name", user.getName());
-			json.put("createTime", sf.format(user.getCreateTime()));
+			json.put("create_time", sf.format(user.getCreateTime()));
+			json.put("address", user.getAddress());
+			json.put("signature", user.getSignature());
+			json.put("update_time", sf.format(user.getUpdateTime()));
 			json.put("status", user.getStatus());
 			try {
 				ServletActionContext.getResponse().getWriter()
@@ -127,6 +129,53 @@ public class UserAction extends ActionSupport {
 
 			try {
 				if (us.updateUser(user)) {
+					json.put("success", true);
+					json.put("message", "操作成功！");
+				} else {
+					json.put("success", false);
+					json.put("message", "该用户名已存在，操作失败！");
+				}
+			} catch (Exception e) {
+				json.put("success", false);
+				json.put("message", "操作失败！");
+				e.printStackTrace();
+			} finally {
+				try {
+					ServletActionContext.getResponse().getWriter()
+							.println(json.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			json.put("success", false);
+			json.put("message", "操作失败！");
+		}
+
+		return null;
+
+	}
+
+	// 更新
+	@SuppressWarnings("unchecked")
+	public String updatePasswordFromClient() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		String password = ServletActionContext.getRequest().getParameter("password");
+		User user = us.selectUserById(id);
+		JSONObject json = new JSONObject();
+		if (user != null) {
+			user.setId(id);
+			user.setPassword(password);
+			try {
+				ServletActionContext.getRequest().setCharacterEncoding("gbk");
+				ServletActionContext.getResponse()
+						.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (us.updateUserByClient(user)) {
 					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
