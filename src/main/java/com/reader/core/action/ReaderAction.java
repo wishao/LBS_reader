@@ -217,6 +217,51 @@ public class ReaderAction extends ActionSupport {
 
 	}
 
+	// 查询所有
+	@SuppressWarnings("unchecked")
+	public String selectByUser() {
+
+		String userId = ServletActionContext.getRequest().getParameter(
+				"user_id");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+
+		try {
+			Reader reader = rs.selectReaderByUser(userId);
+			if (reader != null) {
+				json.put("success", true);
+				json.put("id", reader.getId());
+				json.put("user_id", reader.getUser().getId());
+				json.put("user_name", reader.getUser().getName());
+				json.put("font", reader.getFont());
+				json.put("background_color", reader.getBackgroundColor());
+				json.put("font_color", reader.getFontColor());
+				json.put("create_time", sf.format(reader.getCreateTime()));
+			} else {
+				json.put("success", false);
+				json.put("message", "操作失败！");
+			}
+		} catch (Exception e) {
+			json.put("success", false);
+			json.put("message", "操作失败！");
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
 	public ReaderService getRs() {
 		return rs;
 	}
