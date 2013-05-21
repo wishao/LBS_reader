@@ -7,6 +7,8 @@ import com.reader.core.model.Book;
 public interface BookService {
 
 	public Map<String, Object> selectAllBook(String name, int start, int limit);
+	
+	public Map<String, Object> selectAllBookByClient(String name, int start, int limit);
 
 	public Book selectBookById(String id);
 

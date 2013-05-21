@@ -230,6 +230,63 @@ public class BookAction extends ActionSupport {
 
 	}
 
+	// 查询所有
+	@SuppressWarnings("unchecked")
+	public String allByClient() {
+
+		int start = Integer.parseInt(ServletActionContext.getRequest()
+				.getParameter("start"));
+		int limit = Integer.parseInt(ServletActionContext.getRequest()
+				.getParameter("limit"));
+		String name = ServletActionContext.getRequest().getParameter("name");
+		name = name == null ? "" : name;
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		JSONArray rows = new JSONArray();
+		try {
+			Map<String, Object> result = bs.selectAllBookByClient(name, start,
+					limit);
+			List<Book> bookList = (List<Book>) result.get("bookList");
+			for (Book book : bookList) {
+				JSONObject jsonTemp = new JSONObject();
+				jsonTemp.put("id", book.getId());
+				jsonTemp.put("name", book.getName());
+				jsonTemp.put("author", book.getAuthor());
+				jsonTemp.put("content", book.getContent());
+				jsonTemp.put("create_time", sf.format(book.getCreateTime()));
+				jsonTemp.put("update_time", sf.format(book.getUpdateTime()));
+				jsonTemp.put("recommend", book.getRecommend());
+				jsonTemp.put("cover", book.getCover());
+				jsonTemp.put("reader", book.getReader());
+				jsonTemp.put("focus", book.getFocus());
+				jsonTemp.put("catalog", book.getCatalog());
+				jsonTemp.put("score", book.getScore());
+				jsonTemp.put("status", book.getStatus());
+				rows.add(jsonTemp);
+			}
+			json.put("rows", rows);
+			json.put("total", result.get("count"));
+		} catch (Exception e) {
+			json.put("rows", new JSONArray());
+			json.put("total", 0);
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
 	public BookService getBs() {
 		return bs;
 	}

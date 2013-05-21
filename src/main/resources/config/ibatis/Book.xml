@@ -39,6 +39,18 @@
 		limit #start#,#limit#;
 	]]>
 	</select>
+	<select id="selectAllBookByClient" resultMap="book">
+	<![CDATA[
+		select
+		* 
+		from t_book
+		where 
+		name like '%$name$%' 
+		and status=1
+		order by update_time desc
+		limit #start#,#limit#;
+	]]>
+	</select>
 	<select id="countAllBook" resultClass="int">
 	<![CDATA[
 		select 
@@ -47,6 +59,17 @@
 		t_book 
 		where 
 		name like '%$name$%';
+	]]>
+	</select>
+	<select id="countAllBookByClient" resultClass="int">
+	<![CDATA[
+		select 
+		count(*) 
+		from
+		t_book 
+		where 
+		name like '%$name$%'
+		and status=1;
 	]]>
 	</select>
 	<insert id="insertBook">

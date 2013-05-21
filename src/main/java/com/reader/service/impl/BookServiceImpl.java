@@ -30,6 +30,22 @@ public class BookServiceImpl extends BaseService implements BookService {
 		return null;
 	}
 
+	public Map<String, Object> selectAllBookByClient(String name, int start,
+			int limit) {
+
+		try {
+			int count = bookDao.countAllByClient(name);
+			List<Book> bookList = bookDao.selectAll(name, start, limit);
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("count", count);
+			result.put("bookList", bookList);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public Book selectBookById(String id) {
 		try {
 			Book book = bookDao.getById(id);

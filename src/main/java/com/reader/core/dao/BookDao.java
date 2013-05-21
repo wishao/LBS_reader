@@ -8,8 +8,12 @@ public interface BookDao {
 	public Book getById(String id);
 
 	public List<Book> selectAll(String name, int start, int limit);
+	
+	public List<Book> selectAllByClient(String name, int start, int limit);
 
 	public int countAll(String name);
+	
+	public int countAllByClient(String name);
 
 	public void add(Book book);
 

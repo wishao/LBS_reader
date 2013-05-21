@@ -27,11 +27,27 @@ public class BookDaoImpl extends BaseDao implements BookDao {
 		return getSqlMapClientTemplate().queryForList("selectAllBook", param);
 	}
 
+	public List<Book> selectAllByClient(String name, int start, int limit) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("name", name);
+		param.put("start", start);
+		param.put("limit", limit);
+		return getSqlMapClientTemplate().queryForList("selectAllBookByClient",
+				param);
+	}
+
 	public int countAll(String name) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("name", name);
 		return (Integer) getSqlMapClientTemplate().queryForObject(
 				"countAllBook", param);
+	}
+
+	public int countAllByClient(String name) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("name", name);
+		return (Integer) getSqlMapClientTemplate().queryForObject(
+				"countAllBookByClient", param);
 	}
 
 	public void add(Book book) {
