@@ -35,7 +35,7 @@ public class BookServiceImpl extends BaseService implements BookService {
 
 		try {
 			int count = bookDao.countAllByClient(name);
-			List<Book> bookList = bookDao.selectAll(name, start, limit);
+			List<Book> bookList = bookDao.selectAllByClient(name, start, limit);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("count", count);
 			result.put("bookList", bookList);
