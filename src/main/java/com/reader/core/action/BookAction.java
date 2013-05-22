@@ -287,6 +287,44 @@ public class BookAction extends ActionSupport {
 
 	}
 
+	// 阅读
+	@SuppressWarnings("unchecked")
+	public String read() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		int start = Integer.parseInt(ServletActionContext.getRequest()
+				.getParameter("start"));
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		String result = bs.readBookByClient(id, start);
+		try {
+			if (result != null) {
+				json.put("success", true);
+				json.put("result", result);
+			} else {
+				json.put("success", false);
+				json.put("result", "操作失败！");
+			}
+		} catch (Exception e) {
+			json.put("success", false);
+			json.put("result", "操作失败！");
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
 	public BookService getBs() {
 		return bs;
 	}

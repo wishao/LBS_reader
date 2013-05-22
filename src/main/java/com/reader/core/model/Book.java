@@ -14,6 +14,7 @@ public class Book {
 	private String name;
 	private String author;
 	private String content;
+	private String text;
 	private Timestamp createTime;
 	private Timestamp updateTime;
 	private String recommend;
@@ -27,12 +28,13 @@ public class Book {
 	@Override
 	public String toString() {
 		String str = "id=" + this.id + ";name=" + this.name + ";author="
-				+ this.author + ";content=" + this.content + ";createTime="
-				+ this.createTime + ";updateTime=" + this.updateTime
-				+ ";recommend=" + this.recommend + ";cover=" + this.cover
-				+ ";reader=" + this.reader + ";focus=" + this.focus
-				+ ";catalog=" + this.reader + ";catalog=" + this.reader
-				+ ";score=" + this.score + ";status=" + this.status + ";";
+				+ this.author + ";content=" + this.content + ";text"
+				+ this.text + ";createTime=" + this.createTime + ";updateTime="
+				+ this.updateTime + ";recommend=" + this.recommend + ";cover="
+				+ this.cover + ";reader=" + this.reader + ";focus="
+				+ this.focus + ";catalog=" + this.reader + ";catalog="
+				+ this.reader + ";score=" + this.score + ";status="
+				+ this.status + ";";
 		return str;
 	}
 
@@ -138,6 +140,14 @@ public class Book {
 
 	public void setStatus(byte status) {
 		this.status = status;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 }

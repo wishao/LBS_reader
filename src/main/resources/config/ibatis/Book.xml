@@ -9,6 +9,7 @@
 		<result property="name" column="name" />
 		<result property="author" column="author" />
 		<result property="content" column="content" />
+		<result property="text" column="text" />
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
 		<result property="recommend" column="recommend" />
@@ -76,9 +77,9 @@
 	<![CDATA[
 		insert 
 		into t_book
-		(id,name,author,content,create_time,update_time,recommend,cover,reader,focus,catalog,score,status)
+		(id,name,author,content,text,create_time,update_time,recommend,cover,reader,focus,catalog,score,status)
 		values
-		(#id#,#name#,#author#,#content#,now(),now(),#recommend#,#cover#,0,0,#catalog#,0,#status#);
+		(#id#,#name#,#author#,#content#,#text#,now(),now(),#recommend#,#cover#,0,0,#catalog#,0,#status#);
 	]]>
 	</insert>
 
@@ -97,7 +98,7 @@
 		update 
 		t_book 
 		set
-		name=#name#,author=#author#,content=#content#,update_time=now(),
+		name=#name#,author=#author#,content=#content#,#text#,update_time=now(),
 		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
 		catalog=#catalog#,score=#score#,update_time=now(),status=#status# 
 		where 

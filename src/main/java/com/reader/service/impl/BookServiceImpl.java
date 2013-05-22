@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.reader.common.dao.BaseService;
+import com.reader.common.util.Constant;
 import com.reader.core.dao.BookDao;
 import com.reader.core.model.Book;
 import com.reader.service.dao.BookService;
@@ -134,6 +135,21 @@ public class BookServiceImpl extends BaseService implements BookService {
 
 	public static void setBookDao(BookDao bookDao) {
 		BookServiceImpl.bookDao = bookDao;
+	}
+
+	public String readBookByClient(String id, int start) {
+		try {
+			Book book = bookDao.getById(id);
+			int end = start + Constant.BOOK_LIMIT;
+			if (end >= book.getText().length()) {
+				end = book.getText().length();
+			}
+			String result = book.getText().substring(start, end);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

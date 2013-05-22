@@ -16,4 +16,6 @@ public class Constant {
 
 	public static final byte RECORD_SHARE_YES = 1;// 分享
 	public static final byte RECORD_SHARE_NO = 2;// 私有
+	
+	public static final int BOOK_LIMIT = 2000;// 每次更新2000
 }
