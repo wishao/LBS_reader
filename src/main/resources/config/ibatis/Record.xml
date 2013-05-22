@@ -84,8 +84,7 @@
 		t_record 
 		where
 		user_id=#userId# 
-		order by create_time desc
-		limit #start#,#limit#;
+		order by create_time desc;
 	]]>
 	</select>
 	<select id="countRecordByUserId" resultClass="int">

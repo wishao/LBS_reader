@@ -34,11 +34,10 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 		return null;
 	}
 
-	public Map<String, Object> selectByUser(String userId, int start, int limit) {
+	public Map<String, Object> selectByUser(String userId) {
 		try {
-			int count = recordDao.countAll();
-			List<Record> recordList = recordDao.selectByUserId(userId, start,
-					limit);
+			int count = recordDao.countRecordByUserId(userId);
+			List<Record> recordList = recordDao.selectByUserId(userId);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("count", count);
 			result.put("recordList", recordList);
