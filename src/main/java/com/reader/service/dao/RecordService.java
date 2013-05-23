@@ -8,7 +8,7 @@ public interface RecordService {
 
 	public Map<String, Object> selectAllRecord(int start, int limit);
 
-	public Map<String, Object> selectByUser(String userId);
+	public Map<String, Object> selectByUser(String userId, int start, int limit);
 
 	public Record selectRecordById(String id);
 

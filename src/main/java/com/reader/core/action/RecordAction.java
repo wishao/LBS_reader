@@ -246,6 +246,10 @@ public class RecordAction extends ActionSupport {
 
 		String UserId = ServletActionContext.getRequest().getParameter(
 				"user_id");
+		int start = Integer.parseInt(ServletActionContext.getRequest()
+				.getParameter("start"));
+		int limit = Integer.parseInt(ServletActionContext.getRequest()
+				.getParameter("limit"));
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
@@ -255,7 +259,7 @@ public class RecordAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		JSONArray rows = new JSONArray();
 		try {
-			Map<String, Object> result = rs.selectByUser(UserId);
+			Map<String, Object> result = rs.selectByUser(UserId, start, limit);
 			List<Record> recordList = (List<Record>) result.get("recordList");
 			for (Record record : recordList) {
 				JSONObject jsonTemp = new JSONObject();
@@ -340,7 +344,7 @@ public class RecordAction extends ActionSupport {
 		if (book != null && record != null) {
 			int end = record.getRecord() + Integer.parseInt(start);
 			if (end >= book.getText().length()) {
-				end = book.getText().length()-10;
+				end = book.getText().length() - 10;
 			} else if (end < 0) {
 				end = 0;
 			}
