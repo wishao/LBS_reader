@@ -203,6 +203,53 @@ public class UserAction extends ActionSupport {
 
 	}
 
+	// 更新
+		@SuppressWarnings("unchecked")
+		public String updateAddress() {
+			String id = ServletActionContext.getRequest().getParameter("id");
+			String address = ServletActionContext.getRequest().getParameter("address");
+			User user = us.selectUserById(id);
+			JSONObject json = new JSONObject();
+			if (user != null) {
+				user.setId(id);
+				user.setAddress(address);
+				try {
+					ServletActionContext.getRequest().setCharacterEncoding("gbk");
+					ServletActionContext.getResponse()
+							.setCharacterEncoding("utf-8");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+
+				try {
+					if (us.updateUserByClient(user)) {
+						json.put("success", true);
+						json.put("message", "操作成功！");
+					} else {
+						json.put("success", false);
+						json.put("message", "操作失败！");
+					}
+				} catch (Exception e) {
+					json.put("success", false);
+					json.put("message", "操作失败！");
+					e.printStackTrace();
+				} finally {
+					try {
+						ServletActionContext.getResponse().getWriter()
+								.println(json.toString());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			} else {
+				json.put("success", false);
+				json.put("message", "操作失败！");
+			}
+
+			return null;
+
+		}
+	
 	// 新增
 	@SuppressWarnings("unchecked")
 	public String add() {

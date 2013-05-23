@@ -222,6 +222,58 @@ public class ContactAction extends ActionSupport {
 		return null;
 
 	}
+	
+	// 查询所有对话用户
+		@SuppressWarnings("unchecked")
+		public String getByClient() {
+			String userId = ServletActionContext.getRequest().getParameter(
+					"user_id");
+			int start = Integer.parseInt(ServletActionContext.getRequest()
+					.getParameter("start"));
+			int limit = Integer.parseInt(ServletActionContext.getRequest()
+					.getParameter("limit"));
+			try {
+				ServletActionContext.getRequest().setCharacterEncoding("gbk");
+				ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			JSONObject json = new JSONObject();
+			JSONArray rows = new JSONArray();
+			try {
+				Map<String, Object> result = cs.selectContactByUser(userId, start, limit);
+				List<Contact> contactList = (List<Contact>) result
+						.get("contactList");
+				for (Contact contact : contactList) {
+					JSONObject jsonTemp = new JSONObject();
+					jsonTemp.put("id", contact.getId());
+					jsonTemp.put("send_user_id", contact.getSendUser().getId());
+					jsonTemp.put("receive_user_id", contact.getReceiveUser()
+							.getId());
+					jsonTemp.put("send_user_name", contact.getSendUser().getName());
+					jsonTemp.put("receive_user_name", contact.getReceiveUser()
+							.getName());
+					jsonTemp.put("content", contact.getContent());
+					jsonTemp.put("create_time", sf.format(contact.getCreateTime()));
+					rows.add(jsonTemp);
+				}
+				json.put("rows", rows);
+				json.put("total", result.get("count"));
+			} catch (Exception e) {
+				json.put("rows", new JSONArray());
+				json.put("total", 0);
+				e.printStackTrace();
+			} finally {
+				try {
+					ServletActionContext.getResponse().getWriter()
+							.println(json.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return null;
+
+		}
 
 	public ContactService getCs() {
 		return cs;
