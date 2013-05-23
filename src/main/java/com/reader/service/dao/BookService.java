@@ -23,5 +23,5 @@ public interface BookService {
 
 	public boolean focusBook(String id);
 
-	public String readBookByClient(String id, int start);
+	public String readBookByClient(String id,String bookId, int start);
 }

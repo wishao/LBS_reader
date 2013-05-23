@@ -11,6 +11,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.reader.common.util.Constant;
 import com.reader.core.model.Book;
 import com.reader.core.model.Record;
 import com.reader.core.model.User;
@@ -238,43 +239,131 @@ public class RecordAction extends ActionSupport {
 		return null;
 
 	}
-	
-	// 查询单个用户
-		@SuppressWarnings("unchecked")
-		public String allByClient() {
 
-			String UserId = ServletActionContext.getRequest()
-					.getParameter("user_id");
+	// 查询单个用户
+	@SuppressWarnings("unchecked")
+	public String allByClient() {
+
+		String UserId = ServletActionContext.getRequest().getParameter(
+				"user_id");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		JSONArray rows = new JSONArray();
+		try {
+			Map<String, Object> result = rs.selectByUser(UserId);
+			List<Record> recordList = (List<Record>) result.get("recordList");
+			for (Record record : recordList) {
+				JSONObject jsonTemp = new JSONObject();
+				jsonTemp.put("id", record.getId());
+				jsonTemp.put("user_id", record.getUser().getId());
+				jsonTemp.put("user_name", record.getUser().getName());
+				jsonTemp.put("book_id", record.getBook().getId());
+				jsonTemp.put("book_name", record.getBook().getName());
+				jsonTemp.put("record", record.getRecord());
+				jsonTemp.put("evaluation", record.getEvaluation());
+				jsonTemp.put("score", record.getScore());
+				jsonTemp.put("create_time", sf.format(record.getCreateTime()));
+				jsonTemp.put("share", record.getShare());
+				rows.add(jsonTemp);
+			}
+			json.put("rows", rows);
+			json.put("total", result.get("count"));
+		} catch (Exception e) {
+			json.put("rows", new JSONArray());
+			json.put("total", 0);
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	// 查询单个
+	@SuppressWarnings("unchecked")
+	public String getById() {
+
+		String id = ServletActionContext.getRequest().getParameter("id");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		try {
+			Record record = rs.selectRecordById(id);
+			json.put("id", record.getId());
+			json.put("user_id", record.getUser().getId());
+			json.put("user_name", record.getUser().getName());
+			json.put("book_id", record.getBook().getId());
+			json.put("book_name", record.getBook().getName());
+			json.put("record", record.getRecord());
+			json.put("evaluation", record.getEvaluation());
+			json.put("score", record.getScore());
+			json.put("create_time", sf.format(record.getCreateTime()));
+			json.put("share", record.getShare());
+			json.put("success", true);
+		} catch (Exception e) {
+			json.put("success", false);
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	// 更新
+	@SuppressWarnings("unchecked")
+	public String updateByReader() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		String start = ServletActionContext.getRequest().getParameter("start");
+		Record record = rs.selectRecordById(id);
+		Book book = bs.selectBookById(record.getBook().getId());
+		JSONObject json = new JSONObject();
+		if (book != null && record != null) {
+			int end = record.getRecord() + Integer.parseInt(start);
+			if (end >= book.getText().length()) {
+				end = book.getText().length()-10;
+			} else if (end < 0) {
+				end = 0;
+			}
+			record.setRecord(end);
 			try {
 				ServletActionContext.getRequest().setCharacterEncoding("gbk");
-				ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+				ServletActionContext.getResponse()
+						.setCharacterEncoding("utf-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			JSONObject json = new JSONObject();
-			JSONArray rows = new JSONArray();
+
 			try {
-				Map<String, Object> result = rs.selectByUser(UserId);
-				List<Record> recordList = (List<Record>) result.get("recordList");
-				for (Record record : recordList) {
-					JSONObject jsonTemp = new JSONObject();
-					jsonTemp.put("id", record.getId());
-					jsonTemp.put("user_id", record.getUser().getId());
-					jsonTemp.put("user_name", record.getUser().getName());
-					jsonTemp.put("book_id", record.getBook().getId());
-					jsonTemp.put("book_name", record.getBook().getName());
-					jsonTemp.put("record", record.getRecord());
-					jsonTemp.put("evaluation", record.getEvaluation());
-					jsonTemp.put("score", record.getScore());
-					jsonTemp.put("create_time", sf.format(record.getCreateTime()));
-					jsonTemp.put("share", record.getShare());
-					rows.add(jsonTemp);
+				if (rs.updateRecord(record)) {
+					json.put("success", true);
+					json.put("message", "操作成功！");
+				} else {
+					json.put("success", false);
+					json.put("message", "操作失败！");
 				}
-				json.put("rows", rows);
-				json.put("total", result.get("count"));
 			} catch (Exception e) {
-				json.put("rows", new JSONArray());
-				json.put("total", 0);
+				json.put("success", false);
+				json.put("message", "操作失败！");
 				e.printStackTrace();
 			} finally {
 				try {
@@ -284,9 +373,14 @@ public class RecordAction extends ActionSupport {
 					e.printStackTrace();
 				}
 			}
-			return null;
-
+		} else {
+			json.put("success", false);
+			json.put("message", "操作失败！");
 		}
+
+		return null;
+
+	}
 
 	public RecordService getRs() {
 		return rs;

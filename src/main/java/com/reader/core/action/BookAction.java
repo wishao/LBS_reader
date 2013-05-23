@@ -291,6 +291,8 @@ public class BookAction extends ActionSupport {
 	@SuppressWarnings("unchecked")
 	public String read() {
 		String id = ServletActionContext.getRequest().getParameter("id");
+		String bookId = ServletActionContext.getRequest().getParameter(
+				"book_id");
 		int start = Integer.parseInt(ServletActionContext.getRequest()
 				.getParameter("start"));
 		try {
@@ -300,7 +302,7 @@ public class BookAction extends ActionSupport {
 			e.printStackTrace();
 		}
 		JSONObject json = new JSONObject();
-		String result = bs.readBookByClient(id, start);
+		String result = bs.readBookByClient(id, bookId, start);
 		try {
 			if (result != null) {
 				json.put("success", true);

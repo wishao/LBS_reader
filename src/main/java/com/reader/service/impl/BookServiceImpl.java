@@ -129,17 +129,9 @@ public class BookServiceImpl extends BaseService implements BookService {
 		return false;
 	}
 
-	public static BookDao getBookDao() {
-		return bookDao;
-	}
-
-	public static void setBookDao(BookDao bookDao) {
-		BookServiceImpl.bookDao = bookDao;
-	}
-
-	public String readBookByClient(String id, int start) {
+	public String readBookByClient(String id, String bookId, int start) {
 		try {
-			Book book = bookDao.getById(id);
+			Book book = bookDao.getById(bookId);
 			int end = start + Constant.BOOK_LIMIT;
 			if (end >= book.getText().length()) {
 				end = book.getText().length();
@@ -150,6 +142,14 @@ public class BookServiceImpl extends BaseService implements BookService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static BookDao getBookDao() {
+		return bookDao;
+	}
+
+	public static void setBookDao(BookDao bookDao) {
+		BookServiceImpl.bookDao = bookDao;
 	}
 
 }
