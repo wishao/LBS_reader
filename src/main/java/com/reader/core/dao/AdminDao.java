@@ -21,6 +21,8 @@ public interface AdminDao {
 
 	public void update(Admin admin);
 
+	public void updatePassword(Admin admin);
+
 	public void resetPassword(Admin admin);
 
 }

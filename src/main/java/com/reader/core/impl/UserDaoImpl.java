@@ -82,4 +82,20 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		param.put("password", MD5Util.getMD5(user.getPassword()));
 		getSqlMapClientTemplate().update("resetUserPassword", param);
 	}
+
+	public void updateByWeb(User user) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", user.getId());
+		param.put("name", user.getName());
+		param.put("signature", user.getSignature());
+		param.put("status", user.getStatus());
+		getSqlMapClientTemplate().update("updateUserByWeb", param);
+	}
+
+	public void updateSignature(User user) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("id", user.getId());
+		param.put("signature", user.getSignature());
+		getSqlMapClientTemplate().update("updateSignature", param);
+	}
 }

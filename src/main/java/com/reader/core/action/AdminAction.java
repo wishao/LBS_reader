@@ -83,7 +83,7 @@ public class AdminAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		if (admin != null) {
 			admin.setPassword(pwd);
-			if (as.updateAdmin(admin)) {
+			if (as.updatePassword(admin)) {
 				json.put("success", true);
 				json.put("message", "操作成功！");
 			} else {

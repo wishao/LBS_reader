@@ -81,12 +81,22 @@ public class AdminServiceImpl extends BaseService implements AdminService {
 			if (adminDao.getById(admin.getId()) == null) {
 				return false;
 			} else {
-				if (adminDao.getByName(admin.getName()) == null) {
-					adminDao.update(admin);
-					return true;
-				} else {
-					return false;
-				}
+				adminDao.update(admin);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean updatePassword(Admin admin) {
+		try {
+			if (adminDao.getById(admin.getId()) == null) {
+				return false;
+			} else {
+				adminDao.updatePassword(admin);
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -25,7 +25,7 @@ LBSReader.req = {
 
 	USER_ALL : LBSReader.URL + 'user!all',
 	USER_ADD : LBSReader.URL + 'user!add',
-	USER_UPDATE : LBSReader.URL + 'user!update',
+	USER_UPDATE : LBSReader.URL + 'user!updateByWeb',
 	USER_REMOVE : LBSReader.URL + 'user!delete',
 	USER_RESETPASSWORD : LBSReader.URL + 'user!resetPassword',
 

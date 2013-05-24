@@ -23,4 +23,7 @@ public interface UserDao {
 
 	public void resetPassword(User user);
 
+	public void updateByWeb(User user);
+
+	public void updateSignature(User user);
 }

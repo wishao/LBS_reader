@@ -85,7 +85,14 @@
 		name=#name#,role=#role#,status=#status# where id=#id#;
 	]]>
 	</update>
-	
+	<update id="updatePassword">
+	<![CDATA[
+		update 
+		t_admin 
+		set 
+		name=#name#,password=#password#,role=#role#,status=#status# where id=#id#;
+	]]>
+	</update>
 	<update id="resetAdminPassword">
 	<![CDATA[
 		update 

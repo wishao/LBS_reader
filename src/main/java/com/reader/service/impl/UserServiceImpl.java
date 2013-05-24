@@ -79,12 +79,36 @@ public class UserServiceImpl extends BaseService implements UserService {
 			if (userDao.getById(user.getId()) == null) {
 				return false;
 			} else {
-				if (userDao.getByName(user.getName()) == null) {
-					userDao.update(user);
-					return true;
-				} else {
-					return false;
-				}
+				userDao.update(user);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean updateByWeb(User user) {
+		try {
+			if (userDao.getById(user.getId()) == null) {
+				return false;
+			} else {
+				userDao.updateByWeb(user);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean updateSignature(User user) {
+		try {
+			if (userDao.getById(user.getId()) == null) {
+				return false;
+			} else {
+				userDao.updateSignature(user);
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

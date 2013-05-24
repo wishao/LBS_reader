@@ -98,7 +98,7 @@
 		update 
 		t_book 
 		set
-		name=#name#,author=#author#,content=#content#,text=#text#,update_time=now(),
+		name=#name#,author=#author#,content=#content#,update_time=now(),
 		recommend=#recommend#,cover=#cover#, reader=#reader#,focus=#focus#,
 		catalog=#catalog#,score=#score#,update_time=now(),status=#status# 
 		where 

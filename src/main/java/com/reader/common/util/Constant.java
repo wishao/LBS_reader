@@ -8,7 +8,7 @@ public class Constant {
 	public static final byte STATUS_YES = 1;// 有效
 	public static final byte STATUS_NO = 0;// 无效
 
-	public static final String RESET_PASSWORD = MD5Util.getMD5("123456");// 初始化密码
+	public static final String RESET_PASSWORD = "123456";// 初始化密码
 
 	public static final String RESET_READER_FONT = "10px";// 字体大小
 	public static final String RESET_READER_FONT_COLOR = "#FFFFFF";// 字体颜色

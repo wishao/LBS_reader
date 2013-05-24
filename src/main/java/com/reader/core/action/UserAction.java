@@ -105,7 +105,7 @@ public class UserAction extends ActionSupport {
 
 	// 更新
 	@SuppressWarnings("unchecked")
-	public String update() {
+	public String updateByWeb() {
 		String id = ServletActionContext.getRequest().getParameter("id");
 		String name = ServletActionContext.getRequest().getParameter("name");
 		String signature = ServletActionContext.getRequest().getParameter(
@@ -128,7 +128,60 @@ public class UserAction extends ActionSupport {
 			}
 
 			try {
-				if (us.updateUser(user)) {
+				if (us.updateByWeb(user)) {
+					json.put("success", true);
+					json.put("message", "操作成功！");
+				} else {
+					json.put("success", false);
+					json.put("message", "该用户名已存在，操作失败！");
+				}
+			} catch (Exception e) {
+				json.put("success", false);
+				json.put("message", "操作失败！");
+				e.printStackTrace();
+			} finally {
+				try {
+					ServletActionContext.getResponse().getWriter()
+							.println(json.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			json.put("success", false);
+			json.put("message", "操作失败！");
+		}
+
+		return null;
+
+	}
+
+	// 更新
+	@SuppressWarnings("unchecked")
+	public String updateSignature() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		String name = ServletActionContext.getRequest().getParameter("name");
+		String signature = ServletActionContext.getRequest().getParameter(
+				"signature");
+		String status = ServletActionContext.getRequest()
+				.getParameter("status");
+		User user = us.selectUserById(id);
+		JSONObject json = new JSONObject();
+		if (user != null) {
+			user.setId(id);
+			user.setName(name);
+			user.setSignature(signature);
+			user.setStatus(new Byte(status));
+			try {
+				ServletActionContext.getRequest().setCharacterEncoding("gbk");
+				ServletActionContext.getResponse()
+						.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				if (us.updateSignature(user)) {
 					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
@@ -160,7 +213,8 @@ public class UserAction extends ActionSupport {
 	@SuppressWarnings("unchecked")
 	public String updatePasswordFromClient() {
 		String id = ServletActionContext.getRequest().getParameter("id");
-		String password = ServletActionContext.getRequest().getParameter("password");
+		String password = ServletActionContext.getRequest().getParameter(
+				"password");
 		User user = us.selectUserById(id);
 		JSONObject json = new JSONObject();
 		if (user != null) {
@@ -204,52 +258,53 @@ public class UserAction extends ActionSupport {
 	}
 
 	// 更新
-		@SuppressWarnings("unchecked")
-		public String updateAddress() {
-			String id = ServletActionContext.getRequest().getParameter("id");
-			String address = ServletActionContext.getRequest().getParameter("address");
-			User user = us.selectUserById(id);
-			JSONObject json = new JSONObject();
-			if (user != null) {
-				user.setId(id);
-				user.setAddress(address);
-				try {
-					ServletActionContext.getRequest().setCharacterEncoding("gbk");
-					ServletActionContext.getResponse()
-							.setCharacterEncoding("utf-8");
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-
-				try {
-					if (us.updateUser(user)) {
-						json.put("success", true);
-						json.put("message", "操作成功！");
-					} else {
-						json.put("success", false);
-						json.put("message", "操作失败！");
-					}
-				} catch (Exception e) {
-					json.put("success", false);
-					json.put("message", "操作失败！");
-					e.printStackTrace();
-				} finally {
-					try {
-						ServletActionContext.getResponse().getWriter()
-								.println(json.toString());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			} else {
-				json.put("success", false);
-				json.put("message", "操作失败！");
+	@SuppressWarnings("unchecked")
+	public String updateAddress() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		String address = ServletActionContext.getRequest().getParameter(
+				"address");
+		User user = us.selectUserById(id);
+		JSONObject json = new JSONObject();
+		if (user != null) {
+			user.setId(id);
+			user.setAddress(address);
+			try {
+				ServletActionContext.getRequest().setCharacterEncoding("gbk");
+				ServletActionContext.getResponse()
+						.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
 			}
 
-			return null;
-
+			try {
+				if (us.updateUser(user)) {
+					json.put("success", true);
+					json.put("message", "操作成功！");
+				} else {
+					json.put("success", false);
+					json.put("message", "操作失败！");
+				}
+			} catch (Exception e) {
+				json.put("success", false);
+				json.put("message", "操作失败！");
+				e.printStackTrace();
+			} finally {
+				try {
+					ServletActionContext.getResponse().getWriter()
+							.println(json.toString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			json.put("success", false);
+			json.put("message", "操作失败！");
 		}
-	
+
+		return null;
+
+	}
+
 	// 新增
 	@SuppressWarnings("unchecked")
 	public String add() {

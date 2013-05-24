@@ -16,9 +16,12 @@ public interface UserService {
 	public boolean deleteUser(String id);
 
 	public boolean updateUser(User user);
-	
+
 	public boolean updateUserByClient(User user);
 
 	public boolean resetUserPassword(String id);
 
+	public boolean updateByWeb(User user);
+
+	public boolean updateSignature(User user);
 }

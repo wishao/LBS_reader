@@ -97,6 +97,28 @@
 	]]>
 	</update>
 	
+	<update id="updateUserByWeb">
+	<![CDATA[
+		update 
+		t_user 
+		set
+		name=#name#,signature=#signature#,update_time=now(),status=#status#
+		where
+		id=#id#;
+	]]>
+	</update>
+	
+	<update id="updateSignature">
+	<![CDATA[
+		update 
+		t_user 
+		set
+		signature=#signature#,update_time=now()
+		where
+		id=#id#;
+	]]>
+	</update>
+	
 	<update id="resetUserPassword">
 	<![CDATA[
 		update 

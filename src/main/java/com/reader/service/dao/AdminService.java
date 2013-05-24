@@ -15,6 +15,8 @@ public interface AdminService {
 
 	public boolean deleteAdmin(String id);
 
+	public boolean updatePassword(Admin admin);
+
 	public boolean updateAdmin(Admin admin);
 
 	public boolean resetAdminPassword(String id);
