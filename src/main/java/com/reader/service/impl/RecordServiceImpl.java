@@ -83,11 +83,12 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 			if (recordDao.getById(id) == null) {
 				return false;
 			} else {
-				recordDao.delete(id);
-				Book book = bookDao.getById(recordDao.getById(id).getBook()
+
+				Book book = bookDao.getById((recordDao.getById(id).getBook())
 						.getId());
 				book.setReader(book.getReader() - 1);
 				bookDao.update(book);
+				recordDao.delete(id);
 				return true;
 			}
 		} catch (Exception e) {
