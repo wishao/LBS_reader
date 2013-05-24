@@ -46,6 +46,14 @@
 		limit #start#,#limit#;
 	]]>
 	</select>
+	<select id="selectAllUserByClient" resultMap="user">
+	<![CDATA[
+		select
+		* 
+		from 
+		t_user;
+	]]>
+	</select>
 	<select id="countAllUser" resultClass="int">
 	<![CDATA[
 		select 
@@ -96,7 +104,17 @@
 		id=#id#;
 	]]>
 	</update>
-	
+	<update id="updateUserAddress">
+	<![CDATA[
+		update 
+		t_user 
+		set
+		address=#address#,update_time=now()
+		where
+		id=#id#;
+	]]>
+	</update>
+
 	<update id="updateUserByWeb">
 	<![CDATA[
 		update 
@@ -107,7 +125,7 @@
 		id=#id#;
 	]]>
 	</update>
-	
+
 	<update id="updateSignature">
 	<![CDATA[
 		update 
@@ -118,7 +136,7 @@
 		id=#id#;
 	]]>
 	</update>
-	
+
 	<update id="resetUserPassword">
 	<![CDATA[
 		update 

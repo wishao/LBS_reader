@@ -10,6 +10,8 @@ public interface UserDao {
 	public User getByName(String name);
 
 	public List<User> selectAll(String name, int start, int limit);
+	
+	public List<User> selectAllUserByClient();
 
 	public int countAll(String name);
 
@@ -20,6 +22,8 @@ public interface UserDao {
 	public void delete(String id);
 
 	public void update(User user);
+
+	public void updateUserAddress(User user);
 
 	public void resetPassword(User user);
 

@@ -106,8 +106,13 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 			} else {
 				recordDao.update(record);
 				Book book = bookDao.getById(record.getBook().getId());
-				book.setScore((book.getScore() * book.getReader() + record
-						.getScore()) / book.getReader());
+				if (book.getReader() == 0) {
+					book.setScore(5);
+				} else {
+					book.setScore((book.getScore() * book.getReader() + record
+							.getScore()) / book.getReader());
+				}
+
 				bookDao.update(book);
 				return true;
 			}

@@ -11,11 +11,15 @@ public interface UserService {
 
 	public Map<String, Object> selectAllUser(String name, int start, int limit);
 
+	public Map<String, Object> selectAllUserByClient(String address);
+
 	public boolean addUser(User user);
 
 	public boolean deleteUser(String id);
 
 	public boolean updateUser(User user);
+
+	public boolean updateUserAddress(User user);
 
 	public boolean updateUserByClient(User user);
 

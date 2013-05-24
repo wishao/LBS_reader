@@ -277,7 +277,7 @@ public class UserAction extends ActionSupport {
 			}
 
 			try {
-				if (us.updateUser(user)) {
+				if (us.updateUserAddress(user)) {
 					json.put("success", true);
 					json.put("message", "操作成功！");
 				} else {
@@ -410,6 +410,52 @@ public class UserAction extends ActionSupport {
 		JSONArray rows = new JSONArray();
 		try {
 			Map<String, Object> result = us.selectAllUser(name, start, limit);
+			List<User> userList = (List<User>) result.get("userList");
+			for (User user : userList) {
+				JSONObject jsonTemp = new JSONObject();
+				jsonTemp.put("id", user.getId());
+				jsonTemp.put("name", user.getName());
+				jsonTemp.put("create_time", sf.format(user.getCreateTime()));
+				jsonTemp.put("address", user.getAddress());
+				jsonTemp.put("signature", user.getSignature());
+				jsonTemp.put("update_time", sf.format(user.getUpdateTime()));
+				jsonTemp.put("status", user.getStatus());
+				rows.add(jsonTemp);
+			}
+			json.put("rows", rows);
+			json.put("total", result.get("count"));
+		} catch (Exception e) {
+			json.put("rows", new JSONArray());
+			json.put("total", 0);
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	// 查询所有
+	@SuppressWarnings("unchecked")
+	public String allByClient() {
+
+		String address = ServletActionContext.getRequest().getParameter("address");
+		
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		JSONArray rows = new JSONArray();
+		try {
+			Map<String, Object> result = us.selectAllUserByClient(address);
 			List<User> userList = (List<User>) result.get("userList");
 			for (User user : userList) {
 				JSONObject jsonTemp = new JSONObject();
