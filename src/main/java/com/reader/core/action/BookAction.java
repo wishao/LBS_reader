@@ -287,6 +287,54 @@ public class BookAction extends ActionSupport {
 
 	}
 
+	// 查询所有
+	@SuppressWarnings("unchecked")
+	public String getById() {
+
+		String id = ServletActionContext.getRequest().getParameter("id");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		JSONObject json = new JSONObject();
+		try {
+			Book book = bs.selectBookById(id);
+			if (book != null) {
+				json.put("id", book.getId());
+				json.put("name", book.getName());
+				json.put("author", book.getAuthor());
+				json.put("content", book.getContent());
+				json.put("create_time", sf.format(book.getCreateTime()));
+				json.put("update_time", sf.format(book.getUpdateTime()));
+				json.put("recommend", book.getRecommend());
+				json.put("cover", book.getCover());
+				json.put("reader", book.getReader());
+				json.put("focus", book.getFocus());
+				json.put("catalog", book.getCatalog());
+				json.put("score", book.getScore());
+				json.put("status", book.getStatus());
+				json.put("success", true);
+			} else {
+				json.put("success", false);
+			}
+
+		} catch (Exception e) {
+			json.put("success", false);
+			e.printStackTrace();
+		} finally {
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
 	// 阅读
 	@SuppressWarnings("unchecked")
 	public String read() {

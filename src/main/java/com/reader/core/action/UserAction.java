@@ -222,7 +222,7 @@ public class UserAction extends ActionSupport {
 				}
 
 				try {
-					if (us.updateUserByClient(user)) {
+					if (us.updateUser(user)) {
 						json.put("success", true);
 						json.put("message", "操作成功！");
 					} else {

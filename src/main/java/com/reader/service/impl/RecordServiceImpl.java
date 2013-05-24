@@ -10,6 +10,7 @@ import com.reader.common.dao.BaseService;
 import com.reader.core.dao.BookDao;
 import com.reader.core.dao.RecordDao;
 import com.reader.core.dao.UserDao;
+import com.reader.core.model.Book;
 import com.reader.core.model.Record;
 import com.reader.service.dao.RecordService;
 
@@ -37,7 +38,8 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 	public Map<String, Object> selectByUser(String userId, int start, int limit) {
 		try {
 			int count = recordDao.countRecordByUserId(userId);
-			List<Record> recordList = recordDao.selectByUserId(userId,start,limit);
+			List<Record> recordList = recordDao.selectByUserId(userId, start,
+					limit);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("count", count);
 			result.put("recordList", recordList);
@@ -65,6 +67,9 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 				return false;
 			} else {
 				recordDao.add(record);
+				Book book = bookDao.getById(record.getBook().getId());
+				book.setReader(book.getReader() + 1);
+				bookDao.update(book);
 				return true;
 			}
 		} catch (Exception e) {
@@ -79,6 +84,10 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 				return false;
 			} else {
 				recordDao.delete(id);
+				Book book = bookDao.getById(recordDao.getById(id).getBook()
+						.getId());
+				book.setReader(book.getReader() - 1);
+				bookDao.update(book);
 				return true;
 			}
 		} catch (Exception e) {
@@ -95,6 +104,10 @@ public class RecordServiceImpl extends BaseService implements RecordService {
 				return false;
 			} else {
 				recordDao.update(record);
+				Book book = bookDao.getById(record.getBook().getId());
+				book.setScore((book.getScore() * book.getReader() + record
+						.getScore()) / book.getReader());
+				bookDao.update(book);
 				return true;
 			}
 		} catch (Exception e) {
