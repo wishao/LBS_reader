@@ -67,6 +67,49 @@ public class UserAction extends ActionSupport {
 
 	}
 
+	// 通过id查user
+	public String getById() {
+		String id = ServletActionContext.getRequest().getParameter("id");
+		try {
+			ServletActionContext.getRequest().setCharacterEncoding("gbk");
+			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		User user = us.selectUserById(id);
+		JSONObject json = new JSONObject();
+		if (user != null) {
+			json.put("result", true);
+			json.put("msg", "查询成功");
+			json.put("id", user.getId());
+			json.put("name", user.getName());
+			json.put("create_time", sf.format(user.getCreateTime()));
+			json.put("address", user.getAddress());
+			json.put("signature", user.getSignature());
+			json.put("update_time", sf.format(user.getUpdateTime()));
+			json.put("status", user.getStatus());
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			json.put("result", false);
+			json.put("msg", "查询失败");
+			try {
+				ServletActionContext.getResponse().getWriter()
+						.println(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return null;
+
+	}
+
 	// 删除
 	@SuppressWarnings("unchecked")
 	public String delete() {
@@ -444,8 +487,9 @@ public class UserAction extends ActionSupport {
 	@SuppressWarnings("unchecked")
 	public String allByClient() {
 
-		String address = ServletActionContext.getRequest().getParameter("address");
-		
+		String address = ServletActionContext.getRequest().getParameter(
+				"address");
+
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
