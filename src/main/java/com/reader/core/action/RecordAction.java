@@ -11,7 +11,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.reader.common.util.Constant;
 import com.reader.core.model.Book;
 import com.reader.core.model.Record;
 import com.reader.core.model.User;
@@ -250,6 +249,8 @@ public class RecordAction extends ActionSupport {
 				.getParameter("start"));
 		int limit = Integer.parseInt(ServletActionContext.getRequest()
 				.getParameter("limit"));
+		String share = ServletActionContext.getRequest().getParameter("share");
+		share = share == null ? "" : share;
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 			ServletActionContext.getResponse().setCharacterEncoding("utf-8");
@@ -259,7 +260,8 @@ public class RecordAction extends ActionSupport {
 		JSONObject json = new JSONObject();
 		JSONArray rows = new JSONArray();
 		try {
-			Map<String, Object> result = rs.selectByUser(UserId, start, limit);
+			Map<String, Object> result = rs.selectByUser(UserId, start, limit,
+					share);
 			List<Record> recordList = (List<Record>) result.get("recordList");
 			for (Record record : recordList) {
 				JSONObject jsonTemp = new JSONObject();

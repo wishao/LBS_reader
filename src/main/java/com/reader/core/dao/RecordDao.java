@@ -11,7 +11,8 @@ public interface RecordDao {
 
 	public int countAll();
 
-	public List<Record> selectByUserId(String userId, int start, int limit);
+	public List<Record> selectByUserId(String userId, int start, int limit,
+			String share);
 
 	public int countRecordByUserId(String userId);
 

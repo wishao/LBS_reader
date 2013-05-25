@@ -83,7 +83,7 @@
 		from
 		t_record 
 		where
-		user_id=#userId# 
+		user_id=#userId# and share like '%$share$%' 
 		order by create_time desc 
 		limit #start#,#limit#;
 	]]>

@@ -30,11 +30,13 @@ public class RecordDaoImpl extends BaseDao implements RecordDao {
 				"countAllRecord");
 	}
 
-	public List<Record> selectByUserId(String userId,int start, int limit) {
+	public List<Record> selectByUserId(String userId, int start, int limit,
+			String share) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("userId", userId);
 		param.put("start", start);
 		param.put("limit", limit);
+		param.put("share", share);
 		return getSqlMapClientTemplate().queryForList("selectRecordByUserId",
 				param);
 	}

@@ -1,20 +1,15 @@
 package com.reader.core.action;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
-
 
 import org.apache.struts2.ServletActionContext;
 import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.reader.core.model.Admin;
 import com.reader.core.model.Contact;
-import com.reader.service.dao.AdminService;
 import com.reader.service.dao.ContactService;
-import com.reader.service.impl.AdminServiceImpl;
 import com.reader.service.impl.ContactServiceImpl;
 
 public class Test1Action extends ActionSupport {
@@ -33,7 +28,7 @@ public class Test1Action extends ActionSupport {
 		String password = ServletActionContext.getRequest().getParameter(
 				LOGIN_PASSWORD);
 		// contact = as.selectAllContact(0, 1);
-		Map<String, Object> c = as.selectAllContact("",0, 1);
+		Map<String, Object> c = as.selectAllContact("", 0, 1);
 		try {
 			ServletActionContext.getRequest().setCharacterEncoding("gbk");
 		} catch (UnsupportedEncodingException e) { // TODO Auto-generated catch
@@ -44,28 +39,16 @@ public class Test1Action extends ActionSupport {
 
 		ServletActionContext.getResponse().setCharacterEncoding("utf-8");
 		JSONObject json = new JSONObject();
-	/*	if (admin != null) {
-			json.put("success", true);
-			json.put("msg", admin + "��¼�ɹ�");
-			try {
-				ServletActionContext.getResponse().getWriter()
-						.println(json.toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return null;
-		} else {
-			json.put("failure", true);
-			json.put("msg", "��¼ʧ��");
-			try {
-				ServletActionContext.getResponse().getWriter()
-						.println(json.toString());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-*/
+		/*
+		 * if (admin != null) { json.put("success", true); json.put("msg", admin
+		 * + "��¼�ɹ�"); try { ServletActionContext.getResponse().getWriter()
+		 * .println(json.toString()); } catch (IOException e) {
+		 * e.printStackTrace(); } return null; } else { json.put("failure",
+		 * true); json.put("msg", "��¼ʧ��"); try {
+		 * ServletActionContext.getResponse().getWriter()
+		 * .println(json.toString()); } catch (IOException e) {
+		 * e.printStackTrace(); } return null; }
+		 */
 		return null;
 	}
 

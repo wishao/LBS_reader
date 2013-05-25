@@ -1,18 +1,16 @@
 package com.reader.common.dao;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 public abstract class BaseDao extends SqlMapClientDaoSupport {
 
 	/**
-	 * »ñÈ¡¶ÔÏó
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param id
-	 *            ÅäÖÃÔÚxmlÖÐµÄÓï¾äID
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xmlï¿½Ðµï¿½ï¿½ï¿½ï¿½ID
 	 * @param paramObject
-	 *            ´«µÝµÄ²ÎÊý
+	 *            ï¿½ï¿½ï¿½ÝµÄ²ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	protected Object getObject(String id, Object paramObject) {
