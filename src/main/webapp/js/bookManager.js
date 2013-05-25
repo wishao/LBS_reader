@@ -430,13 +430,13 @@ LBSReader.bookManager.DataGrid = Ext.extend(Ext.grid.GridPanel, {
 					menuDisabled : true,
 					dataIndex : 'reader',
 					width : 80
-				}, {
+				}/*, {
 					header : '关注人数',
 					align : 'center',
 					menuDisabled : true,
 					dataIndex : 'focus',
 					width : 80
-				}, {
+				}*/, {
 					header : '平均得分',
 					align : 'center',
 					menuDisabled : true,
